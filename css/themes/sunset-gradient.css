@@ -1,0 +1,50 @@
+/* ══════════════════════════════════════
+   Theme: Sunset Gradient (Universal)
+   ══════════════════════════════════════ */
+.theme-sunset-gradient {
+  --bg-primary: #fffbf7;
+  --bg-secondary: #fef4ec;
+  --bg-accent: #fbeadd;
+  --text-primary: #4a2818;
+  --text-secondary: #7d4d38;
+  --text-muted: #b08d7e;
+  --accent-1: #e76f51; /* Coral */
+  --accent-2: #f4a261; /* Amber/Orange */
+  --accent-3: #e9c46a; /* Sunset Gold */
+  --accent-4: #2a9d8f; /* Teal Contrast */
+  --accent-5: #e76f51; /* Coral Highlight */
+  --border-color: #f2d5c4;
+  --border-light: #faece3;
+  --border-dotted: #e5bfa7;
+  --checkbox-border: #d09c80;
+  --icon-color: #c45b41;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Playfair Display', serif;
+  --body-font: 'Inter', sans-serif;
+
+  --tab-jan: #e76f51; --tab-feb: #f4a261; --tab-mar: #e9c46a;
+  --tab-apr: #2a9d8f; --tab-may: #e76f51; --tab-jun: #f4a261;
+  --tab-jul: #e9c46a; --tab-aug: #2a9d8f; --tab-sep: #e76f51;
+  --tab-oct: #f4a261; --tab-nov: #e9c46a; --tab-dec: #2a9d8f;
+}
+
+.theme-sunset-gradient .planner-page {
+  /* Rich warm sunset glow background gradient */
+  background-image: 
+    linear-gradient(135deg, rgba(231, 111, 81, 0.05) 0%, rgba(244, 162, 97, 0.04) 50%, rgba(233, 196, 106, 0.03) 100%);
+}
+
+.theme-sunset-gradient .daily-title,
+.theme-sunset-gradient .weekly-title,
+.theme-sunset-gradient .braindump-page-title,
+.theme-sunset-gradient .habit-tracker-title,
+.theme-sunset-gradient .dopamine-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--accent-1);
+}
+
+.theme-sunset-gradient .reward-box {
+  border-color: var(--accent-3);
+  background: rgba(244, 162, 97, 0.06);
+}

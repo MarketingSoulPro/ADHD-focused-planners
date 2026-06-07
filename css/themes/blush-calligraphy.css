@@ -1,0 +1,58 @@
+/* ══════════════════════════════════════
+   Theme: Blush Calligraphy (Feminine)
+   ══════════════════════════════════════ */
+.theme-blush-calligraphy {
+  --bg-primary: #fdf6f4;
+  --bg-secondary: #faf0ec;
+  --bg-accent: #f5e6e0;
+  --text-primary: #4a3040;
+  --text-secondary: #8c6a7a;
+  --text-muted: #b8a0ad;
+  --accent-1: #c47a8a;
+  --accent-2: #d4956a;
+  --accent-3: #a8889a;
+  --accent-4: #b09880;
+  --accent-5: #d4a070;
+  --border-color: #e0ccd4;
+  --border-light: #f0e0e6;
+  --border-dotted: #e0ccd4;
+  --checkbox-border: #c8aab6;
+  --icon-color: #a07888;
+  --header-font: 'Cormorant Garamond', serif;
+  --title-font: 'Cormorant Garamond', serif;
+  --bg-pattern: none;
+
+  --tab-jan: #c47a8a; --tab-feb: #d4956a; --tab-mar: #b09880;
+  --tab-apr: #a8889a; --tab-may: #c47a8a; --tab-jun: #d4956a;
+  --tab-jul: #b09880; --tab-aug: #a8889a; --tab-sep: #c47a8a;
+  --tab-oct: #d4956a; --tab-nov: #b09880; --tab-dec: #a8889a;
+}
+
+.theme-blush-calligraphy .daily-title,
+.theme-blush-calligraphy .weekly-title,
+.theme-blush-calligraphy .braindump-page-title,
+.theme-blush-calligraphy .habit-tracker-title,
+.theme-blush-calligraphy .dopamine-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 32px;
+}
+
+.theme-blush-calligraphy .planner-page {
+  background-image: 
+    radial-gradient(ellipse at 10% 90%, rgba(196, 122, 138, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(212, 149, 106, 0.04) 0%, transparent 50%);
+}
+
+.theme-blush-calligraphy .section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.theme-blush-calligraphy .reward-box {
+  border-color: #d4b0b8;
+  background: rgba(196, 122, 138, 0.05);
+}

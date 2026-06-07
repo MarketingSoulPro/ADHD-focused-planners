@@ -1,0 +1,73 @@
+/* ══════════════════════════════════════
+   Theme: Concrete Industrial (Masculine)
+   ══════════════════════════════════════ */
+.theme-concrete-industrial {
+  --bg-primary: #eae6e0;
+  --bg-secondary: #e0dcd4;
+  --bg-accent: #d4cec6;
+  --text-primary: #2e2e2e;
+  --text-secondary: #5a5a5a;
+  --text-muted: #8a8a8a;
+  --accent-1: #404040;
+  --accent-2: #c06030;
+  --accent-3: #606060;
+  --accent-4: #708860;
+  --accent-5: #b08840;
+  --border-color: #c0b8a8;
+  --border-light: #d4cec4;
+  --border-dotted: #b8b0a0;
+  --checkbox-border: #908878;
+  --icon-color: #686058;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+
+  --tab-jan: #404040; --tab-feb: #c06030; --tab-mar: #606060;
+  --tab-apr: #708860; --tab-may: #b08840; --tab-jun: #404040;
+  --tab-jul: #c06030; --tab-aug: #606060; --tab-sep: #708860;
+  --tab-oct: #b08840; --tab-nov: #404040; --tab-dec: #c06030;
+}
+
+.theme-concrete-industrial .planner-page {
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,0,0,0.02) 0%, transparent 50%);
+}
+
+.theme-concrete-industrial .daily-title,
+.theme-concrete-industrial .weekly-title,
+.theme-concrete-industrial .braindump-page-title,
+.theme-concrete-industrial .habit-tracker-title,
+.theme-concrete-industrial .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.theme-concrete-industrial .section-label,
+.theme-concrete-industrial .section-label-accent {
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  font-size: 7px;
+}
+
+.theme-concrete-industrial .selfcare-icon {
+  border-radius: 0px;
+  border-width: 1.5px;
+}
+
+.theme-concrete-industrial .reward-box {
+  border-style: solid;
+  border-color: #b8b0a0;
+  background: rgba(192, 96, 48, 0.04);
+  border-radius: 0px;
+}
+
+.theme-concrete-industrial .dopamine-section {
+  border-radius: 0px;
+}
+
+.theme-concrete-industrial .week-badge {
+  border-radius: 0px;
+}

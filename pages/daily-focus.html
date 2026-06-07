@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Focus Buddy — Buddy ADHD Printable Planner Suite</title>
+  <!-- Preload Stylesheets -->
+  <link rel="stylesheet" href="../css/base.css?v=2">
+  <link rel="stylesheet" href="../css/themes/blush-calligraphy.css">
+  <link rel="stylesheet" href="../css/themes/watercolor-florals.css">
+  <link rel="stylesheet" href="../css/themes/botanical-garden.css">
+  <link rel="stylesheet" href="../css/themes/rose-gold-abstract.css">
+  <link rel="stylesheet" href="../css/themes/dark-slate.css">
+  <link rel="stylesheet" href="../css/themes/midnight-blueprint.css">
+  <link rel="stylesheet" href="../css/themes/carbon-fiber.css">
+  <link rel="stylesheet" href="../css/themes/concrete-industrial.css">
+  <link rel="stylesheet" href="../css/themes/abstract-brushstrokes.css">
+  <link rel="stylesheet" href="../css/themes/geometric-zen.css">
+  <link rel="stylesheet" href="../css/themes/sunset-gradient.css">
+  <link rel="stylesheet" href="../css/themes/classic-calligraphy.css">
+
+  <!-- Core Scripts -->
+  <script src="../js/theme-switcher.js" defer></script>
+  <script src="../js/planner-interactive.js?v=3" defer></script>
+</head>
+
+<body>
+
+  <!-- Planner Page Container -->
+  <div class="planner-page">
+
+    <!-- Decorative Corner Elements -->
+    <div class="corner-decor top-left"></div>
+    <div class="corner-decor top-right"></div>
+    <div class="corner-decor bottom-left"></div>
+    <div class="corner-decor bottom-right"></div>
+
+    <!-- Month Tabs (Right side decoration/nav) -->
+    <div class="month-tabs">
+      <div class="month-tab jan active">Jan</div>
+      <div class="month-tab feb">Feb</div>
+      <div class="month-tab mar">Mar</div>
+      <div class="month-tab apr">Apr</div>
+      <div class="month-tab may">May</div>
+      <div class="month-tab jun">Jun</div>
+      <div class="month-tab jul">Jul</div>
+      <div class="month-tab aug">Aug</div>
+      <div class="month-tab sep">Sep</div>
+      <div class="month-tab oct">Oct</div>
+      <div class="month-tab nov">Nov</div>
+      <div class="month-tab dec">Dec</div>
+    </div>
+
+    <!-- Daily Planner Header -->
+    <div class="daily-header">
+      <div>
+        <span class="selfcare-label">Self-Care Tracker</span>
+        <h1 class="daily-title">Daily Focus Buddy</h1>
+      </div>
+      <div class="daily-header-right">
+        <!-- Page Navigation Icons -->
+        <div class="nav-icons">
+          <!-- Daily (active) -->
+          <a href="daily-focus.html" class="nav-icon" data-tooltip="Daily Page" style="background: var(--bg-accent);">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"
+                stroke-linecap="round" />
+            </svg>
+          </a>
+          <!-- Weekly -->
+          <a href="weekly-overview.html" class="nav-icon" data-tooltip="Weekly Overview">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" stroke="currentColor"
+                stroke-width="2" fill="none" />
+              <path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </a>
+          <!-- Monthly -->
+          <a href="monthly-calendar.html" class="nav-icon" data-tooltip="Monthly Calendar">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M9 14h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </a>
+          <!-- Brain Dump -->
+          <a href="brain-dump.html" class="nav-icon" data-tooltip="Brain Dump">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
+                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <!-- Habit Tracker -->
+          <a href="habit-tracker.html" class="nav-icon" data-tooltip="Habit Tracker">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
+                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <!-- Dopamine Menu -->
+          <a href="dopamine-menu.html" class="nav-icon" data-tooltip="Dopamine Menu">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <!-- Expense Tracker -->
+          <a href="expense-tracker.html" class="nav-icon" data-tooltip="Expense Tracker">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                stroke="currentColor" stroke-width="2" fill="none" />
+            </svg>
+          </a>
+          <!-- Quick Reminders -->
+          <a href="quick-reminder.html" class="nav-icon" data-tooltip="Quick Reminders">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0" stroke="currentColor"
+                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+        <!-- Week and Date -->
+
+
+        <div class="week-date-bar">
+          <div class="week-badge" id="week-badge">WEEK <span id="week-number"></span></div>
+          <div class="date-text" id="date-display">DAY, <span id="date-string"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Widgets Row -->
+    <div class="top-widgets-row">
+
+      <!-- Self-Care Section (12 Trackable Icons) -->
+      <div class="selfcare-section">
+        <div class="selfcare-icons-wrapper">
+          <div class="selfcare-icons">
+            <!-- 1. Water -->
+            <div class="selfcare-icon" data-tooltip="Water Intake">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+              </svg>
+            </div>
+            <!-- 2. Exercise -->
+            <div class="selfcare-icon" data-tooltip="Movement / Exercise">
+              <svg viewBox="0 0 24 24">
+                <path d="M6.5 6.5h11M18 3v7M6 3v7M3 5.5v2M21 5.5v2" />
+              </svg>
+            </div>
+            <!-- 3. Sleep -->
+            <div class="selfcare-icon" data-tooltip="Quality Sleep">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </div>
+            <!-- 4. Meds -->
+            <div class="selfcare-icon" data-tooltip="Medication / Supplements">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="10" width="18" height="4" rx="2" />
+                <line x1="12" y1="10" x2="12" y2="14" />
+              </svg>
+            </div>
+            <!-- 5. Outdoors -->
+            <div class="selfcare-icon" data-tooltip="Fresh Air / Outdoors">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5" />
+                <path
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+            </div>
+            <!-- 6. Mindfulness -->
+            <div class="selfcare-icon" data-tooltip="Mindfulness / Breathing">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="12" cy="12" r="1" />
+              </svg>
+            </div>
+            <!-- 7. Nourishment -->
+            <div class="selfcare-icon" data-tooltip="Healthy Meals">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 1-6 6v8M6 8a4 4 0 0 1 4 4v10M8 8V2M10 8V2M6 8V2" />
+              </svg>
+            </div>
+            <!-- 8. Hygiene / Shower -->
+            <div class="selfcare-icon" data-tooltip="Hygiene / Shower">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16v2H4zM12 6v10M12 16a3 3 0 0 1-3 3M12 16a3 3 0 0 0 3 3" />
+              </svg>
+            </div>
+            <!-- 9. Journaling -->
+            <div class="selfcare-icon" data-tooltip="Journal / Reflection">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V3a2.5 2.5 0 0 1 2.5-2.5H20v16.5H6.5a2.5 2.5 0 0 0-2.5 2.5z" />
+              </svg>
+            </div>
+            <!-- 10. Social Connection -->
+            <div class="selfcare-icon" data-tooltip="Social / Call a Friend">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+              </svg>
+            </div>
+            <!-- 11. Creative Play -->
+            <div class="selfcare-icon" data-tooltip="Creative Play / Spark">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.34148 19.4916 5.37895 20.2688 4.96024 20.7956C4.46083 21.4239 4.88729 22 5.6791 22H12Z" />
+              </svg>
+            </div>
+            <!-- 12. Rest & Recharge -->
+            <div class="selfcare-icon" data-tooltip="Rest & Recharge">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Deadlines Section -->
+      <div class="deadlines-section">
+        <div class="section-label">Upcoming Deadlines</div>
+        <div class="deadlines-list" id="global-deadlines-list" contenteditable="true" spellcheck="false"></div>
+      </div>
+    </div>
+
+    <!-- Main Grid Content -->
+    <div class="daily-content">
+
+      <!-- Left Column: Focus + Time Blocking -->
+      <div class="daily-left">
+        <!-- Daily Focus Quote Box -->
+        <div class="focus-quote-box">
+          <div class="label">Today's Focus / Quote / Affirmation</div>
+        </div>
+
+        <!-- Time Blocking (24 Hours: 5 AM -> 4 AM) -->
+        <div class="time-blocking">
+          <div class="section-label">Hourly Schedule (Time Blocking)</div>
+
+          <div class="time-slot"><span class="time-label">5:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">6:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">7:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">8:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">9:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">10:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">11:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">12:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">1:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">2:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">3:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">4:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">5:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">6:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">7:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">8:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">9:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">10:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">11:00 PM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">12:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">1:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">2:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">3:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+          <div class="time-slot"><span class="time-label">4:00 AM</span>
+            <div class="time-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Boring Tasks + Checklists -->
+      <div class="daily-right">
+        <!-- Boring but necessary tasks -->
+        <div>
+          <div class="section-label-accent">Boring (But Necessary) Tasks</div>
+          <div class="task-list">
+            <div class="task-item">
+              <span class="task-number">01</span>
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="task-line"></div>
+            </div>
+            <div class="task-item">
+              <span class="task-number">02</span>
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="task-line"></div>
+            </div>
+            <div class="task-item">
+              <span class="task-number">03</span>
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="task-line"></div>
+            </div>
+            <div class="task-item">
+              <span class="task-number">04</span>
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="task-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reward system -->
+        <div class="reward-box">
+          <span class="reward-icon">🎁</span>
+          <div style="flex: 1; display: flex; flex-direction: column;">
+            <span class="reward-label">Reward myself after:</span>
+            <div class="reward-line"></div>
+          </div>
+          <div class="reward-check">✓</div>
+        </div>
+
+        <!-- Don't Forget -->
+        <div>
+          <div class="section-label">Don't Forget</div>
+          <div class="checkbox-list">
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark complete"></div>
+              <div class="checkbox-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- People to Respond To -->
+        <div>
+          <div class="section-label">People to Respond To</div>
+          <div class="checkbox-list">
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark replied"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark replied"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark replied"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark replied"></div>
+              <div class="checkbox-line"></div>
+            </div>
+            <div class="checkbox-item">
+              <div class="checkbox" data-tooltip="Mark replied"></div>
+              <div class="checkbox-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Full-Width Section -->
+    <div class="daily-bottom">
+      <!-- Leave it for later / Brain Dump -->
+      <div class="braindump-box">
+        <div class="braindump-title">Leave It For Later &bull; Brain Dump</div>
+        <div class="braindump-area"></div>
+      </div>
+
+      <!-- Habit Goal -->
+      <div class="habit-box">
+        <div>
+          <div class="habit-title">Today's Main Habit Goal</div>
+          <div class="reward-line" style="margin-top: 8px;"></div>
+        </div>
+        <div class="habit-footer">
+          <span
+            style="font-size: 7.5px; font-weight:600; text-transform:uppercase; color:var(--text-secondary);">Completed?</span>
+          <div class="done-badge" data-tooltip="Mark habit done">
+            <span>Done!</span>
+            <div class="done-check"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

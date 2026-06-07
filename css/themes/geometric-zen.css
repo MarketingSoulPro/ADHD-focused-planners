@@ -1,0 +1,63 @@
+/* ══════════════════════════════════════
+   Theme: Geometric Zen (Universal)
+   ══════════════════════════════════════ */
+.theme-geometric-zen {
+  --bg-primary: #FAF9F6; /* Warm White */
+  --bg-secondary: #F4F3EE;
+  --bg-accent: #E8E6DF;
+  --text-primary: #3d3a37;
+  --text-secondary: #6e6a64;
+  --text-muted: #a39f97;
+  --accent-1: #6b705c; /* Sage Olive */
+  --accent-2: #cb997e; /* Terracotta */
+  --accent-3: #a5a58d; /* Muted Green */
+  --accent-4: #ddbea9; /* Sand Warm */
+  --accent-5: #b7b7a4; /* Gray Olive */
+  --border-color: #d3cfc7;
+  --border-light: #ece9e2;
+  --border-dotted: #cfcaba;
+  --checkbox-border: #a8a396;
+  --icon-color: #5b604e;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+  --body-font: 'Inter', sans-serif;
+
+  --tab-jan: #6b705c; --tab-feb: #cb997e; --tab-mar: #a5a58d;
+  --tab-apr: #ddbea9; --tab-may: #6b705c; --tab-jun: #cb997e;
+  --tab-jul: #a5a58d; --tab-aug: #ddbea9; --tab-sep: #6b705c;
+  --tab-oct: #cb997e; --tab-nov: #a5a58d; --tab-dec: #ddbea9;
+}
+
+.theme-geometric-zen .planner-page {
+  /* Subtle geometric line overlay */
+  background-image: 
+    linear-gradient(30deg, rgba(107, 112, 92, 0.015) 12%, transparent 12.5%, transparent 87%, rgba(107, 112, 92, 0.015) 87.5%, rgba(107, 112, 92, 0.015)),
+    linear-gradient(150deg, rgba(107, 112, 92, 0.015) 12%, transparent 12.5%, transparent 87%, rgba(107, 112, 92, 0.015) 87.5%, rgba(107, 112, 92, 0.015)),
+    linear-gradient(300deg, rgba(107, 112, 92, 0.015) 24%, transparent 24.5%, transparent 75%, rgba(107, 112, 92, 0.015) 75.5%, rgba(107, 112, 92, 0.015));
+  background-size: 80px 140px;
+}
+
+.theme-geometric-zen .daily-title,
+.theme-geometric-zen .weekly-title,
+.theme-geometric-zen .braindump-page-title,
+.theme-geometric-zen .habit-tracker-title,
+.theme-geometric-zen .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 20px;
+  color: var(--accent-1);
+}
+
+.theme-geometric-zen .section-label,
+.theme-geometric-zen .section-label-accent {
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.theme-geometric-zen .reward-box {
+  border-style: solid;
+  border-color: var(--accent-2);
+  background: rgba(203, 153, 126, 0.05);
+}

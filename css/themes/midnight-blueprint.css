@@ -1,0 +1,95 @@
+/* ══════════════════════════════════════
+   Theme: Midnight Blueprint (Masculine)
+   ══════════════════════════════════════ */
+.theme-midnight-blueprint {
+  --bg-primary: #1a2030;
+  --bg-secondary: #222838;
+  --bg-accent: #2a3248;
+  --text-primary: #d8dce8;
+  --text-secondary: #98a0b8;
+  --text-muted: #687090;
+  --accent-1: #4a90e0;
+  --accent-2: #60d0c0;
+  --accent-3: #8080d0;
+  --accent-4: #50c090;
+  --accent-5: #d0a040;
+  --border-color: #384060;
+  --border-light: #2a3248;
+  --border-dotted: #384060;
+  --checkbox-border: #506080;
+  --icon-color: #7088b0;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+
+  --tab-jan: #4a90e0; --tab-feb: #60d0c0; --tab-mar: #8080d0;
+  --tab-apr: #50c090; --tab-may: #d0a040; --tab-jun: #4a90e0;
+  --tab-jul: #60d0c0; --tab-aug: #8080d0; --tab-sep: #50c090;
+  --tab-oct: #d0a040; --tab-nov: #4a90e0; --tab-dec: #60d0c0;
+}
+
+.theme-midnight-blueprint .planner-page {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      rgba(74, 144, 224, 0.04) 19px,
+      rgba(74, 144, 224, 0.04) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      rgba(74, 144, 224, 0.04) 19px,
+      rgba(74, 144, 224, 0.04) 20px
+    );
+}
+
+.theme-midnight-blueprint .daily-title,
+.theme-midnight-blueprint .weekly-title,
+.theme-midnight-blueprint .braindump-page-title,
+.theme-midnight-blueprint .habit-tracker-title,
+.theme-midnight-blueprint .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.theme-midnight-blueprint .selfcare-icon {
+  border-radius: 2px;
+  background: rgba(74, 144, 224, 0.08);
+  border-color: #384060;
+}
+
+.theme-midnight-blueprint .reward-box {
+  border-style: solid;
+  border-color: rgba(74, 144, 224, 0.2);
+  background: rgba(74, 144, 224, 0.05);
+}
+
+.theme-midnight-blueprint .braindump-area,
+.theme-midnight-blueprint .day-content,
+.theme-midnight-blueprint .lined-area,
+.theme-midnight-blueprint .summary-lines {
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 18px,
+    rgba(74, 144, 224, 0.06) 18px,
+    rgba(74, 144, 224, 0.06) 18.5px
+  ) !important;
+}
+
+.theme-midnight-blueprint .cal-day-header {
+  background: #222838;
+}
+
+.theme-midnight-blueprint .cal-cell.empty {
+  background: #1a2030;
+}
+
+.theme-midnight-blueprint .month-tab {
+  color: #1a2030;
+  font-weight: 700;
+}

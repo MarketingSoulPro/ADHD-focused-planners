@@ -1,0 +1,53 @@
+/* ══════════════════════════════════════
+   Theme: Abstract Brushstrokes (Universal)
+   ══════════════════════════════════════ */
+.theme-abstract-brushstrokes {
+  --bg-primary: #fafcfc;
+  --bg-secondary: #f3f7f7;
+  --bg-accent: #e6f0f0;
+  --text-primary: #1e2e30;
+  --text-secondary: #42595c;
+  --text-muted: #829a9e;
+  --accent-1: #1a6f7a; /* Teal */
+  --accent-2: #c66b3d; /* Amber */
+  --accent-3: #6b2d5c; /* Burgundy */
+  --accent-4: #2d6b54; /* Forest Green */
+  --accent-5: #d4a017; /* Gold */
+  --border-color: #cbdad5;
+  --border-light: #e5edea;
+  --border-dotted: #b5c7c2;
+  --checkbox-border: #8fa39e;
+  --icon-color: #2c595e;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Caveat', cursive;
+  --body-font: 'Inter', sans-serif;
+
+  --tab-jan: #1a6f7a; --tab-feb: #c66b3d; --tab-mar: #6b2d5c;
+  --tab-apr: #2d6b54; --tab-may: #1a6f7a; --tab-jun: #c66b3d;
+  --tab-jul: #6b2d5c; --tab-aug: #2d6b54; --tab-sep: #1a6f7a;
+  --tab-oct: #c66b3d; --tab-nov: #6b2d5c; --tab-dec: #2d6b54;
+}
+
+.theme-abstract-brushstrokes .planner-page {
+  /* Dynamic abstract backgrounds with jewel tone paint splashes */
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(26, 111, 122, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(198, 107, 61, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(107, 45, 92, 0.02) 0%, transparent 50%);
+}
+
+.theme-abstract-brushstrokes .daily-title,
+.theme-abstract-brushstrokes .weekly-title,
+.theme-abstract-brushstrokes .braindump-page-title,
+.theme-abstract-brushstrokes .habit-tracker-title,
+.theme-abstract-brushstrokes .dopamine-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent-1);
+}
+
+.theme-abstract-brushstrokes .reward-box {
+  border-color: var(--accent-2);
+  background: rgba(198, 107, 61, 0.04);
+}

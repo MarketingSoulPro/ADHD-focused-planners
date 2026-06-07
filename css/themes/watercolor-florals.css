@@ -1,0 +1,57 @@
+/* ══════════════════════════════════════
+   Theme: Watercolor Florals (Feminine)
+   ══════════════════════════════════════ */
+.theme-watercolor-florals {
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f4f0ec;
+  --bg-accent: #ede6e0;
+  --text-primary: #3d4a3d;
+  --text-secondary: #6d7c6d;
+  --text-muted: #a0ada0;
+  --accent-1: #8ca88c;
+  --accent-2: #c4a0c0;
+  --accent-3: #a0b8d0;
+  --accent-4: #88a888;
+  --accent-5: #d0c088;
+  --border-color: #d0dcc8;
+  --border-light: #e8ece4;
+  --border-dotted: #c8d8c0;
+  --checkbox-border: #a8bca0;
+  --icon-color: #7a907a;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Caveat', cursive;
+
+  --tab-jan: #c4a0c0; --tab-feb: #a0b8d0; --tab-mar: #88a888;
+  --tab-apr: #d0c088; --tab-may: #c4a0c0; --tab-jun: #a0b8d0;
+  --tab-jul: #88a888; --tab-aug: #d0c088; --tab-sep: #c4a0c0;
+  --tab-oct: #a0b8d0; --tab-nov: #88a888; --tab-dec: #d0c088;
+}
+
+.theme-watercolor-florals .planner-page {
+  background-image:
+    radial-gradient(ellipse at 5% 5%, rgba(196, 160, 192, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 95% 95%, rgba(136, 168, 136, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(160, 184, 208, 0.03) 0%, transparent 60%);
+}
+
+.theme-watercolor-florals .daily-title,
+.theme-watercolor-florals .weekly-title,
+.theme-watercolor-florals .braindump-page-title,
+.theme-watercolor-florals .habit-tracker-title,
+.theme-watercolor-florals .dopamine-title {
+  font-weight: 700;
+}
+
+.theme-watercolor-florals .corner-decor {
+  opacity: 0.12;
+}
+
+.theme-watercolor-florals .reward-box {
+  border-color: #c8d8c0;
+  background: rgba(136, 168, 136, 0.04);
+}
+
+.theme-watercolor-florals .selfcare-icon {
+  border-radius: 50%;
+  background: rgba(196, 160, 192, 0.06);
+}
