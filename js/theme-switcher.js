@@ -393,15 +393,28 @@ document.addEventListener('DOMContentLoaded', () => {
         content.appendChild(btn);
       });
 
+      const closeOtherCategories = () => {
+        switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
+          if (otherCard !== card) {
+            otherCard.open = false;
+          }
+        });
+      };
+
       // Close other categories when this one opens
       card.addEventListener('toggle', () => {
         if (card.open) {
-          switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
-            if (otherCard !== card) {
-              otherCard.open = false;
-            }
-          });
+          closeOtherCategories();
         }
+      });
+
+      // Ensure only one card stays open by closing others after click
+      summary.addEventListener('click', () => {
+        setTimeout(() => {
+          if (card.open) {
+            closeOtherCategories();
+          }
+        }, 0);
       });
 
       card.appendChild(summary);
