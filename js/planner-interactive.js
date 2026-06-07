@@ -249,17 +249,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstDay = new Date(year, monthIndex, 1);
     const startIndex = (firstDay.getDay() + 6) % 7;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    const holidayMap = getUSHolidayMap(year);
     cells.forEach((cell, idx) => {
       const dayNumber = idx - startIndex + 1;
       const dateDiv = cell.querySelector('.popup-date');
+      let holidayLabel = cell.querySelector('.popup-holiday-label');
+      if (!holidayLabel) {
+        holidayLabel = document.createElement('div');
+        holidayLabel.className = 'popup-holiday-label';
+        if (dateDiv) {
+          dateDiv.insertAdjacentElement('afterend', holidayLabel);
+        } else {
+          cell.appendChild(holidayLabel);
+        }
+      }
       cell.classList.remove('disabled', 'selected', 'today');
       cell.dataset.date = '';
+      holidayLabel.textContent = '';
       if (dayNumber > 0 && dayNumber <= daysInMonth) {
         dateDiv.textContent = dayNumber;
         const cellDate = new Date(year, monthIndex, dayNumber);
         cell.dataset.date = getLocalDateString(cellDate);
         if (cell.dataset.date === selectedDate) cell.classList.add('selected');
         if (cellDate.toDateString() === new Date().toDateString()) cell.classList.add('today');
+        const holidayName = holidayMap[cell.dataset.date];
+        if (holidayName) {
+          holidayLabel.textContent = holidayName;
+          cell.classList.add('holiday');
+        }
       } else {
         dateDiv.textContent = '';
         cell.classList.add('disabled');
@@ -358,6 +375,65 @@ document.addEventListener('DOMContentLoaded', () => {
     return ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].indexOf(monthKey);
   }
 
+  function getNthWeekdayOfMonth(year, month, weekday, n) {
+    const first = new Date(year, month, 1);
+    let count = 0;
+    for (let day = 1; day <= 31; day++) {
+      const date = new Date(year, month, day);
+      if (date.getMonth() !== month) break;
+      if (date.getDay() === weekday) {
+        count += 1;
+        if (count === n) return date;
+      }
+    }
+    return null;
+  }
+
+  function getLastWeekdayOfMonth(year, month, weekday) {
+    const last = new Date(year, month + 1, 0);
+    for (let day = last.getDate(); day > 0; day--) {
+      const date = new Date(year, month, day);
+      if (date.getDay() === weekday) return date;
+    }
+    return null;
+  }
+
+  function getObservedDate(year, month, day) {
+    const date = new Date(year, month, day);
+    if (date.getDay() === 0) {
+      date.setDate(date.getDate() + 1);
+    } else if (date.getDay() === 6) {
+      date.setDate(date.getDate() - 1);
+    }
+    return date;
+  }
+
+  function getUSHolidayMap(year) {
+    const holidays = {};
+    const add = (date, label) => {
+      holidays[getLocalDateString(date)] = label;
+    };
+
+    add(getObservedDate(year, 0, 1), "New Year's Day");
+    const mlk = getNthWeekdayOfMonth(year, 0, 1, 3);
+    if (mlk) add(mlk, 'MLK Jr. Day');
+    const presidents = getNthWeekdayOfMonth(year, 1, 1, 3);
+    if (presidents) add(presidents, "Presidents' Day");
+    const memorial = getLastWeekdayOfMonth(year, 4, 1);
+    if (memorial) add(memorial, 'Memorial Day');
+    add(getObservedDate(year, 5, 19), 'Juneteenth');
+    add(getObservedDate(year, 6, 4), 'Independence Day');
+    const labor = getNthWeekdayOfMonth(year, 8, 1, 1);
+    if (labor) add(labor, 'Labor Day');
+    const columbus = getNthWeekdayOfMonth(year, 9, 1, 2);
+    if (columbus) add(columbus, 'Columbus Day');
+    add(getObservedDate(year, 10, 11), "Veterans Day");
+    const thanksgiving = getNthWeekdayOfMonth(year, 10, 4, 4);
+    if (thanksgiving) add(thanksgiving, 'Thanksgiving');
+    add(getObservedDate(year, 11, 25), 'Christmas Day');
+    return holidays;
+  }
+
   function syncDateFromMonthYear() {
     const monthIndex = getMonthIndex(selectedMonth);
     if (monthIndex < 0) return;
@@ -421,11 +497,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const startIndex = (firstDay.getDay() + 6) % 7;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
     const cells = Array.from(calendarGrid.querySelectorAll('.cal-cell'));
+    const holidayMap = getUSHolidayMap(year);
     cells.forEach((cell, idx) => {
       const dayNumber = idx - startIndex + 1;
       const dateDiv = cell.querySelector('.cal-date');
-      cell.classList.remove('disabled', 'selected', 'today', 'active-day');
+      let holidayLabel = cell.querySelector('.cal-holiday-label');
+      if (!holidayLabel) {
+        holidayLabel = document.createElement('div');
+        holidayLabel.className = 'cal-holiday-label';
+        if (dateDiv) {
+          dateDiv.insertAdjacentElement('afterend', holidayLabel);
+        } else {
+          cell.appendChild(holidayLabel);
+        }
+      }
+      cell.classList.remove('disabled', 'selected', 'today', 'active-day', 'holiday');
       cell.dataset.date = '';
+      holidayLabel.textContent = '';
       if (dateDiv) {
         if (dayNumber > 0 && dayNumber <= daysInMonth) {
           dateDiv.textContent = dayNumber;
@@ -437,6 +525,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           if (cell.dataset.date === selectedDate) {
             cell.classList.add('selected');
+          }
+          const holidayName = holidayMap[cell.dataset.date];
+          if (holidayName) {
+            holidayLabel.textContent = holidayName;
+            cell.classList.add('holiday');
           }
         } else {
           dateDiv.textContent = '';

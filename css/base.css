@@ -1134,13 +1134,33 @@ body {
   margin-bottom: 2px;
 }
 
-.cal-cell.empty {
-  background: var(--bg-secondary);
-  opacity: 0.5;
-}
+  .cal-holiday-label,
+  .popup-holiday-label {
+    margin-top: 4px;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--accent-2);
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    min-height: 18px;
+  }
 
-.monthly-notes {
-  margin-top: 6px;
+  .cal-cell.holiday {
+    background: rgba(255, 227, 212, 0.45);
+    border-color: rgba(255, 172, 117, 0.55);
+  }
+
+  .popup-cell.holiday {
+    background: rgba(255, 247, 225, 0.95);
+  }
+
+  .popup-cell.holiday .popup-date {
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
   border: 1px solid var(--border-color);
   padding: 6px 8px;
   border-radius: 2px;
