@@ -393,27 +393,20 @@ document.addEventListener('DOMContentLoaded', () => {
         content.appendChild(btn);
       });
 
-      const closeOtherCategories = () => {
-        switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
-          if (otherCard !== card) {
-            otherCard.open = false;
-          }
-        });
-      };
+      // Close other categories when this one opens
+      card.addEventListener('toggle', () => {
+        if (card.open) {
+          switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
+            if (otherCard !== card) {
+              otherCard.open = false;
+            }
+          });
+        }
+      });
 
       card.appendChild(summary);
       card.appendChild(content);
       switcherBottom.appendChild(card);
-    });
-
-    switcherBottom.addEventListener('toggle', event => {
-      const opened = event.target.closest('details.category-card');
-      if (!opened || !opened.open) return;
-      switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
-        if (otherCard !== opened) {
-          otherCard.open = false;
-        }
-      });
     });
 
     switcher.appendChild(switcherTop);
