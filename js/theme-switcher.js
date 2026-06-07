@@ -152,32 +152,41 @@ document.addEventListener('DOMContentLoaded', () => {
         background: rgba(18, 20, 30, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
       }
-      .category-card summary {
+      .category-card.open {
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+      .category-summary {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 14px 16px;
         cursor: pointer;
         background: rgba(255, 255, 255, 0.04);
-        list-style: none;
         font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: #f5f5f7;
+        transition: background 0.2s ease, color 0.2s ease;
       }
-      .category-card summary::-webkit-details-marker {
-        display: none;
+      .category-summary:hover {
+        background: rgba(255, 255, 255, 0.12);
       }
-      .category-card summary::after {
+      .category-card.open .category-summary {
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+      }
+      .category-summary::after {
         content: '⌄';
         font-size: 12px;
         color: #a8a8b8;
         transform: rotate(0deg);
         transition: transform 0.2s ease;
       }
-      .category-card[open] summary::after {
+      .category-card.open .category-summary::after {
         transform: rotate(180deg);
       }
       .category-note {
@@ -191,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         justify-content: center;
         padding: 12px 16px 16px;
       }
-      .category-card[open] .category-content {
+      .category-card.open .category-content {
         display: flex;
       }
       .theme-category {
@@ -368,10 +377,11 @@ document.addEventListener('DOMContentLoaded', () => {
     switcherBottom.appendChild(switcherLabel);
 
     categories.forEach(cat => {
-      const card = document.createElement('details');
+      const card = document.createElement('div');
       card.className = 'category-card';
 
-      const summary = document.createElement('summary');
+      const summary = document.createElement('div');
+      summary.className = 'category-summary';
       summary.innerText = cat;
 
       const note = document.createElement('span');
@@ -394,32 +404,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const closeOtherCategories = () => {
-        switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
+        switcherBottom.querySelectorAll('.category-card').forEach(otherCard => {
           if (otherCard !== card) {
-            otherCard.open = false;
+            otherCard.classList.remove('open');
           }
         });
       };
 
-      // Close other categories when this one opens
-      card.addEventListener('toggle', () => {
-        if (card.open) {
-          closeOtherCategories();
-        }
-      });
-
-      // Ensure only one card stays open by closing others after click
       summary.addEventListener('click', () => {
-        setTimeout(() => {
-          if (card.open) {
-            closeOtherCategories();
-          }
-        }, 0);
+        const isOpen = card.classList.contains('open');
+        closeOtherCategories();
+        if (!isOpen) {
+          card.classList.add('open');
+        }
       });
 
       card.appendChild(summary);
       card.appendChild(content);
       switcherBottom.appendChild(card);
+    });
+
+    switcherBottom.querySelectorAll('.category-card').forEach(card => {
+      card.classList.remove('open');
     });
 
     switcher.appendChild(switcherTop);
