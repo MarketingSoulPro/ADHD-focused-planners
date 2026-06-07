@@ -1,5 +1,7 @@
 # ADHD-Focused Planners
 
+A project by **MarketingSoulPro**.
+
 An interactive web-based planner application designed specifically for individuals with ADHD. Features multiple planning pages and beautiful theme options to help with organization, time management, and task tracking.
 
 ## Features
