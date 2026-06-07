@@ -77,61 +77,155 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       .switcher-top {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+        width: 100%;
+        gap: 10px;
+      }
+      .switcher-middle {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 10px 24px;
         border-bottom: 1px solid rgba(255,255,255,0.05);
         width: 100%;
+        gap: 10px;
+        text-align: center;
+      }
+      .theme-switcher-label,
+      .theme-switcher-subtitle {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-top: 6px;
+        width: 100%;
+        text-align: center;
+        display: block;
+        flex-basis: 100%;
+      }
+      .theme-switcher-subtitle {
+        width: 100%;
+      }
+      .mobile-tab-row {
+        display: none;
+        gap: 10px;
+      }
+      .mobile-tab {
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        color: #c0c0d0;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+      }
+      .mobile-tab:hover,
+      .mobile-tab.active {
+        background: rgba(255,255,255,0.16);
+        color: #fff;
+        border-color: rgba(255,255,255,0.14);
       }
       .switcher-bottom {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px;
+        gap: 12px;
         padding: 12px 20px;
         width: 100%;
       }
-      .theme-category {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: #1a1a24;
-        padding: 4px 10px;
-        border-radius: 20px;
-        border: 1px solid #2d2d3d;
+      .category-card {
+        flex: 1 1 calc(30% - 12px);
+        min-width: 160px;
+        max-width: 200px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(18, 20, 30, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
       }
-      .theme-cat-label {
-        font-size: 9px;
+      .category-card summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.04);
+        list-style: none;
+        font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: #8c8c9e;
-        margin-right: 4px;
+        color: #f5f5f7;
+      }
+      .category-card summary::-webkit-details-marker {
+        display: none;
+      }
+      .category-card summary::after {
+        content: '⌄';
+        font-size: 12px;
+        color: #a8a8b8;
+        transform: rotate(0deg);
+        transition: transform 0.2s ease;
+      }
+      .category-card[open] summary::after {
+        transform: rotate(180deg);
+      }
+      .category-note {
+        font-size: 10px;
+        color: #9fa0b3;
+      }
+      .category-content {
+        display: none;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        padding: 12px 16px 16px;
+      }
+      .category-card[open] .category-content {
+        display: flex;
+      }
+      .theme-category {
+        display: none;
       }
       .theme-btn {
-        padding: 4px 10px;
-        border-radius: 12px;
+        padding: 6px 12px;
+        border-radius: 999px;
         font-size: 10px;
         font-weight: 500;
-        border: 1px solid transparent;
-        background: transparent;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.04);
         color: #c0c0d0;
         cursor: pointer;
         transition: all 0.2s ease;
+        white-space: nowrap;
       }
       .theme-btn:hover {
-        background: rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.12);
         color: #fff;
       }
       .theme-btn.active {
         background: #fff;
         color: #111116;
         font-weight: 600;
+        border-color: rgba(255,255,255,0.16);
       }
       .nav-links {
         display: flex;
         gap: 10px;
         align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
       }
       .nav-link {
         font-size: 10px;
@@ -139,13 +233,13 @@ document.addEventListener('DOMContentLoaded', () => {
         text-transform: uppercase;
         color: #3a86ff;
         text-decoration: none;
-        padding: 4px 8px;
-        border-radius: 4px;
-        background: rgba(58, 134, 255, 0.1);
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(58, 134, 255, 0.12);
         transition: background 0.2s;
       }
       .nav-link:hover {
-        background: rgba(58, 134, 255, 0.2);
+        background: rgba(58, 134, 255, 0.22);
       }
       .print-btn {
         background: #ff006e;
@@ -153,8 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
         font-size: 10px;
         font-weight: 700;
         border: none;
-        padding: 5px 12px;
-        border-radius: 4px;
+        padding: 6px 14px;
+        border-radius: 999px;
         cursor: pointer;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -167,19 +261,39 @@ document.addEventListener('DOMContentLoaded', () => {
       @media screen and (max-width: 860px) {
         .switcher-top {
           flex-direction: column;
+          align-items: center;
           gap: 10px;
           padding: 10px;
         }
-        .switcher-bottom {
-          padding: 8px 10px;
-          gap: 8px;
-        }
-        .theme-category {
-          flex-wrap: wrap;
+        .switcher-top .nav-links {
           justify-content: center;
+          width: 100%;
         }
-        .theme-switcher-label {
-          margin-bottom: 4px;
+        .switcher-top .theme-switcher-label {
+          display: none;
+        }
+        .switcher-middle {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 10px 20px;
+          text-align: center;
+        }
+        .theme-switcher-subtitle {
+          display: block;
+          width: 100%;
+        }
+        .mobile-tab-row {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          width: 100%;
+        }
+        .switcher-bottom {
+          padding: 10px 16px;
+          gap: 10px;
         }
       }
       
@@ -197,44 +311,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Group buttons by category
     const categories = ['Feminine', 'Masculine', 'Universal'];
 
-    // Create Top and Bottom containers
+    // Create Top, Middle and Bottom containers
     const switcherTop = document.createElement('div');
     switcherTop.className = 'switcher-top';
+    const switcherMiddle = document.createElement('div');
+    switcherMiddle.className = 'switcher-middle';
     const switcherBottom = document.createElement('div');
     switcherBottom.className = 'switcher-bottom';
 
-    // Label for switcher
+    // Label for desktop
     const switcherLabel = document.createElement('span');
-    switcherLabel.style.color = '#fff';
-    switcherLabel.style.fontSize = '12px';
-    switcherLabel.style.fontWeight = '800';
-    switcherLabel.style.textTransform = 'uppercase';
-    switcherLabel.style.letterSpacing = '1.5px';
+    switcherLabel.className = 'theme-switcher-label';
     switcherLabel.innerText = 'Buddy ADHD Themes:';
-    switcherTop.appendChild(switcherLabel);
-
-    categories.forEach(cat => {
-      const catDiv = document.createElement('div');
-      catDiv.className = 'theme-category';
-
-      const catLabel = document.createElement('span');
-      catLabel.className = 'theme-cat-label';
-      catLabel.innerText = cat;
-      catDiv.appendChild(catLabel);
-
-      themes.filter(t => t.category === cat).forEach(t => {
-        const btn = document.createElement('button');
-        btn.className = 'theme-btn';
-        btn.dataset.theme = t.id;
-        btn.innerText = t.name;
-        if (t.id === activeTheme) btn.classList.add('active');
-
-        btn.addEventListener('click', () => setTheme(t.id));
-        catDiv.appendChild(btn);
-      });
-
-      switcherBottom.appendChild(catDiv);
-    });
 
     // Add navigation and print buttons
     const navDiv = document.createElement('div');
@@ -254,7 +342,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switcherTop.appendChild(navDiv);
 
+    // Mobile-only subtitle and tabs
+    const switcherSubLabel = document.createElement('span');
+    switcherSubLabel.className = 'theme-switcher-subtitle';
+    switcherSubLabel.innerText = 'Buddy ADHD Themes:';
+    const mobileTabRow = document.createElement('div');
+    mobileTabRow.className = 'mobile-tab-row';
+
+    const toolsTab = document.createElement('button');
+    toolsTab.className = 'mobile-tab active';
+    toolsTab.type = 'button';
+    toolsTab.innerText = 'Tools';
+
+    const themeTab = document.createElement('button');
+    themeTab.className = 'mobile-tab';
+    themeTab.type = 'button';
+    themeTab.innerText = 'Theme';
+
+    mobileTabRow.appendChild(toolsTab);
+    mobileTabRow.appendChild(themeTab);
+    switcherMiddle.appendChild(switcherSubLabel);
+    switcherMiddle.appendChild(mobileTabRow);
+
+    // Add heading to switcherBottom before categories
+    switcherBottom.appendChild(switcherLabel);
+
+    categories.forEach(cat => {
+      const card = document.createElement('details');
+      card.className = 'category-card';
+
+      const summary = document.createElement('summary');
+      summary.innerText = cat;
+
+      const note = document.createElement('span');
+      note.className = 'category-note';
+      note.innerText = `${themes.filter(t => t.category === cat).length} themes`;
+      summary.appendChild(note);
+
+      const content = document.createElement('div');
+      content.className = 'category-content';
+
+      themes.filter(t => t.category === cat).forEach(t => {
+        const btn = document.createElement('button');
+        btn.className = 'theme-btn';
+        btn.dataset.theme = t.id;
+        btn.innerText = t.name;
+        if (t.id === activeTheme) btn.classList.add('active');
+
+        btn.addEventListener('click', () => setTheme(t.id));
+        content.appendChild(btn);
+      });
+
+      const closeOtherCategories = () => {
+        switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
+          if (otherCard !== card) {
+            otherCard.open = false;
+          }
+        });
+      };
+
+      card.appendChild(summary);
+      card.appendChild(content);
+      switcherBottom.appendChild(card);
+    });
+
+    switcherBottom.addEventListener('toggle', event => {
+      const opened = event.target.closest('details.category-card');
+      if (!opened || !opened.open) return;
+      switcherBottom.querySelectorAll('details.category-card').forEach(otherCard => {
+        if (otherCard !== opened) {
+          otherCard.open = false;
+        }
+      });
+    });
+
     switcher.appendChild(switcherTop);
+    switcher.appendChild(switcherMiddle);
     switcher.appendChild(switcherBottom);
 
     // Inject switcher at the very top of body

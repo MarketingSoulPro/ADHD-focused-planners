@@ -124,7 +124,7 @@ body {
   background-color: var(--bg-primary);
   background-image: var(--bg-pattern);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--page-margin);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   page-break-after: always;
@@ -184,46 +184,53 @@ body {
   transform: scale(-1);
 }
 
-/* ── Month Tabs (Right Side) ── */
+/* ── Month Tabs (Top Corner) ── */
 .month-tabs {
   position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  left: var(--page-margin);
+  right: var(--page-margin);
+  transform: none;
   display: flex;
-  flex-direction: column;
-  gap: 1.5px;
-  z-index: 2;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  width: calc(100% - 2 * var(--page-margin));
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .month-tab {
-  width: 28px;
-  padding: 6px 3px;
+  width: auto;
+  min-width: 50px;
+  max-width: 52px;
+  padding: 8px 8px;
   font-family: var(--body-font);
-  font-size: 7px;
-  font-weight: 600;
+  font-size: 8px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   text-align: center;
   color: white;
-  border-radius: 5px 0 0 5px;
-  /* Curve left corners inward for index tab visual cue */
+  border-radius: 8px;
   writing-mode: horizontal-tb;
   cursor: pointer;
   user-select: none;
   pointer-events: auto;
-  line-height: 1.2;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.08);
+  line-height: 1;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 @media (hover: hover) {
   .month-tab:hover {
-    width: 34px;
-    font-weight: 700;
-    box-shadow: -3px 1px 6px rgba(0, 0, 0, 0.15);
-    transform: translateX(-2px);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
   }
 }
 
@@ -277,48 +284,56 @@ body {
 
 /* Year Selector Dropdown */
 .year-select-wrapper {
-  width: 28px;
-  height: 22px;
-  margin-bottom: 4px;
-  display: flex;
+  min-width: 48px;
+  max-width: 52px;
+  height: auto;
+  margin: 0;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.25s ease;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000000;
+  border: 1px solid #000000;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
 }
 
 .year-select-wrapper:hover {
-  transform: translateX(-2px);
+  transform: translateY(-1px);
 }
 
 .year-select {
   width: 100%;
   height: 100%;
-  background: var(--bg-accent);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px 0 0 4px;
+  background: transparent;
+  color: #fff;
+  border: none;
   font-family: var(--body-font);
-  font-size: 7.5px;
+  font-size: 8px;
   font-weight: 700;
   text-align: center;
   text-align-last: center;
-  padding: 0;
+  padding: 8px 4px;
   cursor: pointer;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   transition: all 0.2s ease;
-  box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.05);
+  line-height: 1;
 }
 
 .year-select:hover {
-  background: var(--bg-secondary);
-  color: var(--accent-1);
-  border-color: var(--accent-1);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .year-select::-ms-expand {
+  display: none;
+}
+
+.year-select-wrapper::after {
   display: none;
 }
 
