@@ -253,28 +253,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cells.forEach((cell, idx) => {
       const dayNumber = idx - startIndex + 1;
       const dateDiv = cell.querySelector('.popup-date');
-      let holidayLabel = cell.querySelector('.popup-holiday-label');
-      if (!holidayLabel) {
-        holidayLabel = document.createElement('div');
-        holidayLabel.className = 'popup-holiday-label';
-        if (dateDiv) {
-          dateDiv.insertAdjacentElement('afterend', holidayLabel);
-        } else {
-          cell.appendChild(holidayLabel);
-        }
-      }
-      cell.classList.remove('disabled', 'selected', 'today');
+      cell.classList.remove('disabled', 'selected', 'today', 'holiday');
       cell.dataset.date = '';
-      holidayLabel.textContent = '';
       if (dayNumber > 0 && dayNumber <= daysInMonth) {
         dateDiv.textContent = dayNumber;
         const cellDate = new Date(year, monthIndex, dayNumber);
         cell.dataset.date = getLocalDateString(cellDate);
         if (cell.dataset.date === selectedDate) cell.classList.add('selected');
         if (cellDate.toDateString() === new Date().toDateString()) cell.classList.add('today');
-        const holidayName = holidayMap[cell.dataset.date];
-        if (holidayName) {
-          holidayLabel.textContent = holidayName;
+        if (holidayMap[cell.dataset.date]) {
           cell.classList.add('holiday');
         }
       } else {
