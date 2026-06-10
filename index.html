@@ -141,11 +141,12 @@
             /* PWA Install Banner */
             .install-banner {
                 position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%) translateY(100px);
+                top: 20px;
+                right: 20px;
+                left: auto;
+                transform: translateX(100%) translateY(0);
                 width: 90%;
-                max-width: 400px;
+                max-width: 320px;
                 background: var(--bg-card);
                 border: 1px solid var(--border-color);
                 border-radius: 16px;
@@ -155,12 +156,12 @@
                 align-items: center;
                 gap: 12px;
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-                transition: transform 0.4s
+                transition: transform 0.5s
                     cubic-bezier(0.175, 0.885, 0.32, 1.275);
             }
 
             .install-banner.visible {
-                transform: translateX(-50%) translateY(0);
+                transform: translateX(0) translateY(0);
             }
 
             .install-logo {
