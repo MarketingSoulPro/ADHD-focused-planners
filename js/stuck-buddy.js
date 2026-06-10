@@ -3,7 +3,7 @@
  * Helps users break executive dysfunction and analysis paralysis.
  */
 
-(function() {
+(function () {
   const defaultSuggestions = [
     "Drink a glass of cold water 💧",
     "Step outside for 2 minutes ☀️",
@@ -16,7 +16,7 @@
     "Make a fresh cup of tea or coffee ☕",
     "Write down just ONE tiny thing to do 📝",
     "Stand up and do a 30-second silly dance 💃",
-    "Eat a high-protein snack 🥜"
+    "Eat a high-protein snack 🥜",
   ];
 
   const affirmations = [
@@ -25,7 +25,7 @@
     "Done is better than perfect.",
     "You don't have to see the whole staircase, just the first step.",
     "Be gentle with yourself. You're doing your best.",
-    "One tiny win is still a win."
+    "One tiny win is still a win.",
   ];
 
   function getUserDopamineItems() {
@@ -57,8 +57,10 @@
     modalOverlay.className = "stuck-modal-overlay";
     modalOverlay.innerHTML = `
       <div class="stuck-modal">
-        <span class="stuck-modal-icon">🎲</span>
-        <h2 class="stuck-modal-title">Buddy Suggests...</h2>
+        <div class="stuck-modal-header-container">
+          <span class="stuck-sparkle-icon">✨</span>
+          <h2 class="stuck-modal-title">Buddy Suggests</h2>
+        </div>
         <p class="stuck-modal-subtitle">Small steps break the freeze.</p>
         <div class="stuck-suggestion-box">
           <div class="stuck-suggestion-text" id="stuck-text"></div>
@@ -95,7 +97,8 @@
       setTimeout(() => {
         stuckText.classList.remove("shuffling");
         stuckText.innerText = getRandomSuggestion();
-        stuckAffirmation.innerText = affirmations[Math.floor(Math.random() * affirmations.length)];
+        stuckAffirmation.innerText =
+          affirmations[Math.floor(Math.random() * affirmations.length)];
       }, 600);
     }
 
@@ -111,7 +114,8 @@
     };
 
     modalOverlay.onclick = () => modalOverlay.classList.remove("active");
-    modalOverlay.querySelector(".stuck-modal").onclick = (e) => e.stopPropagation();
+    modalOverlay.querySelector(".stuck-modal").onclick = (e) =>
+      e.stopPropagation();
 
     // 2. Create Float Button
     const stuckBtn = document.createElement("button");

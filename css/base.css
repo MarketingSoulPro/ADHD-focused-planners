@@ -3272,17 +3272,42 @@ body {
     }
 }
 
-.stuck-modal-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
+.stuck-modal-header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.stuck-sparkle-icon {
+    font-size: 42px;
     display: block;
+    animation: sparklePulse 1.5s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(58, 134, 255, 0.4);
+}
+
+@keyframes sparklePulse {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.2);
+        filter: brightness(1.3);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
 }
 
 .stuck-modal-title {
     font-family: var(--header-font);
     font-size: 24px;
     color: #fff;
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    letter-spacing: 0.5px;
 }
 
 .stuck-modal-subtitle {
