@@ -4,6 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Buddy ADHD Printable Planner Suite</title>
+        <link rel="manifest" href="manifest.json" />
+        <meta name="theme-color" content="#3a86ff" />
+        <link rel="apple-touch-icon" href="img/logo.png" />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
             rel="stylesheet"
@@ -133,6 +136,83 @@
                 background: rgba(255, 255, 255, 0.1);
                 border-color: var(--color-primary);
                 transform: translateY(-1px);
+            }
+
+            /* PWA Install Banner */
+            .install-banner {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                width: 90%;
+                max-width: 400px;
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 16px;
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                transition: transform 0.4s
+                    cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .install-banner.visible {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .install-logo {
+                width: 48px;
+                height: 48px;
+                border-radius: 10px;
+                object-fit: contain;
+            }
+
+            .install-content {
+                flex: 1;
+            }
+
+            .install-title {
+                font-size: 14px;
+                font-weight: 700;
+                color: #fff;
+                display: block;
+            }
+
+            .install-text {
+                font-size: 11px;
+                color: var(--text-sub);
+                display: block;
+            }
+
+            .install-btn {
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 99px;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .install-close {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                width: 24px;
+                height: 24px;
+                background: #222;
+                border: 1px solid var(--border-color);
+                border-radius: 50%;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                cursor: pointer;
             }
 
             /* ── Main Layout Panels ── */
@@ -719,6 +799,18 @@
     </head>
 
     <body>
+        <div id="install-banner" class="install-banner">
+            <div class="install-close" id="install-close">×</div>
+            <img src="img/logo.png" alt="Logo" class="install-logo" />
+            <div class="install-content">
+                <span class="install-title">Install Buddy Planner</span>
+                <span class="install-text"
+                    >Add to home screen for quick access</span
+                >
+            </div>
+            <button id="install-button" class="install-btn">Install</button>
+        </div>
+
         <div class="container">
             <!-- Header -->
             <header>
@@ -1440,6 +1532,51 @@
 
                 window.addEventListener("resize", handleMobileResponsiveness);
                 handleMobileResponsiveness();
+
+                // PWA Installation Logic
+                let deferredPrompt;
+                const installBanner = document.getElementById("install-banner");
+                const installButton = document.getElementById("install-button");
+                const installClose = document.getElementById("install-close");
+
+                window.addEventListener("beforeinstallprompt", (e) => {
+                    // Prevent the mini-infobar from appearing on mobile
+                    e.preventDefault();
+                    // Stash the event so it can be triggered later.
+                    deferredPrompt = e;
+                    // Update UI notify the user they can install the PWA
+                    setTimeout(() => {
+                        installBanner.classList.add("visible");
+                    }, 2000);
+                });
+
+                installButton.addEventListener("click", async () => {
+                    if (!deferredPrompt) return;
+                    // Show the install prompt
+                    deferredPrompt.prompt();
+                    // Wait for the user to respond to the prompt
+                    const { outcome } = await deferredPrompt.userChoice;
+                    // We've used the prompt, and can't use it again, throw it away
+                    deferredPrompt = null;
+                    // Hide the install banner
+                    installBanner.classList.remove("visible");
+                });
+
+                installClose.addEventListener("click", () => {
+                    installBanner.classList.remove("visible");
+                });
+
+                // Register Service Worker
+                if ("serviceWorker" in navigator) {
+                    window.addEventListener("load", () => {
+                        navigator.serviceWorker
+                            .register("service-worker.js")
+                            .then((reg) => console.log("SW Registered"))
+                            .catch((err) =>
+                                console.log("SW Registration failed: ", err),
+                            );
+                    });
+                }
             });
         </script>
     </body>
