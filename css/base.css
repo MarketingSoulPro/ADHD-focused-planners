@@ -3158,7 +3158,7 @@ body {
         /* US Letter Portrait */
     }
 
-    .planner-page {
+    .cal-cell {
         width: 8.5in !important;
         height: 11in !important;
         margin: 0 !important;
@@ -3173,6 +3173,209 @@ body {
         background-color: var(--bg-primary) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+    }
+}
+
+/* ── Emergency "I'm Stuck" Button & Modal ── */
+.stuck-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9998;
+    background: linear-gradient(135deg, #ff006e 0%, #ff4d6d 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-family: var(--body-font);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: stuckPulse 2s infinite;
+}
+
+@keyframes stuckPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 110, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0);
+    }
+}
+
+.stuck-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.stuck-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(11, 11, 15, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10002;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.stuck-modal-overlay.active {
+    display: flex;
+    animation: stuckFadeIn 0.3s ease;
+}
+
+@keyframes stuckFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.stuck-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    position: relative;
+    transform: translateY(20px);
+}
+
+.stuck-modal-overlay.active .stuck-modal {
+    animation: stuckSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        forwards;
+}
+
+@keyframes stuckSlideUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.stuck-modal-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.stuck-modal-title {
+    font-family: var(--header-font);
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.stuck-modal-subtitle {
+    font-size: 14px;
+    color: var(--text-sub);
+    margin-bottom: 25px;
+}
+
+.stuck-suggestion-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stuck-suggestion-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent-1);
+    line-height: 1.4;
+}
+
+.stuck-suggestion-text.shuffling {
+    animation: stuckShuffle 0.1s infinite;
+    opacity: 0.5;
+}
+
+@keyframes stuckShuffle {
+    0% {
+        transform: translateY(-2px);
+    }
+    100% {
+        transform: translateY(2px);
+    }
+}
+
+.stuck-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.stuck-action-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    font-family: var(--body-font);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stuck-done-btn {
+    background: var(--color-success);
+    color: white;
+}
+
+.stuck-another-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stuck-done-btn:hover {
+    background: #32a000;
+    transform: translateY(-1px);
+}
+.stuck-another-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.stuck-affirmation {
+    margin-top: 25px;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+@media screen and (max-width: 860px) {
+    .stuck-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        font-size: 11px;
+    }
+    .stuck-modal {
+        padding: 25px;
     }
 }
 

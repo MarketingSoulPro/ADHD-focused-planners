@@ -832,7 +832,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Audio context for satisfying pop/click sound
   let audioCtx = null;
   let lastGlobalClickSoundAt = 0;
-  function playPopSound(isChecking) {
+  window.playPopSound = function (isChecking) {
     try {
       if (!audioCtx) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -872,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
       // Silently fail if audio is not supported
     }
-  }
+  };
 
   togglesList.forEach((el, idx) => {
     el.dataset.toggleId = `toggle-${idx}`;

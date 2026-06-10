@@ -1,625 +1,741 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Habit Tracker — Buddy ADHD Printable Planner Suite</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habit Tracker — Buddy ADHD Printable Planner Suite</title>
+        <!-- Preload Stylesheets -->
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/themes/blush-calligraphy.css" />
+        <link rel="stylesheet" href="../css/themes/watercolor-florals.css" />
+        <link rel="stylesheet" href="../css/themes/botanical-garden.css" />
+        <link rel="stylesheet" href="../css/themes/rose-gold-abstract.css" />
+        <link rel="stylesheet" href="../css/themes/dark-slate.css" />
+        <link rel="stylesheet" href="../css/themes/midnight-blueprint.css" />
+        <link rel="stylesheet" href="../css/themes/carbon-fiber.css" />
+        <link rel="stylesheet" href="../css/themes/concrete-industrial.css" />
+        <link rel="stylesheet" href="../css/themes/abstract-brushstrokes.css" />
+        <link rel="stylesheet" href="../css/themes/geometric-zen.css" />
+        <link rel="stylesheet" href="../css/themes/sunset-gradient.css" />
+        <link rel="stylesheet" href="../css/themes/classic-calligraphy.css" />
 
-  <!-- Preload Stylesheets -->
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/themes/blush-calligraphy.css">
-  <link rel="stylesheet" href="../css/themes/watercolor-florals.css">
-  <link rel="stylesheet" href="../css/themes/botanical-garden.css">
-  <link rel="stylesheet" href="../css/themes/rose-gold-abstract.css">
-  <link rel="stylesheet" href="../css/themes/dark-slate.css">
-  <link rel="stylesheet" href="../css/themes/midnight-blueprint.css">
-  <link rel="stylesheet" href="../css/themes/carbon-fiber.css">
-  <link rel="stylesheet" href="../css/themes/concrete-industrial.css">
-  <link rel="stylesheet" href="../css/themes/abstract-brushstrokes.css">
-  <link rel="stylesheet" href="../css/themes/geometric-zen.css">
-  <link rel="stylesheet" href="../css/themes/sunset-gradient.css">
-  <link rel="stylesheet" href="../css/themes/classic-calligraphy.css">
+        <!-- Core Scripts -->
+        <script src="../js/theme-switcher.js" defer></script>
+        <script src="../js/planner-interactive.js?v=3" defer></script>
+        <script src="../js/stuck-buddy.js" defer></script>
+    </head>
 
-  <!-- Core Scripts -->
-  <script src="../js/theme-switcher.js" defer></script>
-  <script src="../js/planner-interactive.js?v=3" defer></script>
-</head>
+    <body>
+        <!-- Planner Page Container -->
+        <div class="planner-page">
+            <!-- Decorative Corner Elements -->
+            <div class="corner-decor top-left"></div>
+            <div class="corner-decor top-right"></div>
+            <div class="corner-decor bottom-left"></div>
+            <div class="corner-decor bottom-right"></div>
 
-<body>
+            <!-- Month Tabs (Right side decoration/nav) -->
+            <div class="month-tabs">
+                <div class="month-tab jan active">Jan</div>
+                <div class="month-tab feb">Feb</div>
+                <div class="month-tab mar">Mar</div>
+                <div class="month-tab apr">Apr</div>
+                <div class="month-tab may">May</div>
+                <div class="month-tab jun">Jun</div>
+                <div class="month-tab jul">Jul</div>
+                <div class="month-tab aug">Aug</div>
+                <div class="month-tab sep">Sep</div>
+                <div class="month-tab oct">Oct</div>
+                <div class="month-tab nov">Nov</div>
+                <div class="month-tab dec">Dec</div>
+            </div>
 
-  <!-- Planner Page Container -->
-  <div class="planner-page">
+            <!-- Habit Tracker Header -->
+            <div class="daily-header" style="margin-bottom: 8px">
+                <div>
+                    <h1
+                        class="habit-tracker-title"
+                        style="margin: 0; line-height: 1"
+                    >
+                        Habit Tracker
+                    </h1>
+                    <div class="habit-tracker-month">
+                        Month of: ____________________
+                    </div>
+                </div>
 
-    <!-- Decorative Corner Elements -->
-    <div class="corner-decor top-left"></div>
-    <div class="corner-decor top-right"></div>
-    <div class="corner-decor bottom-left"></div>
-    <div class="corner-decor bottom-right"></div>
+                <div
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        gap: 8px;
+                    "
+                >
+                    <!-- Page Navigation Icons -->
+                    <div class="nav-icons">
+                        <!-- Daily -->
+                        <a
+                            href="daily-focus.html"
+                            class="nav-icon"
+                            data-tooltip="Daily Page"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Weekly -->
+                        <a
+                            href="weekly-overview.html"
+                            class="nav-icon"
+                            data-tooltip="Weekly Overview"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+                                <path
+                                    d="M16 2v4M8 2v4M4 10h16"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Monthly -->
+                        <a
+                            href="monthly-calendar.html"
+                            class="nav-icon"
+                            data-tooltip="Monthly Calendar"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M9 14h6M9 17h6"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Brain Dump -->
+                        <a
+                            href="brain-dump.html"
+                            class="nav-icon"
+                            data-tooltip="Brain Dump"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Habit Tracker (active) -->
+                        <a
+                            href="habit-tracker.html"
+                            class="nav-icon"
+                            data-tooltip="Habit Tracker"
+                            style="background: var(--bg-accent)"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Dopamine Menu -->
+                        <a
+                            href="dopamine-menu.html"
+                            class="nav-icon"
+                            data-tooltip="Dopamine Menu"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Expense Tracker -->
+                        <a
+                            href="expense-tracker.html"
+                            class="nav-icon"
+                            data-tooltip="Expense Tracker"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Quick Reminders -->
+                        <a
+                            href="quick-reminder.html"
+                            class="nav-icon"
+                            data-tooltip="Quick Reminders"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Week and Date -->
+                    <div class="week-date-bar">
+                        <div class="week-badge" id="week-badge">
+                            WEEK <span id="week-number"></span>
+                        </div>
+                        <div class="date-text" id="date-display">
+                            SELECTED: <span id="date-string"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Month Tabs (Right side decoration/nav) -->
-    <div class="month-tabs">
-      <div class="month-tab jan active">Jan</div>
-      <div class="month-tab feb">Feb</div>
-      <div class="month-tab mar">Mar</div>
-      <div class="month-tab apr">Apr</div>
-      <div class="month-tab may">May</div>
-      <div class="month-tab jun">Jun</div>
-      <div class="month-tab jul">Jul</div>
-      <div class="month-tab aug">Aug</div>
-      <div class="month-tab sep">Sep</div>
-      <div class="month-tab oct">Oct</div>
-      <div class="month-tab nov">Nov</div>
-      <div class="month-tab dec">Dec</div>
-    </div>
+            <!-- Habit Tracker Table Container -->
+            <div class="tracker-grid">
+                <table class="tracker-table">
+                    <thead>
+                        <tr>
+                            <th class="habit-name-col">
+                                Habit Name / Description
+                            </th>
+                            <!-- Days 1 to 31 -->
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                            <th>31</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 to 12 for habits -->
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <!--31 tds-->
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="habit-name-cell"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- Habit Tracker Header -->
-    <div class="daily-header" style="margin-bottom: 8px;">
-      <div>
-        <h1 class="habit-tracker-title" style="margin: 0; line-height: 1;">Habit Tracker</h1>
-        <div class="habit-tracker-month">Month of: ____________________</div>
-      </div>
+            <!-- Habit Tracker Swatch Legend -->
+            <div class="tracker-legend">
+                <div class="legend-item">
+                    <div
+                        class="legend-swatch"
+                        style="background: var(--accent-1)"
+                    ></div>
+                    <span>High Priority / Core Habit</span>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-swatch"
+                        style="background: var(--accent-2)"
+                    ></div>
+                    <span>Self-Care / Health</span>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-swatch"
+                        style="background: var(--accent-3)"
+                    ></div>
+                    <span>Learning / Growth</span>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-swatch"
+                        style="background: var(--accent-4)"
+                    ></div>
+                    <span>Routine / Task</span>
+                </div>
+            </div>
 
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-        <!-- Page Navigation Icons -->
-        <div class="nav-icons">
-          <!-- Daily -->
-          <a href="daily-focus.html" class="nav-icon" data-tooltip="Daily Page">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"
-                stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Weekly -->
-          <a href="weekly-overview.html" class="nav-icon" data-tooltip="Weekly Overview">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" stroke="currentColor"
-                stroke-width="2" fill="none" />
-              <path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Monthly -->
-          <a href="monthly-calendar.html" class="nav-icon" data-tooltip="Monthly Calendar">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M9 14h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Brain Dump -->
-          <a href="brain-dump.html" class="nav-icon" data-tooltip="Brain Dump">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Habit Tracker (active) -->
-          <a href="habit-tracker.html" class="nav-icon" data-tooltip="Habit Tracker"
-            style="background: var(--bg-accent);">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Dopamine Menu -->
-          <a href="dopamine-menu.html" class="nav-icon" data-tooltip="Dopamine Menu">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Expense Tracker -->
-          <a href="expense-tracker.html" class="nav-icon" data-tooltip="Expense Tracker">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                stroke="currentColor" stroke-width="2" fill="none" />
-            </svg>
-          </a>
-          <!-- Quick Reminders -->
-          <a href="quick-reminder.html" class="nav-icon" data-tooltip="Quick Reminders">
-            <svg viewBox="0 0 24 24">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0" stroke="currentColor"
-                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
+            <!-- Monthly Summary / Review Section -->
+            <div class="tracker-summary">
+                <div class="tracker-summary-col">
+                    <div class="summary-label">
+                        What worked well this month?
+                    </div>
+                    <div class="summary-lines"></div>
+                </div>
+                <div class="tracker-summary-col">
+                    <div class="summary-label" style="color: var(--accent-1)">
+                        Things to adjust next month
+                    </div>
+                    <div class="summary-lines"></div>
+                </div>
+            </div>
         </div>
-        <!-- Week and Date -->
-        <div class="week-date-bar">
-          <div class="week-badge" id="week-badge">WEEK <span id="week-number"></span></div>
-          <div class="date-text" id="date-display">SELECTED: <span id="date-string"></span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Habit Tracker Table Container -->
-    <div class="tracker-grid">
-      <table class="tracker-table">
-        <thead>
-          <tr>
-            <th class="habit-name-col">Habit Name / Description</th>
-            <!-- Days 1 to 31 -->
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-            <th>10</th>
-            <th>11</th>
-            <th>12</th>
-            <th>13</th>
-            <th>14</th>
-            <th>15</th>
-            <th>16</th>
-            <th>17</th>
-            <th>18</th>
-            <th>19</th>
-            <th>20</th>
-            <th>21</th>
-            <th>22</th>
-            <th>23</th>
-            <th>24</th>
-            <th>25</th>
-            <th>26</th>
-            <th>27</th>
-            <th>28</th>
-            <th>29</th>
-            <th>30</th>
-            <th>31</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Row 1 to 12 for habits -->
-          <tr>
-            <td class="habit-name-cell"></td><!--31 tds-->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="habit-name-cell"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Habit Tracker Swatch Legend -->
-    <div class="tracker-legend">
-      <div class="legend-item">
-        <div class="legend-swatch" style="background: var(--accent-1);"></div> <span>High Priority / Core Habit</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-swatch" style="background: var(--accent-2);"></div> <span>Self-Care / Health</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-swatch" style="background: var(--accent-3);"></div> <span>Learning / Growth</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-swatch" style="background: var(--accent-4);"></div> <span>Routine / Task</span>
-      </div>
-    </div>
-
-    <!-- Monthly Summary / Review Section -->
-    <div class="tracker-summary">
-      <div class="tracker-summary-col">
-        <div class="summary-label">What worked well this month?</div>
-        <div class="summary-lines"></div>
-      </div>
-      <div class="tracker-summary-col">
-        <div class="summary-label" style="color: var(--accent-1);">Things to adjust next month</div>
-        <div class="summary-lines"></div>
-      </div>
-    </div>
-
-  </div>
-
-</body>
-
+    </body>
 </html>

@@ -1379,7 +1379,7 @@
 
                 // Audio context for satisfying pop/click sound
                 let audioCtx = null;
-                function playPopSound(isChecking) {
+                window.playPopSound = function (isChecking) {
                     try {
                         if (!audioCtx) {
                             const AudioContext =
@@ -1426,7 +1426,7 @@
                     } catch (e) {
                         // Silently fail if audio is not supported
                     }
-                }
+                };
 
                 // Initialize from localstorage
                 let currentTheme =
@@ -1609,5 +1609,6 @@
                 }
             });
         </script>
+        <script src="js/stuck-buddy.js" defer></script>
     </body>
 </html>

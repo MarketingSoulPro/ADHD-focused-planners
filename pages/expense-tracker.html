@@ -1,502 +1,749 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Expense Tracker — Buddy ADHD Printable Planner Suite</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker — Buddy ADHD Printable Planner Suite</title>
+        <!-- Preload Stylesheets -->
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/themes/blush-calligraphy.css" />
+        <link rel="stylesheet" href="../css/themes/watercolor-florals.css" />
+        <link rel="stylesheet" href="../css/themes/botanical-garden.css" />
+        <link rel="stylesheet" href="../css/themes/rose-gold-abstract.css" />
+        <link rel="stylesheet" href="../css/themes/dark-slate.css" />
+        <link rel="stylesheet" href="../css/themes/midnight-blueprint.css" />
+        <link rel="stylesheet" href="../css/themes/carbon-fiber.css" />
+        <link rel="stylesheet" href="../css/themes/concrete-industrial.css" />
+        <link rel="stylesheet" href="../css/themes/abstract-brushstrokes.css" />
+        <link rel="stylesheet" href="../css/themes/geometric-zen.css" />
+        <link rel="stylesheet" href="../css/themes/sunset-gradient.css" />
+        <link rel="stylesheet" href="../css/themes/classic-calligraphy.css" />
 
-  <!-- Preload Stylesheets -->
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/themes/blush-calligraphy.css">
-  <link rel="stylesheet" href="../css/themes/watercolor-florals.css">
-  <link rel="stylesheet" href="../css/themes/botanical-garden.css">
-  <link rel="stylesheet" href="../css/themes/rose-gold-abstract.css">
-  <link rel="stylesheet" href="../css/themes/dark-slate.css">
-  <link rel="stylesheet" href="../css/themes/midnight-blueprint.css">
-  <link rel="stylesheet" href="../css/themes/carbon-fiber.css">
-  <link rel="stylesheet" href="../css/themes/concrete-industrial.css">
-  <link rel="stylesheet" href="../css/themes/abstract-brushstrokes.css">
-  <link rel="stylesheet" href="../css/themes/geometric-zen.css">
-  <link rel="stylesheet" href="../css/themes/sunset-gradient.css">
-  <link rel="stylesheet" href="../css/themes/classic-calligraphy.css">
+        <!-- Core Scripts -->
+        <script src="../js/theme-switcher.js" defer></script>
+        <script src="../js/planner-interactive.js?v=3" defer></script>
+        <script src="../js/stuck-buddy.js" defer></script>
+    </head>
 
-  <!-- Core Scripts -->
-  <script src="../js/theme-switcher.js" defer></script>
-  <script src="../js/planner-interactive.js?v=3" defer></script>
-</head>
+    <body>
+        <!-- Planner Page Container -->
+        <div class="planner-page expense-tracker-page">
+            <!-- Decorative Corner Elements -->
+            <div class="corner-decor top-left"></div>
+            <div class="corner-decor top-right"></div>
+            <div class="corner-decor bottom-left"></div>
+            <div class="corner-decor bottom-right"></div>
 
-<body>
+            <!-- Month Tabs -->
+            <div class="month-tabs">
+                <div class="month-tab jan active">Jan</div>
+                <div class="month-tab feb">Feb</div>
+                <div class="month-tab mar">Mar</div>
+                <div class="month-tab apr">Apr</div>
+                <div class="month-tab may">May</div>
+                <div class="month-tab jun">Jun</div>
+                <div class="month-tab jul">Jul</div>
+                <div class="month-tab aug">Aug</div>
+                <div class="month-tab sep">Sep</div>
+                <div class="month-tab oct">Oct</div>
+                <div class="month-tab nov">Nov</div>
+                <div class="month-tab dec">Dec</div>
+            </div>
 
-  <!-- Planner Page Container -->
-  <div class="planner-page expense-tracker-page">
+            <!-- Expense Tracker Header -->
+            <div class="daily-header" style="margin-bottom: 8px">
+                <div>
+                    <h1
+                        class="habit-tracker-title"
+                        style="margin: 0; line-height: 1"
+                    >
+                        Expense Tracker
+                    </h1>
+                    <div
+                        class="habit-tracker-month"
+                        contenteditable="true"
+                        style="margin-top: 4px"
+                    >
+                        Month of: ____________________
+                    </div>
+                </div>
 
-    <!-- Decorative Corner Elements -->
-    <div class="corner-decor top-left"></div>
-    <div class="corner-decor top-right"></div>
-    <div class="corner-decor bottom-left"></div>
-    <div class="corner-decor bottom-right"></div>
+                <div
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        gap: 8px;
+                    "
+                >
+                    <!-- Page Navigation Icons -->
+                    <div class="nav-icons">
+                        <!-- Daily -->
+                        <a
+                            href="daily-focus.html"
+                            class="nav-icon"
+                            title="Daily Page"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Weekly -->
+                        <a
+                            href="weekly-overview.html"
+                            class="nav-icon"
+                            title="Weekly Overview"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+                                <path
+                                    d="M16 2v4M8 2v4M4 10h16"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Monthly -->
+                        <a
+                            href="monthly-calendar.html"
+                            class="nav-icon"
+                            title="Monthly Calendar"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M9 14h6M9 17h6"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Brain Dump -->
+                        <a
+                            href="brain-dump.html"
+                            class="nav-icon"
+                            title="Brain Dump"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Habit Tracker -->
+                        <a
+                            href="habit-tracker.html"
+                            class="nav-icon"
+                            title="Habit Tracker"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Dopamine Menu -->
+                        <a
+                            href="dopamine-menu.html"
+                            class="nav-icon"
+                            title="Dopamine Menu"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Expense Tracker (active) -->
+                        <a
+                            href="expense-tracker.html"
+                            class="nav-icon"
+                            title="Expense Tracker"
+                            style="background: var(--bg-accent)"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+                            </svg>
+                        </a>
+                        <!-- Quick Reminders -->
+                        <a
+                            href="quick-reminder.html"
+                            class="nav-icon"
+                            data-tooltip="Quick Reminders"
+                        >
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Week and Date -->
+                    <div class="week-date-bar">
+                        <div class="week-badge" id="week-badge">
+                            WEEK <span id="week-number"></span>
+                        </div>
+                        <div class="date-text" id="date-display">
+                            SELECTED: <span id="date-string"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Month Tabs -->
-    <div class="month-tabs">
-      <div class="month-tab jan active">Jan</div>
-      <div class="month-tab feb">Feb</div>
-      <div class="month-tab mar">Mar</div>
-      <div class="month-tab apr">Apr</div>
-      <div class="month-tab may">May</div>
-      <div class="month-tab jun">Jun</div>
-      <div class="month-tab jul">Jul</div>
-      <div class="month-tab aug">Aug</div>
-      <div class="month-tab sep">Sep</div>
-      <div class="month-tab oct">Oct</div>
-      <div class="month-tab nov">Nov</div>
-      <div class="month-tab dec">Dec</div>
-    </div>
+            <!-- Expense Grid -->
+            <div class="expense-grid">
+                <!-- Left Column -->
+                <div class="expense-column">
+                    <!-- FIXED EXPENSES -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">FIXED EXPENSES</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">RENT/MORTGAGE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">ELECTRICITY</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">WATER</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">GAS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">INTERNET</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">PHONE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
 
-    <!-- Expense Tracker Header -->
-    <div class="daily-header" style="margin-bottom: 8px;">
-      <div>
-        <h1 class="habit-tracker-title" style="margin: 0; line-height: 1;">Expense Tracker</h1>
-        <div class="habit-tracker-month" contenteditable="true" style="margin-top:4px;">Month of: ____________________
+                    <!-- FOOD -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">FOOD</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">GROCERIES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">COFFEE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">SNACKS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- TRANSPORTATION -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">TRANSPORTATION</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">FUEL</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">MAINTENANCE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">PARKING FEES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">INSURANCE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">PUBLIC TRANSPORT</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- ENTERTAINMENT -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">ENTERTAINMENT</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">EVENTS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">HOBBIES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">PARTIES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">LEISURE TRAVEL</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="expense-column">
+                    <!-- SHOPPING -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">SHOPPING</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">CLOTHES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">ELECTRONICS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">BEAUTY</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">HOME GOODS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">GIFTS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- MEDICAL -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">MEDICAL</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">DOCTOR VISITS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">MEDICATIONS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">HEALTH INSURANCE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- FITNESS -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">FITNESS</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">GYM MEMBERSHIPS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">EQUIPMENT</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">WELLNESS PRODUCT</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- FAMILY & EDUCATION -->
+                    <div class="expense-section">
+                        <div class="expense-box">
+                            <div class="expense-header">
+                                <span class="cat-name">FAMILY & EDUCATION</span>
+                                <span class="cat-amount-label">AMOUNT</span>
+                            </div>
+                            <div class="expense-rows">
+                                <div class="expense-row">
+                                    <div class="ex-desc">CHILDCARE</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">TUITION FEES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">BOOKS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">MATERIALS</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                                <div class="expense-row">
+                                    <div class="ex-desc">COURSES</div>
+                                    <div
+                                        class="ex-amt"
+                                        contenteditable="true"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expense-footer-wrapper">
+                            <div
+                                class="ex-subtotal"
+                                contenteditable="true"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- SUMMARY -->
+                    <div class="expense-summary-box">
+                        <div class="summary-label-box">SUMMARY</div>
+                        <div class="summary-total" contenteditable="true"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-        <!-- Page Navigation Icons -->
-        <div class="nav-icons">
-          <!-- Daily -->
-          <a href="daily-focus.html" class="nav-icon" title="Daily Page">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"
-                stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Weekly -->
-          <a href="weekly-overview.html" class="nav-icon" title="Weekly Overview">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" stroke="currentColor"
-                stroke-width="2" fill="none" />
-              <path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Monthly -->
-          <a href="monthly-calendar.html" class="nav-icon" title="Monthly Calendar">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M9 14h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </a>
-          <!-- Brain Dump -->
-          <a href="brain-dump.html" class="nav-icon" title="Brain Dump">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Habit Tracker -->
-          <a href="habit-tracker.html" class="nav-icon" title="Habit Tracker">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Dopamine Menu -->
-          <a href="dopamine-menu.html" class="nav-icon" title="Dopamine Menu">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-          <!-- Expense Tracker (active) -->
-          <a href="expense-tracker.html" class="nav-icon" title="Expense Tracker" style="background: var(--bg-accent);">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                stroke="currentColor" stroke-width="2" fill="none" />
-            </svg>
-          </a>
-          <!-- Quick Reminders -->
-          <a href="quick-reminder.html" class="nav-icon" data-tooltip="Quick Reminders">
-            <svg viewBox="0 0 24 24">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0" stroke="currentColor"
-                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-        </div>
-        <!-- Week and Date -->
-        <div class="week-date-bar">
-          <div class="week-badge" id="week-badge">WEEK <span id="week-number"></span></div>
-          <div class="date-text" id="date-display">SELECTED: <span id="date-string"></span></div>
-        </div>
-      </div>
-    </div>
+        <script>
+            /* ── Expense Tracker: $ prefix + 1,000,000.00 formatting ── */
+            document.addEventListener("DOMContentLoaded", () => {
+                /* Format a raw string to 1,234,567.89 */
+                function formatAmount(raw) {
+                    const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
+                    if (isNaN(num)) return "";
+                    return num.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    });
+                }
 
-    <!-- Expense Grid -->
-    <div class="expense-grid">
-      <!-- Left Column -->
-      <div class="expense-column">
+                /* Parse a formatted string back to a number */
+                function parseAmount(str) {
+                    return parseFloat(str.replace(/,/g, "")) || 0;
+                }
 
-        <!-- FIXED EXPENSES -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">FIXED EXPENSES</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">RENT/MORTGAGE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">ELECTRICITY</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">WATER</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">GAS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">INTERNET</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">PHONE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                /* Inject a <span>$</span> + <input> into a container element */
+                function initAmountCell(cell, isReadOnly = false) {
+                    cell.removeAttribute("contenteditable");
+                    cell.innerHTML = "";
 
-        <!-- FOOD -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">FOOD</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">GROCERIES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">COFFEE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">SNACKS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                    const sign = document.createElement("span");
+                    sign.className = "dollar-sign";
+                    sign.textContent = "$";
 
-        <!-- TRANSPORTATION -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">TRANSPORTATION</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">FUEL</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">MAINTENANCE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">PARKING FEES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">INSURANCE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">PUBLIC TRANSPORT</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                    const input = document.createElement("input");
+                    input.className = "amt-input";
+                    input.type = "text";
+                    input.placeholder = "0.00";
+                    if (isReadOnly) input.readOnly = true;
 
-        <!-- ENTERTAINMENT -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">ENTERTAINMENT</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">EVENTS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">HOBBIES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">PARTIES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">LEISURE TRAVEL</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
-      </div>
+                    input.addEventListener("focus", () => {
+                        // Strip formatting while editing
+                        input.value = input.value.replace(/,/g, "");
+                        input.style.textAlign = "right";
+                    });
 
-      <!-- Right Column -->
-      <div class="expense-column">
+                    input.addEventListener("blur", () => {
+                        const formatted = formatAmount(input.value);
+                        input.value = formatted;
+                        recalculate();
+                    });
 
-        <!-- SHOPPING -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">SHOPPING</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">CLOTHES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">ELECTRONICS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">BEAUTY</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">HOME GOODS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">GIFTS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                    input.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            input.blur();
+                        }
+                    });
 
-        <!-- MEDICAL -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">MEDICAL</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">DOCTOR VISITS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">MEDICATIONS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">HEALTH INSURANCE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                    cell.appendChild(sign);
+                    cell.appendChild(input);
+                    return input;
+                }
 
-        <!-- FITNESS -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">FITNESS</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">GYM MEMBERSHIPS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">EQUIPMENT</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">WELLNESS PRODUCT</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                /* Set up all amount inputs */
+                document
+                    .querySelectorAll(".ex-amt")
+                    .forEach((cell) => initAmountCell(cell, false));
+                const subtotalInputs = [];
+                document.querySelectorAll(".ex-subtotal").forEach((cell) => {
+                    subtotalInputs.push(initAmountCell(cell, true));
+                });
+                const summaryInput = (() => {
+                    const el = document.querySelector(".summary-total");
+                    return el ? initAmountCell(el, true) : null;
+                })();
 
-        <!-- FAMILY & EDUCATION -->
-        <div class="expense-section">
-          <div class="expense-box">
-            <div class="expense-header">
-              <span class="cat-name">FAMILY & EDUCATION</span>
-              <span class="cat-amount-label">AMOUNT</span>
-            </div>
-            <div class="expense-rows">
-              <div class="expense-row">
-                <div class="ex-desc">CHILDCARE</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">TUITION FEES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">BOOKS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">MATERIALS</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-              <div class="expense-row">
-                <div class="ex-desc">COURSES</div>
-                <div class="ex-amt" contenteditable="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="expense-footer-wrapper">
-            <div class="ex-subtotal" contenteditable="true"></div>
-          </div>
-        </div>
+                /* Recalculate subtotals and grand total */
+                function recalculate() {
+                    const sections =
+                        document.querySelectorAll(".expense-section");
+                    let grand = 0;
+                    sections.forEach((section, idx) => {
+                        const amtInputs = section.querySelectorAll(
+                            ".ex-amt input.amt-input",
+                        );
+                        let sub = 0;
+                        amtInputs.forEach((inp) => {
+                            sub += parseAmount(inp.value);
+                        });
+                        grand += sub;
 
-        <!-- SUMMARY -->
-        <div class="expense-summary-box">
-          <div class="summary-label-box">SUMMARY</div>
-          <div class="summary-total" contenteditable="true"></div>
-        </div>
+                        const subtotalEl = section.querySelector(
+                            ".ex-subtotal input.amt-input",
+                        );
+                        if (subtotalEl) {
+                            subtotalEl.value =
+                                sub > 0
+                                    ? sub.toLocaleString("en-US", {
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2,
+                                      })
+                                    : "";
+                        }
+                    });
 
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    /* ── Expense Tracker: $ prefix + 1,000,000.00 formatting ── */
-    document.addEventListener('DOMContentLoaded', () => {
-
-      /* Format a raw string to 1,234,567.89 */
-      function formatAmount(raw) {
-        const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
-        if (isNaN(num)) return '';
-        return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      }
-
-      /* Parse a formatted string back to a number */
-      function parseAmount(str) {
-        return parseFloat(str.replace(/,/g, '')) || 0;
-      }
-
-      /* Inject a <span>$</span> + <input> into a container element */
-      function initAmountCell(cell, isReadOnly = false) {
-        cell.removeAttribute('contenteditable');
-        cell.innerHTML = '';
-
-        const sign = document.createElement('span');
-        sign.className = 'dollar-sign';
-        sign.textContent = '$';
-
-        const input = document.createElement('input');
-        input.className = 'amt-input';
-        input.type = 'text';
-        input.placeholder = '0.00';
-        if (isReadOnly) input.readOnly = true;
-
-        input.addEventListener('focus', () => {
-          // Strip formatting while editing
-          input.value = input.value.replace(/,/g, '');
-          input.style.textAlign = 'right';
-        });
-
-        input.addEventListener('blur', () => {
-          const formatted = formatAmount(input.value);
-          input.value = formatted;
-          recalculate();
-        });
-
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-        });
-
-        cell.appendChild(sign);
-        cell.appendChild(input);
-        return input;
-      }
-
-      /* Set up all amount inputs */
-      document.querySelectorAll('.ex-amt').forEach(cell => initAmountCell(cell, false));
-      const subtotalInputs = [];
-      document.querySelectorAll('.ex-subtotal').forEach(cell => {
-        subtotalInputs.push(initAmountCell(cell, true));
-      });
-      const summaryInput = (() => {
-        const el = document.querySelector('.summary-total');
-        return el ? initAmountCell(el, true) : null;
-      })();
-
-      /* Recalculate subtotals and grand total */
-      function recalculate() {
-        const sections = document.querySelectorAll('.expense-section');
-        let grand = 0;
-        sections.forEach((section, idx) => {
-          const amtInputs = section.querySelectorAll('.ex-amt input.amt-input');
-          let sub = 0;
-          amtInputs.forEach(inp => { sub += parseAmount(inp.value); });
-          grand += sub;
-
-          const subtotalEl = section.querySelector('.ex-subtotal input.amt-input');
-          if (subtotalEl) {
-            subtotalEl.value = sub > 0 ? sub.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
-          }
-        });
-
-        if (summaryInput) {
-          summaryInput.value = grand > 0 ? grand.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
-        }
-      }
-    });
-  </script>
-</body>
-
+                    if (summaryInput) {
+                        summaryInput.value =
+                            grand > 0
+                                ? grand.toLocaleString("en-US", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                  })
+                                : "";
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>
