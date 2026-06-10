@@ -1538,27 +1538,56 @@
                 const installBanner = document.getElementById("install-banner");
                 const installButton = document.getElementById("install-button");
                 const installClose = document.getElementById("install-close");
+                const installText =
+                    installBanner.querySelector(".install-text");
+
+                // Detect if it's iOS
+                const isIos = () => {
+                    const userAgent = window.navigator.userAgent.toLowerCase();
+                    return /iphone|ipad|ipod/.test(userAgent);
+                };
+                // Detect if it's already installed (standalone mode)
+                const isStandalone = () => {
+                    return (
+                        window.matchMedia("(display-mode: standalone)")
+                            .matches || window.navigator.standalone
+                    );
+                };
+
+                if (isStandalone()) {
+                    installBanner.style.display = "none";
+                } else if (isIos()) {
+                    // Show iOS specific instructions after a delay
+                    installText.innerText =
+                        "Tap 'Share' then 'Add to Home Screen'";
+                    installButton.style.display = "none";
+                    setTimeout(() => {
+                        installBanner.classList.add("visible");
+                    }, 3000);
+                }
 
                 window.addEventListener("beforeinstallprompt", (e) => {
-                    // Prevent the mini-infobar from appearing on mobile
+                    console.log("PWA: beforeinstallprompt fired");
                     e.preventDefault();
-                    // Stash the event so it can be triggered later.
                     deferredPrompt = e;
-                    // Update UI notify the user they can install the PWA
                     setTimeout(() => {
                         installBanner.classList.add("visible");
                     }, 2000);
                 });
 
                 installButton.addEventListener("click", async () => {
-                    if (!deferredPrompt) return;
-                    // Show the install prompt
+                    if (!deferredPrompt) {
+                        alert(
+                            "Please use your browser menu to 'Install' or 'Add to Home Screen'.",
+                        );
+                        return;
+                    }
                     deferredPrompt.prompt();
-                    // Wait for the user to respond to the prompt
                     const { outcome } = await deferredPrompt.userChoice;
-                    // We've used the prompt, and can't use it again, throw it away
+                    console.log(
+                        `PWA: User response to the install prompt: ${outcome}`,
+                    );
                     deferredPrompt = null;
-                    // Hide the install banner
                     installBanner.classList.remove("visible");
                 });
 
