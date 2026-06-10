@@ -1,945 +1,1446 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buddy ADHD Printable Planner Suite</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0b0b0f;
-      --bg-card: #12121a;
-      --border-color: #222230;
-      --text-main: #f0f0f5;
-      --text-sub: #9090a5;
-      --color-primary: #3a86ff;
-      --color-secondary: #ff006e;
-      --color-accent: #8338ec;
-      --color-success: #38b000;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      padding: 40px 20px;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    /* ── Header ── */
-    header {
-      text-align: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .logo-container {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-    }
-
-    .logo-text {
-      font-weight: 800;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      background: linear-gradient(to right, #fff, #bbb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: none;
-      /* Hidden since the image is large and contains text */
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 30%, #a0a0c0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: var(--text-sub);
-      max-width: 700px;
-      margin: 0 auto;
-      font-weight: 400;
-    }
-
-    .branding {
-      font-size: 13px;
-      color: #b8b8c8;
-      margin-top: 16px;
-    }
-
-    .branding a {
-      color: var(--color-primary);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .branding a:hover {
-      color: var(--color-secondary);
-    }
-
-    /* ── Main Layout Panels ── */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    @media (max-width: 900px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1.5px solid var(--border-color);
-      padding-bottom: 12px;
-    }
-
-    .panel-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-
-    .panel-badge {
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 4px 10px;
-      border-radius: 12px;
-      color: var(--text-sub);
-    }
-
-    /* ── Theme Selectors ── */
-    .theme-categories {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .category-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .category-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-sub);
-      border-left: 3px solid var(--color-primary);
-      padding-left: 8px;
-    }
-
-    .theme-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .theme-card {
-      background: #191924;
-      border: 1.5px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .theme-card:hover {
-      border-color: #3f3f5a;
-      transform: translateY(-2px);
-      background: #20202e;
-    }
-
-    .theme-card.active {
-      border-color: var(--color-primary);
-      background: rgba(58, 134, 255, 0.08);
-      box-shadow: 0 0 15px rgba(58, 134, 255, 0.15);
-    }
-
-    .pop-anim {
-      animation: themePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes themePop {
-      0% {
-        transform: scale(1) translateY(-2px);
-      }
-
-      40% {
-        transform: scale(1.05) translateY(-2px);
-      }
-
-      100% {
-        transform: scale(1) translateY(-2px);
-      }
-    }
-
-    .theme-swatch {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      flex-shrink: 0;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    .theme-details {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .theme-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .theme-desc {
-      font-size: 10px;
-      color: var(--text-sub);
-    }
-
-    /* Active Indicator Badge */
-    .active-badge {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      background: var(--color-primary);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      display: none;
-    }
-
-    .theme-card.active .active-badge {
-      display: block;
-    }
-
-    /* Theme colors for dashboard swatches */
-    .swatch-blush {
-      background: linear-gradient(135deg, #fdf6f4, #c47a8a);
-    }
-
-    .swatch-watercolor {
-      background: linear-gradient(135deg, #f5fcf8, #a2ccb6);
-    }
-
-    .swatch-botanical {
-      background: linear-gradient(135deg, #faf7f2, #6e8068);
-    }
-
-    .swatch-rose-gold {
-      background: linear-gradient(135deg, #ffffff, #d4a090);
-    }
-
-    .swatch-slate {
-      background: linear-gradient(135deg, #1b1c20, #4f5b66);
-    }
-
-    .swatch-blueprint {
-      background: linear-gradient(135deg, #0f1424, #2c448c);
-    }
-
-    .swatch-carbon {
-      background: linear-gradient(135deg, #121212, #c62828);
-    }
-
-    .swatch-concrete {
-      background: linear-gradient(135deg, #fafafa, #757575);
-    }
-
-    .swatch-brushstrokes {
-      background: linear-gradient(135deg, #fafcfc, #1a6f7a);
-    }
-
-    .swatch-zen {
-      background: linear-gradient(135deg, #FAF9F6, #6b705c);
-    }
-
-    .swatch-sunset {
-      background: linear-gradient(135deg, #fffbf7, #e76f51);
-    }
-
-    .swatch-classic {
-      background: linear-gradient(135deg, #fdfbf7, #3b332c);
-    }
-
-    /* ── Page Selectors ── */
-    .pages-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .page-card {
-      background: #191924;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
-    }
-
-    .page-card:hover {
-      border-color: #3f3f5a;
-      background: #20202e;
-      transform: translateX(4px);
-    }
-
-    .page-icon-wrapper {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1.5px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-primary);
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-
-    .page-card:hover .page-icon-wrapper {
-      background: rgba(58, 134, 255, 0.1);
-      border-color: var(--color-primary);
-      color: #fff;
-    }
-
-    .page-icon-wrapper svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .page-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .page-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .page-desc {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .print-badge {
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: rgba(56, 176, 0, 0.1);
-      border: 1px solid var(--color-success);
-      color: var(--color-success);
-      padding: 3px 8px;
-      border-radius: 4px;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-
-    .page-card:hover .print-badge {
-      opacity: 1;
-    }
-
-    /* ── How to print info ── */
-    .print-info-box {
-      background: linear-gradient(135deg, #12121a 0%, #171224 100%);
-      border: 1px dashed var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      margin-top: 10px;
-    }
-
-    .info-icon {
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    .info-content {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .info-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .info-text {
-      font-size: 12px;
-      color: var(--text-sub);
-    }
-
-    .info-list {
-      margin-top: 4px;
-      padding-left: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .info-list li {
-      font-size: 11.5px;
-      color: var(--text-sub);
-    }
-
-    .active-theme-banner {
-      background: #1a1a26;
-      border: 1.5px solid var(--border-color);
-      border-radius: 12px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .banner-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-sub);
-    }
-
-    .banner-theme-name {
-      font-weight: 700;
-      color: var(--color-primary);
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-
-    <!-- Header -->
-    <header>
-      <div class="logo-container">
-        <img src="img/logo.png" alt="Buddy ADHD Logo" class="logo-img">
-        <span class="logo-text">Buddy ADHD Suite</span>
-      </div>
-      <h1>Buddy ADHD Printable Planner Suite</h1>
-      <p class="subtitle">
-        Custom-styled layout grids built to soothe the ADHD brain. Choose one of our 12 tailored backgrounds (Feminine,
-        Masculine, or Universal) and print your planners directly from your web browser.
-      </p>
-      <p class="branding">
-        A project by <a href="https://msoulpro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a>.
-      </p>
-    </header>
-
-    <!-- Global Active Theme Bar -->
-    <div class="active-theme-banner">
-      <div class="banner-text">
-        Current Theme: <span id="banner-theme-display" class="banner-theme-name">Blush Calligraphy</span>
-      </div>
-      <div id="banner-theme-indicator" class="theme-swatch swatch-blush" style="width: 20px; height: 20px;"></div>
-    </div>
-
-    <!-- Main Content Panels -->
-    <div class="dashboard-grid">
-
-      <!-- Panel 1: Themes Selection -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2 class="panel-title">1. Select Background Theme</h2>
-          <span class="panel-badge">12 Themes</span>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Buddy ADHD Printable Planner Suite</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg-dark: #0b0b0f;
+                --bg-card: #12121a;
+                --border-color: #222230;
+                --text-main: #f0f0f5;
+                --text-sub: #9090a5;
+                --color-primary: #3a86ff;
+                --color-secondary: #ff006e;
+                --color-accent: #8338ec;
+                --color-success: #38b000;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--bg-dark);
+                color: var(--text-main);
+                padding: 40px 20px;
+                line-height: 1.6;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 1200px;
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            /* ── Header ── */
+            header {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .logo-container {
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .logo-img {
+                width: 180px;
+                height: 180px;
+                object-fit: contain;
+            }
+
+            .logo-text {
+                font-weight: 800;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                background: linear-gradient(to right, #fff, #bbb);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                display: none;
+                /* Hidden since the image is large and contains text */
+            }
+
+            h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 42px;
+                font-weight: 700;
+                margin-bottom: 12px;
+                letter-spacing: -0.5px;
+                background: linear-gradient(135deg, #ffffff 30%, #a0a0c0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .subtitle {
+                font-size: 16px;
+                color: var(--text-sub);
+                max-width: 700px;
+                margin: 0 auto;
+                font-weight: 400;
+            }
+
+            .branding {
+                font-size: 13px;
+                color: #b8b8c8;
+                margin-top: 16px;
+            }
+
+            .branding a {
+                color: var(--color-primary);
+                text-decoration: none;
+                font-weight: 700;
+            }
+
+            .branding a:hover {
+                color: var(--color-secondary);
+            }
+
+            .manual-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--border-color);
+                color: #fff;
+                text-decoration: none;
+                padding: 8px 16px;
+                border-radius: 99px;
+                font-size: 12px;
+                font-weight: 600;
+                margin-top: 16px;
+                transition: all 0.2s ease;
+            }
+
+            .manual-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: var(--color-primary);
+                transform: translateY(-1px);
+            }
+
+            /* ── Main Layout Panels ── */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            @media (max-width: 900px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .panel {
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 30px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .panel-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1.5px solid var(--border-color);
+                padding-bottom: 12px;
+            }
+
+            .panel-title {
+                font-size: 18px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                color: #fff;
+            }
+
+            .panel-badge {
+                font-size: 9px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 4px 10px;
+                border-radius: 12px;
+                color: var(--text-sub);
+            }
+
+            /* ── Theme Selectors ── */
+            .theme-categories {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .category-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .category-title {
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--text-sub);
+                border-left: 3px solid var(--color-primary);
+                padding-left: 8px;
+            }
+
+            .category-toggle-icon {
+                display: none;
+                margin-left: auto;
+                font-size: 12px;
+                color: var(--text-sub);
+                transition: transform 0.2s ease;
+            }
+
+            .theme-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .theme-card {
+                background: #191924;
+                border: 1.5px solid var(--border-color);
+                border-radius: 10px;
+                padding: 12px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .theme-card:hover {
+                border-color: #3f3f5a;
+                transform: translateY(-2px);
+                background: #20202e;
+            }
+
+            .theme-card.active {
+                border-color: var(--color-primary);
+                background: rgba(58, 134, 255, 0.08);
+                box-shadow: 0 0 15px rgba(58, 134, 255, 0.15);
+            }
+
+            .pop-anim {
+                animation: themePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            @keyframes themePop {
+                0% {
+                    transform: scale(1) translateY(-2px);
+                }
+
+                40% {
+                    transform: scale(1.05) translateY(-2px);
+                }
+
+                100% {
+                    transform: scale(1) translateY(-2px);
+                }
+            }
+
+            .theme-swatch {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                flex-shrink: 0;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .theme-details {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .theme-name {
+                font-size: 13px;
+                font-weight: 600;
+                color: #fff;
+            }
+
+            .theme-desc {
+                font-size: 10px;
+                color: var(--text-sub);
+            }
+
+            /* Active Indicator Badge */
+            .active-badge {
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                background: var(--color-primary);
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                display: none;
+            }
+
+            .theme-card.active .active-badge {
+                display: block;
+            }
+
+            /* Theme colors for dashboard swatches */
+            .swatch-blush {
+                background: linear-gradient(135deg, #fdf6f4, #c47a8a);
+            }
+
+            .swatch-watercolor {
+                background: linear-gradient(135deg, #f5fcf8, #a2ccb6);
+            }
+
+            .swatch-botanical {
+                background: linear-gradient(135deg, #faf7f2, #6e8068);
+            }
+
+            .swatch-rose-gold {
+                background: linear-gradient(135deg, #ffffff, #d4a090);
+            }
+
+            .swatch-slate {
+                background: linear-gradient(135deg, #1b1c20, #4f5b66);
+            }
+
+            .swatch-blueprint {
+                background: linear-gradient(135deg, #0f1424, #2c448c);
+            }
+
+            .swatch-carbon {
+                background: linear-gradient(135deg, #121212, #c62828);
+            }
+
+            .swatch-concrete {
+                background: linear-gradient(135deg, #fafafa, #757575);
+            }
+
+            .swatch-brushstrokes {
+                background: linear-gradient(135deg, #fafcfc, #1a6f7a);
+            }
+
+            .swatch-zen {
+                background: linear-gradient(135deg, #faf9f6, #6b705c);
+            }
+
+            .swatch-sunset {
+                background: linear-gradient(135deg, #fffbf7, #e76f51);
+            }
+
+            .swatch-classic {
+                background: linear-gradient(135deg, #fdfbf7, #3b332c);
+            }
+
+            /* ── Page Selectors ── */
+            .pages-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .page-card {
+                background: #191924;
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 18px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                text-decoration: none;
+                color: inherit;
+                transition: all 0.2s ease;
+            }
+
+            .page-card:hover {
+                border-color: #3f3f5a;
+                background: #20202e;
+                transform: translateX(4px);
+            }
+
+            .page-icon-wrapper {
+                width: 48px;
+                height: 48px;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1.5px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-primary);
+                flex-shrink: 0;
+                transition: all 0.2s;
+            }
+
+            .page-card:hover .page-icon-wrapper {
+                background: rgba(58, 134, 255, 0.1);
+                border-color: var(--color-primary);
+                color: #fff;
+            }
+
+            .page-icon-wrapper svg {
+                width: 24px;
+                height: 24px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .page-info {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                flex: 1;
+            }
+
+            .page-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .page-desc {
+                font-size: 11px;
+                color: var(--text-sub);
+            }
+
+            .print-badge {
+                font-size: 9px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                background: rgba(56, 176, 0, 0.1);
+                border: 1px solid var(--color-success);
+                color: var(--color-success);
+                padding: 3px 8px;
+                border-radius: 4px;
+                opacity: 0.8;
+                transition: opacity 0.2s;
+            }
+
+            .page-card:hover .print-badge {
+                opacity: 1;
+            }
+
+            /* ── How to print info ── */
+            .print-info-box {
+                background: linear-gradient(135deg, #12121a 0%, #171224 100%);
+                border: 1px dashed var(--border-color);
+                border-radius: 12px;
+                padding: 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+                margin-top: 10px;
+            }
+
+            .info-icon {
+                font-size: 24px;
+                line-height: 1;
+            }
+
+            .info-content {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .info-title {
+                font-size: 14px;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .info-text {
+                font-size: 12px;
+                color: var(--text-sub);
+            }
+
+            .info-list {
+                margin-top: 4px;
+                padding-left: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .info-list li {
+                font-size: 11.5px;
+                color: var(--text-sub);
+            }
+
+            .active-theme-banner {
+                background: #1a1a26;
+                border: 1.5px solid var(--border-color);
+                border-radius: 12px;
+                padding: 12px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .banner-text {
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--text-sub);
+            }
+
+            .banner-theme-name {
+                font-weight: 700;
+                color: var(--color-primary);
+            }
+
+            @media (max-width: 860px) {
+                body {
+                    padding: 18px 12px 28px;
+                }
+
+                .container {
+                    gap: 20px;
+                }
+
+                header {
+                    padding: 4px 0 0;
+                }
+
+                .logo-img {
+                    width: 112px;
+                    height: 112px;
+                }
+
+                h1 {
+                    font-size: 32px;
+                    line-height: 1.15;
+                    margin-bottom: 10px;
+                }
+
+                .subtitle {
+                    font-size: 15px;
+                    line-height: 1.7;
+                    max-width: 100%;
+                }
+
+                .branding {
+                    margin-top: 12px;
+                    font-size: 12px;
+                }
+
+                .panel {
+                    padding: 18px;
+                    gap: 16px;
+                    border-radius: 14px;
+                }
+
+                .panel-header {
+                    align-items: flex-start;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+
+                .panel-title {
+                    font-size: 16px;
+                }
+
+                .active-theme-banner {
+                    padding: 12px 14px;
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+
+                .banner-text {
+                    font-size: 13px;
+                }
+
+                .category-group {
+                    gap: 0;
+                    border: 1px solid var(--border-color);
+                    border-radius: 12px;
+                    background: rgba(255, 255, 255, 0.02);
+                    overflow: hidden;
+                }
+
+                .category-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin: 0;
+                    padding: 14px 14px 14px 12px;
+                    border-left: none;
+                    cursor: pointer;
+                    background: rgba(255, 255, 255, 0.02);
+                }
+
+                .category-toggle-icon {
+                    display: inline-flex;
+                }
+
+                .category-group .theme-grid {
+                    display: none;
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                    padding: 0 12px 12px;
+                }
+
+                .category-group.expanded .theme-grid {
+                    display: grid;
+                }
+
+                .category-group.expanded .category-toggle-icon {
+                    transform: rotate(180deg);
+                }
+
+                .theme-card {
+                    padding: 14px;
+                    border-radius: 12px;
+                }
+
+                .theme-swatch {
+                    width: 24px;
+                    height: 24px;
+                }
+
+                .theme-name {
+                    font-size: 14px;
+                }
+
+                .theme-desc {
+                    font-size: 11px;
+                }
+
+                .page-card {
+                    padding: 14px;
+                    gap: 14px;
+                    align-items: flex-start;
+                }
+
+                .page-card:hover {
+                    transform: none;
+                }
+
+                .page-icon-wrapper {
+                    width: 42px;
+                    height: 42px;
+                }
+
+                .page-icon-wrapper svg {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .page-title {
+                    font-size: 14px;
+                }
+
+                .page-desc {
+                    font-size: 11px;
+                    line-height: 1.5;
+                }
+
+                .print-badge {
+                    align-self: flex-start;
+                }
+
+                .print-info-box {
+                    padding: 18px;
+                    gap: 12px;
+                    flex-direction: column;
+                }
+
+                .info-title {
+                    font-size: 13px;
+                }
+
+                .info-text,
+                .info-list li {
+                    font-size: 11px;
+                    line-height: 1.6;
+                }
+            }
+
+            @media (max-width: 520px) {
+                body {
+                    padding: 14px 10px 24px;
+                }
+
+                .container {
+                    gap: 16px;
+                }
+
+                h1 {
+                    font-size: 25px;
+                }
+
+                .subtitle {
+                    font-size: 14px;
+                }
+
+                .panel {
+                    padding: 14px;
+                }
+
+                .theme-card,
+                .page-card {
+                    padding: 12px;
+                }
+
+                .page-card {
+                    gap: 12px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <header>
+                <div class="logo-container">
+                    <img
+                        src="img/logo.png"
+                        alt="Buddy ADHD Logo"
+                        class="logo-img"
+                    />
+                    <span class="logo-text">Buddy ADHD Suite</span>
+                </div>
+                <h1>Buddy ADHD Printable Planner Suite</h1>
+                <p class="subtitle">
+                    Custom-styled layout grids built to soothe the ADHD brain.
+                    Choose one of our 12 tailored backgrounds (Feminine,
+                    Masculine, or Universal) and print your planners directly
+                    from your web browser.
+                </p>
+                <p class="branding">
+                    A project by
+                    <a
+                        href="https://msoulpro.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        >MarketingSoulPro</a
+                    >.
+                </p>
+                <a href="user-manual.html" class="manual-btn">
+                    <span>📖</span> User Manual & Setup Guide
+                </a>
+            </header>
+
+            <!-- Global Active Theme Bar -->
+            <div class="active-theme-banner">
+                <div class="banner-text">
+                    Current Theme:
+                    <span id="banner-theme-display" class="banner-theme-name"
+                        >Blush Calligraphy</span
+                    >
+                </div>
+                <div
+                    id="banner-theme-indicator"
+                    class="theme-swatch swatch-blush"
+                    style="width: 20px; height: 20px"
+                ></div>
+            </div>
+
+            <!-- Main Content Panels -->
+            <div class="dashboard-grid">
+                <!-- Panel 1: Themes Selection -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">1. Select Background Theme</h2>
+                        <span class="panel-badge">12 Themes</span>
+                    </div>
+
+                    <div class="theme-categories">
+                        <!-- Feminine -->
+                        <div class="category-group" id="category-feminine">
+                            <h3 class="category-title">
+                                Feminine Styles
+                                <span class="category-toggle-icon">⌄</span>
+                            </h3>
+                            <div class="theme-grid">
+                                <!-- Blush Calligraphy -->
+                                <div
+                                    class="theme-card active"
+                                    data-theme="blush-calligraphy"
+                                    data-name="Blush Calligraphy"
+                                    data-swatch="swatch-blush"
+                                    data-desc="Soft pinks & cursive fonts"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-blush"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Blush Calligraphy</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Soft pinks & elegant script</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Watercolor Florals -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="watercolor-florals"
+                                    data-name="Watercolor Florals"
+                                    data-swatch="swatch-watercolor"
+                                    data-desc="Lavender sage flower shapes"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-watercolor"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Watercolor Florals</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Sage, lavender, pastels</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Botanical Garden -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="botanical-garden"
+                                    data-name="Botanical Garden"
+                                    data-swatch="swatch-botanical"
+                                    data-desc="Earth green leafy line art"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-botanical"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Botanical Garden</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Earth-tone leafy outlines</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Rose Gold Abstract -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="rose-gold-abstract"
+                                    data-name="Rose Gold Abstract"
+                                    data-swatch="swatch-rose-gold"
+                                    data-desc="Warm geometric metallic rose"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-rose-gold"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Rose Gold Abstract</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Geometric warm metallics</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Masculine -->
+                        <div class="category-group" id="category-masculine">
+                            <h3 class="category-title">
+                                Masculine Styles
+                                <span class="category-toggle-icon">⌄</span>
+                            </h3>
+                            <div class="theme-grid">
+                                <!-- Dark Slate -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="dark-slate"
+                                    data-name="Dark Slate"
+                                    data-swatch="swatch-slate"
+                                    data-desc="Minimalist slate dark charcoal"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-slate"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Dark Slate</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Charcoal gray & clean lines</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Midnight Blueprint -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="midnight-blueprint"
+                                    data-name="Midnight Blueprint"
+                                    data-swatch="swatch-blueprint"
+                                    data-desc="Technical blueprints neon grid"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-blueprint"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Midnight Blueprint</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Navy grid, architectural feel</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Carbon Fiber -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="carbon-fiber"
+                                    data-name="Carbon Fiber"
+                                    data-swatch="swatch-carbon"
+                                    data-desc="Dark textured high-performance weave"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-carbon"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Carbon Fiber</span
+                                        >
+                                        <span class="theme-desc"
+                                            >High-tech weave & red accent</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Concrete Industrial -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="concrete-industrial"
+                                    data-name="Concrete Industrial"
+                                    data-swatch="swatch-concrete"
+                                    data-desc="Urban concrete loft aesthetic"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-concrete"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Concrete Industrial</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Raw concrete, bold typeface</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Universal -->
+                        <div class="category-group" id="category-universal">
+                            <h3 class="category-title">
+                                Gender-Neutral Styles
+                                <span class="category-toggle-icon">⌄</span>
+                            </h3>
+                            <div class="theme-grid">
+                                <!-- Abstract Brushstrokes -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="abstract-brushstrokes"
+                                    data-name="Abstract Brushstrokes"
+                                    data-swatch="swatch-brushstrokes"
+                                    data-desc="Jewel tone teal & amber splash"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-brushstrokes"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Abstract Brushstrokes</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Teal, amber, jewel splashes</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Geometric Zen -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="geometric-zen"
+                                    data-name="Geometric Zen"
+                                    data-swatch="swatch-zen"
+                                    data-desc="Clean sage hexagons & lines"
+                                >
+                                    <div class="theme-swatch swatch-zen"></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Geometric Zen</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Sage, terracotta, hexagon
+                                            grid</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Sunset Gradient -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="sunset-gradient"
+                                    data-name="Sunset Gradient"
+                                    data-swatch="swatch-sunset"
+                                    data-desc="Smooth warming sky colors"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-sunset"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Sunset Gradient</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Coral, amber & warm sky glow</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Classic Calligraphy -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="classic-calligraphy"
+                                    data-name="Classic Calligraphy"
+                                    data-swatch="swatch-classic"
+                                    data-desc="Warm ivory timeless borders"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-classic"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Classic Calligraphy</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Timeless double gold border</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Planner Templates Selection -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">2. Choose Planner Sheet</h2>
+                        <span class="panel-badge">8 Page Formats</span>
+                    </div>
+
+                    <div class="pages-list">
+                        <!-- Daily Focus Buddy -->
+                        <a href="pages/daily-focus.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Daily Focus Buddy™</span
+                                >
+                                <span class="page-desc"
+                                    >Hourly timeblocker, Boring checklist, and
+                                    Self-Care tracker</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Weekly Overview -->
+                        <a href="pages/weekly-overview.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
+                                    />
+                                    <path d="M16 2v4M8 2v4M4 10h16" />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title">Weekly Overview</span>
+                                <span class="page-desc"
+                                    >Spacious 7-day layout grid with custom
+                                    goals & mini habits</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Monthly Calendar -->
+                        <a href="pages/monthly-calendar.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                    <path d="M9 14h6M9 17h6" />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Monthly Calendar Sheet</span
+                                >
+                                <span class="page-desc"
+                                    >Undated 35-day grid planner for high-level
+                                    schedules & milestones</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Brain Dump -->
+                        <a href="pages/brain-dump.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Brain Dump / Idea Declutter</span
+                                >
+                                <span class="page-desc"
+                                    >Eisenhower prioritization grid & huge notes
+                                    space for sensory dumps</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Habit Tracker -->
+                        <a href="pages/habit-tracker.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Habit Tracker Sheet</span
+                                >
+                                <span class="page-desc"
+                                    >Full 31-day x 12 habit table with color
+                                    legend and adjustments notes</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Dopamine Menu -->
+                        <a href="pages/dopamine-menu.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title">My Dopamine Menu</span>
+                                <span class="page-desc"
+                                    >Categorized energy booster slots &
+                                    emergency stim-hit list</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Expense Tracker -->
+                        <a href="pages/expense-tracker.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Expense Tracker Ledger</span
+                                >
+                                <span class="page-desc"
+                                    >Interactive category-based expenses grid
+                                    with automatic subtotal calculations</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+
+                        <!-- Quick Reminders -->
+                        <a href="pages/quick-reminder.html" class="page-card">
+                            <div class="page-icon-wrapper">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="page-info">
+                                <span class="page-title"
+                                    >Quick Reminders Log</span
+                                >
+                                <span class="page-desc"
+                                    >Add alarms and effortlessly track your
+                                    active and completed reminders</span
+                                >
+                            </div>
+                            <span class="print-badge">Printable</span>
+                        </a>
+                    </div>
+
+                    <!-- How to print guides -->
+                    <div class="print-info-box">
+                        <span class="info-icon">🖨️</span>
+                        <div class="info-content">
+                            <span class="info-title"
+                                >How to Print to PDF or Paper</span
+                            >
+                            <span class="info-text"
+                                >Open any planner sheet, and follow these setup
+                                recommendations in browser print popup
+                                (Ctrl+P):</span
+                            >
+                            <ul class="info-list">
+                                <li>
+                                    <strong>Destination</strong>: Save to PDF or
+                                    select your Color Printer
+                                </li>
+                                <li><strong>Layout</strong>: Portrait</li>
+                                <li>
+                                    <strong>Paper Size</strong>: Letter (8.5" x
+                                    11") or A4
+                                </li>
+                                <li>
+                                    <strong>Margins</strong>: None (or Default)
+                                </li>
+                                <li>
+                                    <strong>Options</strong>: Check the checkbox
+                                    for
+                                    <strong>"Background graphics"</strong>
+                                    (crucial for theme colors)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="theme-categories">
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const themeCards = document.querySelectorAll(".theme-card");
+                const bannerDisplay = document.getElementById(
+                    "banner-theme-display",
+                );
+                const bannerIndicator = document.getElementById(
+                    "banner-theme-indicator",
+                );
 
-          <!-- Feminine -->
-          <div class="category-group" id="category-feminine">
-            <h3 class="category-title">Feminine Styles</h3>
-            <div class="theme-grid">
-              <!-- Blush Calligraphy -->
-              <div class="theme-card active" data-theme="blush-calligraphy" data-name="Blush Calligraphy"
-                data-swatch="swatch-blush" data-desc="Soft pinks & cursive fonts">
-                <div class="theme-swatch swatch-blush"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Blush Calligraphy</span>
-                  <span class="theme-desc">Soft pinks & elegant script</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Watercolor Florals -->
-              <div class="theme-card" data-theme="watercolor-florals" data-name="Watercolor Florals"
-                data-swatch="swatch-watercolor" data-desc="Lavender sage flower shapes">
-                <div class="theme-swatch swatch-watercolor"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Watercolor Florals</span>
-                  <span class="theme-desc">Sage, lavender, pastels</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Botanical Garden -->
-              <div class="theme-card" data-theme="botanical-garden" data-name="Botanical Garden"
-                data-swatch="swatch-botanical" data-desc="Earth green leafy line art">
-                <div class="theme-swatch swatch-botanical"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Botanical Garden</span>
-                  <span class="theme-desc">Earth-tone leafy outlines</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Rose Gold Abstract -->
-              <div class="theme-card" data-theme="rose-gold-abstract" data-name="Rose Gold Abstract"
-                data-swatch="swatch-rose-gold" data-desc="Warm geometric metallic rose">
-                <div class="theme-swatch swatch-rose-gold"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Rose Gold Abstract</span>
-                  <span class="theme-desc">Geometric warm metallics</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-            </div>
-          </div>
+                // Audio context for satisfying pop/click sound
+                let audioCtx = null;
+                function playPopSound(isChecking) {
+                    try {
+                        if (!audioCtx) {
+                            const AudioContext =
+                                window.AudioContext ||
+                                window.webkitAudioContext;
+                            if (!AudioContext) return;
+                            audioCtx = new AudioContext();
+                        }
+                        if (audioCtx.state === "suspended") {
+                            audioCtx.resume();
+                        }
 
-          <!-- Masculine -->
-          <div class="category-group" id="category-masculine">
-            <h3 class="category-title">Masculine Styles</h3>
-            <div class="theme-grid">
-              <!-- Dark Slate -->
-              <div class="theme-card" data-theme="dark-slate" data-name="Dark Slate" data-swatch="swatch-slate"
-                data-desc="Minimalist slate dark charcoal">
-                <div class="theme-swatch swatch-slate"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Dark Slate</span>
-                  <span class="theme-desc">Charcoal gray & clean lines</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Midnight Blueprint -->
-              <div class="theme-card" data-theme="midnight-blueprint" data-name="Midnight Blueprint"
-                data-swatch="swatch-blueprint" data-desc="Technical blueprints neon grid">
-                <div class="theme-swatch swatch-blueprint"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Midnight Blueprint</span>
-                  <span class="theme-desc">Navy grid, architectural feel</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Carbon Fiber -->
-              <div class="theme-card" data-theme="carbon-fiber" data-name="Carbon Fiber" data-swatch="swatch-carbon"
-                data-desc="Dark textured high-performance weave">
-                <div class="theme-swatch swatch-carbon"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Carbon Fiber</span>
-                  <span class="theme-desc">High-tech weave & red accent</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Concrete Industrial -->
-              <div class="theme-card" data-theme="concrete-industrial" data-name="Concrete Industrial"
-                data-swatch="swatch-concrete" data-desc="Urban concrete loft aesthetic">
-                <div class="theme-swatch swatch-concrete"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Concrete Industrial</span>
-                  <span class="theme-desc">Raw concrete, bold typeface</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-            </div>
-          </div>
+                        const osc = audioCtx.createOscillator();
+                        const gainNode = audioCtx.createGain();
 
-          <!-- Universal -->
-          <div class="category-group" id="category-universal">
-            <h3 class="category-title">Gender-Neutral Styles</h3>
-            <div class="theme-grid">
-              <!-- Abstract Brushstrokes -->
-              <div class="theme-card" data-theme="abstract-brushstrokes" data-name="Abstract Brushstrokes"
-                data-swatch="swatch-brushstrokes" data-desc="Jewel tone teal & amber splash">
-                <div class="theme-swatch swatch-brushstrokes"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Abstract Brushstrokes</span>
-                  <span class="theme-desc">Teal, amber, jewel splashes</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Geometric Zen -->
-              <div class="theme-card" data-theme="geometric-zen" data-name="Geometric Zen" data-swatch="swatch-zen"
-                data-desc="Clean sage hexagons & lines">
-                <div class="theme-swatch swatch-zen"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Geometric Zen</span>
-                  <span class="theme-desc">Sage, terracotta, hexagon grid</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Sunset Gradient -->
-              <div class="theme-card" data-theme="sunset-gradient" data-name="Sunset Gradient"
-                data-swatch="swatch-sunset" data-desc="Smooth warming sky colors">
-                <div class="theme-swatch swatch-sunset"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Sunset Gradient</span>
-                  <span class="theme-desc">Coral, amber & warm sky glow</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-              <!-- Classic Calligraphy -->
-              <div class="theme-card" data-theme="classic-calligraphy" data-name="Classic Calligraphy"
-                data-swatch="swatch-classic" data-desc="Warm ivory timeless borders">
-                <div class="theme-swatch swatch-classic"></div>
-                <div class="theme-details">
-                  <span class="theme-name">Classic Calligraphy</span>
-                  <span class="theme-desc">Timeless double gold border</span>
-                </div>
-                <div class="active-badge"></div>
-              </div>
-            </div>
-          </div>
+                        osc.type = "sine";
+                        const startFreq = isChecking ? 620 : 240;
+                        const endFreq = isChecking ? 260 : 160;
+                        const duration = 0.065;
 
-        </div>
-      </div>
+                        osc.frequency.setValueAtTime(
+                            startFreq,
+                            audioCtx.currentTime,
+                        );
+                        osc.frequency.exponentialRampToValueAtTime(
+                            endFreq,
+                            audioCtx.currentTime + duration,
+                        );
 
-      <!-- Panel 2: Planner Templates Selection -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2 class="panel-title">2. Choose Planner Sheet</h2>
-          <span class="panel-badge">8 Page Formats</span>
-        </div>
+                        gainNode.gain.setValueAtTime(
+                            0.028,
+                            audioCtx.currentTime,
+                        );
+                        gainNode.gain.exponentialRampToValueAtTime(
+                            0.001,
+                            audioCtx.currentTime + duration,
+                        );
 
-        <div class="pages-list">
+                        osc.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
 
-          <!-- Daily Focus Buddy -->
-          <a href="pages/daily-focus.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Daily Focus Buddy™</span>
-              <span class="page-desc">Hourly timeblocker, Boring checklist, and Self-Care tracker</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + duration);
+                    } catch (e) {
+                        // Silently fail if audio is not supported
+                    }
+                }
 
-          <!-- Weekly Overview -->
-          <a href="pages/weekly-overview.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" />
-                <path d="M16 2v4M8 2v4M4 10h16" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Weekly Overview</span>
-              <span class="page-desc">Spacious 7-day layout grid with custom goals & mini habits</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                // Initialize from localstorage
+                let currentTheme =
+                    localStorage.getItem("selected-theme") ||
+                    "blush-calligraphy";
+                setActiveCard(currentTheme);
 
-          <!-- Monthly Calendar -->
-          <a href="pages/monthly-calendar.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M9 14h6M9 17h6" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Monthly Calendar Sheet</span>
-              <span class="page-desc">Undated 35-day grid planner for high-level schedules & milestones</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                themeCards.forEach((card) => {
+                    card.addEventListener("click", () => {
+                        playPopSound(!card.classList.contains("active"));
+                        const themeId = card.dataset.theme;
+                        setActiveCard(themeId);
 
-          <!-- Brain Dump -->
-          <a href="pages/brain-dump.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Brain Dump / Idea Declutter</span>
-              <span class="page-desc">Eisenhower prioritization grid & huge notes space for sensory dumps</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                        // Trigger bouncy animation
+                        card.classList.remove("pop-anim");
+                        void card.offsetWidth; // Force reflow to restart animation
+                        card.classList.add("pop-anim");
+                    });
+                });
 
-          <!-- Habit Tracker -->
-          <a href="pages/habit-tracker.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Habit Tracker Sheet</span>
-              <span class="page-desc">Full 31-day x 12 habit table with color legend and adjustments notes</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                function setActiveCard(themeId) {
+                    let name = "Blush Calligraphy";
+                    let swatchClass = "swatch-blush";
 
-          <!-- Dopamine Menu -->
-          <a href="pages/dopamine-menu.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">My Dopamine Menu</span>
-              <span class="page-desc">Categorized energy booster slots & emergency stim-hit list</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                    themeCards.forEach((card) => {
+                        if (card.dataset.theme === themeId) {
+                            card.classList.add("active");
+                            name = card.dataset.name;
+                            swatchClass = card.dataset.swatch;
+                            localStorage.setItem("selected-theme", themeId);
+                        } else {
+                            card.classList.remove("active");
+                        }
+                    });
 
-          <!-- Expense Tracker -->
-          <a href="pages/expense-tracker.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Expense Tracker Ledger</span>
-              <span class="page-desc">Interactive category-based expenses grid with automatic subtotal
-                calculations</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                    // Update top banner
+                    bannerDisplay.textContent = name;
+                    bannerIndicator.className = "theme-swatch " + swatchClass;
+                }
 
-          <!-- Quick Reminders -->
-          <a href="pages/quick-reminder.html" class="page-card">
-            <div class="page-icon-wrapper">
-              <svg viewBox="0 0 24 24">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0" />
-              </svg>
-            </div>
-            <div class="page-info">
-              <span class="page-title">Quick Reminders Log</span>
-              <span class="page-desc">Add alarms and effortlessly track your active and completed reminders</span>
-            </div>
-            <span class="print-badge">Printable</span>
-          </a>
+                const categoryGroups =
+                    document.querySelectorAll(".category-group");
 
-        </div>
+                function syncMobileThemeSections() {
+                    const isMobile = window.innerWidth <= 860;
 
-        <!-- How to print guides -->
-        <div class="print-info-box">
-          <span class="info-icon">🖨️</span>
-          <div class="info-content">
-            <span class="info-title">How to Print to PDF or Paper</span>
-            <span class="info-text">Open any planner sheet, and follow these setup recommendations in browser print
-              popup (Ctrl+P):</span>
-            <ul class="info-list">
-              <li><strong>Destination</strong>: Save to PDF or select your Color Printer</li>
-              <li><strong>Layout</strong>: Portrait</li>
-              <li><strong>Paper Size</strong>: Letter (8.5" x 11") or A4</li>
-              <li><strong>Margins</strong>: None (or Default)</li>
-              <li><strong>Options</strong>: Check the checkbox for <strong>"Background graphics"</strong> (crucial for
-                theme colors)</li>
-            </ul>
-          </div>
-        </div>
+                    categoryGroups.forEach((group, index) => {
+                        const title = group.querySelector(".category-title");
+                        if (!title) return;
 
-      </div>
+                        if (isMobile) {
+                            title.setAttribute("role", "button");
+                            title.setAttribute("tabindex", "0");
+                            if (
+                                !group.classList.contains("expanded") &&
+                                index === 0
+                            ) {
+                                group.classList.add("expanded");
+                            }
+                        } else {
+                            group.classList.remove("expanded");
+                            title.removeAttribute("role");
+                            title.removeAttribute("tabindex");
+                        }
+                    });
+                }
 
-    </div>
+                categoryGroups.forEach((group) => {
+                    const title = group.querySelector(".category-title");
+                    if (!title) return;
 
-  </div>
+                    const toggleGroup = () => {
+                        if (window.innerWidth > 860) return;
+                        const isExpanded = group.classList.contains("expanded");
+                        categoryGroups.forEach((otherGroup) => {
+                            otherGroup.classList.remove("expanded");
+                        });
+                        if (!isExpanded) {
+                            group.classList.add("expanded");
+                        }
+                    };
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeCards = document.querySelectorAll('.theme-card');
-      const bannerDisplay = document.getElementById('banner-theme-display');
-      const bannerIndicator = document.getElementById('banner-theme-indicator');
+                    title.addEventListener("click", toggleGroup);
+                    title.addEventListener("keydown", (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            toggleGroup();
+                        }
+                    });
+                });
 
-      // Audio context for satisfying pop/click sound
-      let audioCtx = null;
-      function playPopSound(isChecking) {
-        try {
-          if (!audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            audioCtx = new AudioContext();
-          }
-          if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
+                // Mobile Responsiveness handler for dashboard
+                function handleMobileResponsiveness() {
+                    const container = document.querySelector(".container");
+                    if (!container) return;
 
-          const osc = audioCtx.createOscillator();
-          const gainNode = audioCtx.createGain();
+                    container.style.width = "";
+                    container.style.maxWidth = "";
+                    container.style.transform = "";
+                    container.style.transformOrigin = "";
+                    container.style.marginBottom = "";
+                    syncMobileThemeSections();
+                }
 
-          osc.type = 'sine';
-          // Higher pitch for checking, lower pitch for unchecking
-          const startFreq = isChecking ? 800 : 300;
-          const endFreq = isChecking ? 150 : 100;
-
-          osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(endFreq, audioCtx.currentTime + 0.05);
-
-          gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-
-          osc.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
-
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.05);
-        } catch (e) {
-          // Silently fail if audio is not supported
-        }
-      }
-
-      // Initialize from localstorage
-      let currentTheme = localStorage.getItem('selected-theme') || 'blush-calligraphy';
-      setActiveCard(currentTheme);
-
-      themeCards.forEach(card => {
-        card.addEventListener('click', () => {
-          playPopSound(!card.classList.contains('active'));
-          const themeId = card.dataset.theme;
-          setActiveCard(themeId);
-
-          // Trigger bouncy animation
-          card.classList.remove('pop-anim');
-          void card.offsetWidth; // Force reflow to restart animation
-          card.classList.add('pop-anim');
-        });
-      });
-
-      function setActiveCard(themeId) {
-        let name = 'Blush Calligraphy';
-        let swatchClass = 'swatch-blush';
-
-        themeCards.forEach(card => {
-          if (card.dataset.theme === themeId) {
-            card.classList.add('active');
-            name = card.dataset.name;
-            swatchClass = card.dataset.swatch;
-            localStorage.setItem('selected-theme', themeId);
-          } else {
-            card.classList.remove('active');
-          }
-        });
-
-        // Update top banner
-        bannerDisplay.textContent = name;
-        bannerIndicator.className = 'theme-swatch ' + swatchClass;
-      }
-
-      // Mobile Responsiveness handler for dashboard
-      function handleMobileResponsiveness() {
-        const container = document.querySelector('.container');
-        if (!container) return;
-        const isMobile = window.innerWidth <= 860;
-
-        if (isMobile) {
-          const targetWidth = 860; // Optimal desktop width to scale from
-          container.style.width = targetWidth + 'px';
-          container.style.maxWidth = 'none';
-
-          const scaleFactor = (window.innerWidth - 40) / targetWidth; // 40px for body padding
-          container.style.transform = `scale(${scaleFactor})`;
-          container.style.transformOrigin = 'top center';
-
-          const unscaledHeight = container.offsetHeight;
-          const scaledHeight = unscaledHeight * scaleFactor;
-          container.style.marginBottom = `-${unscaledHeight - scaledHeight}px`;
-        } else {
-          container.style.width = '';
-          container.style.maxWidth = '';
-          container.style.transform = '';
-          container.style.transformOrigin = '';
-          container.style.marginBottom = '';
-        }
-      }
-
-      window.addEventListener('resize', handleMobileResponsiveness);
-      handleMobileResponsiveness();
-    });
-  </script>
-</body>
-
+                window.addEventListener("resize", handleMobileResponsiveness);
+                handleMobileResponsiveness();
+            });
+        </script>
+    </body>
 </html>

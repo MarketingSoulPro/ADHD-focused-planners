@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Buddy Planner User Manual</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #0b0b0f;
+                --card: #151520;
+                --card-soft: #1b1b28;
+                --border: #2a2a3a;
+                --text: #f4f4f7;
+                --muted: #a1a1b7;
+                --primary: #3a86ff;
+                --accent: #ff006e;
+                --success: #38b000;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: "Inter", sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.7;
+                padding: 32px 16px 48px;
+                display: flex;
+                justify-content: center;
+            }
+            .page {
+                width: 100%;
+                max-width: 1100px;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .hero {
+                text-align: center;
+                padding: 12px 0 24px;
+                border-bottom: 1px solid var(--border);
+            }
+            .hero img {
+                width: 116px;
+                height: 116px;
+                object-fit: contain;
+                margin-bottom: 10px;
+            }
+            h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 42px;
+                line-height: 1.15;
+                margin-bottom: 10px;
+            }
+            .subtitle {
+                max-width: 760px;
+                margin: 0 auto;
+                color: var(--muted);
+                font-size: 16px;
+            }
+            .top-actions {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-top: 18px;
+            }
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 44px;
+                padding: 11px 18px;
+                border-radius: 999px;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 14px;
+                transition:
+                    transform 0.18s ease,
+                    opacity 0.18s ease,
+                    border-color 0.18s ease;
+            }
+            .btn:hover {
+                transform: translateY(-1px);
+            }
+            .btn-primary {
+                background: var(--primary);
+                color: white;
+            }
+            .btn-secondary {
+                background: transparent;
+                border: 1px solid var(--border);
+                color: var(--text);
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 24px;
+            }
+            .card {
+                background: linear-gradient(
+                    180deg,
+                    var(--card) 0%,
+                    var(--card-soft) 100%
+                );
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 22px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+            }
+            h2 {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+            h3 {
+                font-size: 17px;
+                margin-bottom: 8px;
+            }
+            p,
+            li {
+                color: var(--muted);
+                font-size: 15px;
+            }
+            ul,
+            ol {
+                padding-left: 18px;
+            }
+            .stack {
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+            }
+            .screenshot {
+                width: 100%;
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                background: #101018;
+                overflow: hidden;
+            }
+            .screenshot img {
+                width: 100%;
+                display: block;
+                height: auto;
+            }
+            .caption {
+                padding: 10px 12px;
+                font-size: 13px;
+                color: var(--muted);
+                border-top: 1px solid var(--border);
+                background: rgba(255, 255, 255, 0.02);
+            }
+            .steps {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+            .step {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 16px;
+            }
+            .step-number {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(58, 134, 255, 0.14);
+                color: var(--primary);
+                font-weight: 800;
+                margin-bottom: 10px;
+            }
+            .tip {
+                border-left: 3px solid var(--success);
+                padding-left: 12px;
+            }
+            .faq-item {
+                padding: 14px 0;
+                border-top: 1px solid var(--border);
+            }
+            .faq-item:first-child {
+                border-top: none;
+            }
+            @media (max-width: 900px) {
+                .grid,
+                .steps {
+                    grid-template-columns: 1fr;
+                }
+                h1 {
+                    font-size: 34px;
+                }
+            }
+            @media (max-width: 560px) {
+                body {
+                    padding: 20px 10px 32px;
+                }
+                .card {
+                    padding: 16px;
+                    border-radius: 14px;
+                }
+                h1 {
+                    font-size: 28px;
+                }
+                h2 {
+                    font-size: 21px;
+                }
+                p,
+                li {
+                    font-size: 14px;
+                }
+                .subtitle {
+                    font-size: 14px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main class="page">
+            <section class="hero">
+                <img src="img/logo.png" alt="Buddy Planner logo" />
+                <h1>Buddy Planner User Manual</h1>
+                <p class="subtitle">
+                    Learn how to choose themes, open planner sheets, use the
+                    mobile tabs, work with the floating tools, and print your
+                    planners with the best results.
+                </p>
+                <div class="top-actions">
+                    <a class="btn btn-primary" href="index.html"
+                        >Back to Dashboard</a
+                    >
+                    <a class="btn btn-secondary" href="pages/daily-focus.html"
+                        >Open a Planner</a
+                    >
+                </div>
+            </section>
+
+            <section class="grid">
+                <div class="card stack">
+                    <div>
+                        <h2>Quick Start</h2>
+                        <p>
+                            The Buddy Planner dashboard lets you select a visual
+                            theme and open any printable planner sheet. On
+                            mobile, the interface includes theme tabs, planner
+                            navigation icons, and a floating tool button.
+                        </p>
+                    </div>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Choose a theme</h3>
+                            <p>
+                                Select a background style from the dashboard or
+                                from the in-planner theme controls.
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Open a sheet</h3>
+                            <p>
+                                Pick Daily, Weekly, Monthly, Brain Dump, Habit
+                                Tracker, Expense Tracker, or another sheet.
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Edit or mark items</h3>
+                            <p>
+                                Tap fields, checkboxes, icons, and planner areas
+                                to write, track, and organize your day.
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h3>Print or save PDF</h3>
+                            <p>
+                                Use the print button and enable background
+                                graphics for the best visual result.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card stack">
+                    <h2>Dashboard Overview</h2>
+                    <figure class="screenshot">
+                        <img
+                            src="img/Dashboard.png"
+                            alt="Buddy Planner Dashboard"
+                        />
+                        <figcaption class="caption">
+                            The main dashboard where you select your theme and
+                            planner sheet.
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section class="card stack">
+                <h2>Planner Sheets Gallery</h2>
+                <p>
+                    Explore the full suite of ADHD-focused planner sheets
+                    designed for different areas of your life.
+                </p>
+                <div class="steps">
+                    <div class="step">
+                        <h3>Daily Focus</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Daily Buddy.png"
+                                alt="Daily Focus Buddy"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Weekly Planner</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Weekly Planner.png"
+                                alt="Weekly Planner"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Monthly Planner</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Monthly planner.png"
+                                alt="Monthly Planner"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Brain Dump</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img src="img/Brain Dump.png" alt="Brain Dump" />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Habit Tracker</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Habbit Tracker.png"
+                                alt="Habit Tracker"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Expense Tracker</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Expense Tracker.png"
+                                alt="Expense Tracker"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Dopamine Menu</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Dopamine Menu.png"
+                                alt="Dopamine Menu"
+                            />
+                        </figure>
+                    </div>
+                    <div class="step">
+                        <h3>Quick Reminders</h3>
+                        <figure class="screenshot" style="margin-top: 8px">
+                            <img
+                                src="img/Quick Reminder.png"
+                                alt="Quick Reminder"
+                            />
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card stack">
+                <h2>Dashboard Guide</h2>
+                <p>
+                    The dashboard is the starting point for the planner suite.
+                    It is designed to help you quickly choose a visual style and
+                    open the exact planner sheet you need.
+                </p>
+                <ul>
+                    <li>
+                        <strong>Select Background Theme</strong> lets you pick
+                        one of the available design themes.
+                    </li>
+                    <li>
+                        <strong>Choose Planner Sheet</strong> opens the planner
+                        page you want to use.
+                    </li>
+                    <li>
+                        <strong>Current Theme</strong> shows the active theme
+                        name and color swatch.
+                    </li>
+                    <li>
+                        <strong>Printable</strong> badges indicate planner pages
+                        intended for printing or PDF export.
+                    </li>
+                </ul>
+            </section>
+
+            <section class="grid">
+                <div class="card stack">
+                    <h2>Using the Planner on Mobile</h2>
+                    <p>
+                        On mobile, the planner interface is optimized with tabs
+                        and compact controls.
+                    </p>
+                    <ol>
+                        <li>
+                            Tap <strong>Tools</strong> to open or close the
+                            floating tool button/toolbar.
+                        </li>
+                        <li>
+                            Tap <strong>Select Themes</strong> to open or close
+                            the mobile theme selector.
+                        </li>
+                        <li>
+                            Use the planner navigation icons to move between
+                            pages such as Daily, Weekly, Brain Dump, and Expense
+                            Tracker.
+                        </li>
+                        <li>
+                            Tap the month tabs to switch between months and
+                            update planner content.
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="card stack">
+                    <h2>Floating Tools</h2>
+                    <p>
+                        The floating tool button gives quick access to drawing
+                        and annotation tools. It starts minimized and can be
+                        expanded when needed.
+                    </p>
+                    <ul>
+                        <li>Pen for handwriting or marks</li>
+                        <li>Eraser for removing strokes</li>
+                        <li>Stickers/emojis for visual markers</li>
+                        <li>Color and size controls</li>
+                        <li>Undo and clear actions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card stack">
+                <h2>Printing Tips</h2>
+                <div class="tip">
+                    <p>
+                        For the best output, use your browser print dialog and
+                        make sure <strong>Background graphics</strong> is
+                        enabled.
+                    </p>
+                </div>
+                <ul>
+                    <li>Destination: save as PDF or select your printer</li>
+                    <li>Layout: portrait</li>
+                    <li>Paper size: Letter or A4</li>
+                    <li>Margins: none or default, depending on your printer</li>
+                    <li>Check preview before printing multiple pages</li>
+                </ul>
+            </section>
+
+            <section class="card stack">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>Will my selected theme stay active?</h3>
+                    <p>
+                        Yes. The selected theme is stored locally in your
+                        browser and should remain active when you reopen the
+                        app.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use the planner without printing?</h3>
+                    <p>
+                        Yes. You can interact with planner pages digitally, then
+                        print or export when ready.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>Why do theme colors not appear in print preview?</h3>
+                    <p>
+                        Enable <strong>Background graphics</strong> in your
+                        browser print settings before printing or saving to PDF.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
