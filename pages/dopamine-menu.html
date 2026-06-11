@@ -646,9 +646,25 @@
         </div>
     </body>
     <script>
-        // Small helper: copy selected option text into the adjacent editable field,
-        // support a "clear row" option (text containing 'clear') and reset the select.
+        // Persist dopamine menu entries to localStorage and wire select->editable behavior.
         (function(){
+            const STORAGE_KEY = 'dopamineMenuData';
+
+            function saveAll(){
+                const arr = Array.from(document.querySelectorAll('.dopamine-text')).map(el=>el.innerText || '');
+                try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e){}
+            }
+
+            function loadAll(){
+                try{
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if(!raw) return;
+                    const arr = JSON.parse(raw);
+                    const els = Array.from(document.querySelectorAll('.dopamine-text'));
+                    els.forEach((el,i)=>{ if(typeof arr[i] === 'string') el.innerText = arr[i]; });
+                } catch(e){}
+            }
+
             function handleSelectChange(e){
                 const sel = e.target;
                 const row = sel.closest('.dopamine-row');
@@ -662,16 +678,16 @@
                 } else if(label){
                     if(text) text.innerText = label;
                 }
-                // reset select back to the plus prompt
                 try{ sel.selectedIndex = 0; } catch(err){}
                 if(text) text.focus();
+                saveAll();
             }
 
             document.addEventListener('DOMContentLoaded', function(){
                 document.querySelectorAll('.dopamine-select').forEach(function(sel){
                     sel.addEventListener('change', handleSelectChange);
                 });
-                // allow Enter/Comma to commit contenteditable text to localStorage quickly
+
                 document.querySelectorAll('.dopamine-text').forEach(function(el){
                     el.addEventListener('keydown', function(ev){
                         if(ev.key === 'Enter'){
@@ -679,7 +695,10 @@
                             el.blur();
                         }
                     });
+                    el.addEventListener('input', function(){ saveAll(); });
                 });
+
+                loadAll();
             });
         })();
     </script>
