@@ -437,14 +437,15 @@
                     if(!raw) return;
                     const arr = JSON.parse(raw);
                     const els = Array.from(document.querySelectorAll('.dopamine-text'));
-                    if (arr.length !== els.length) {
+                    // Force clear old data on structure change (selects → checkboxes)
+                    const version = localStorage.getItem('dopamineMenuVersion');
+                    if (version !== '2.0') {
                         localStorage.removeItem(STORAGE_KEY);
                         localStorage.removeItem(CHECK_KEY);
+                        localStorage.setItem('dopamineMenuVersion', '2.0');
                         return;
                     }
-                    // If saved data is mostly empty, it's stale — discard it
-                    const nonEmpty = arr.filter(v => v && typeof v === 'string' && v.trim()).length;
-                    if (nonEmpty === 0) {
+                    if (arr.length !== els.length) {
                         localStorage.removeItem(STORAGE_KEY);
                         localStorage.removeItem(CHECK_KEY);
                         return;
