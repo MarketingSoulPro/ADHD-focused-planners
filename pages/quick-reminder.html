@@ -227,13 +227,32 @@
                                 placeholder="What do you need to remember?"
                             />
                         </div>
-                        <div class="qr-input-group">
-                            <label class="qr-label">Date</label>
-                            <input type="date" id="qr-date" class="qr-input" />
+                        <div class="qr-dt-wrap">
+                            <label class="qr-label"><span class="dt-icon">📅</span> Date</label>
+                            <input type="hidden" id="qr-date" />
+                            <div class="qr-dt-trigger" id="qr-date-trigger" data-type="date">
+                                <span class="qr-dt-value" id="qr-date-display">Today</span>
+                                <span class="qr-dt-arrow">▾</span>
+                            </div>
+                            <div class="qr-dt-dropdown" id="qr-date-dropdown">
+                                <div class="qr-dt-nav">
+                                    <span class="qr-dt-nav-btn" id="qr-month-prev">◂</span>
+                                    <span class="qr-dt-nav-label" id="qr-month-label"></span>
+                                    <span class="qr-dt-nav-btn" id="qr-month-next">▸</span>
+                                </div>
+                                <div class="qr-dt-grid" id="qr-date-grid"></div>
+                            </div>
                         </div>
-                        <div class="qr-input-group">
-                            <label class="qr-label">Time</label>
-                            <input type="time" id="qr-time" class="qr-input" />
+                        <div class="qr-dt-wrap">
+                            <label class="qr-label"><span class="dt-icon">⏰</span> Time</label>
+                            <input type="hidden" id="qr-time" />
+                            <div class="qr-dt-trigger" id="qr-time-trigger" data-type="time">
+                                <span class="qr-dt-value" id="qr-time-display">Now</span>
+                                <span class="qr-dt-arrow">▾</span>
+                            </div>
+                            <div class="qr-dt-dropdown" id="qr-time-dropdown">
+                                <div class="qr-dt-grid" id="qr-time-grid"></div>
+                            </div>
                         </div>
                         <div class="qr-input-group">
                             <label class="qr-label">Repeat</label>
@@ -288,10 +307,185 @@
                 const timeInp = document.getElementById("qr-time");
                 const repeatInp = document.getElementById("qr-repeat");
 
-                let editingId = null;
+                const dateTrigger = document.getElementById("qr-date-trigger");
+                const timeTrigger = document.getElementById("qr-time-trigger");
+                const dateDisplay = document.getElementById("qr-date-display");
+                const timeDisplay = document.getElementById("qr-time-display");
+                const dateDropdown = document.getElementById("qr-date-dropdown");
+                const timeDropdown = document.getElementById("qr-time-dropdown");
+                const dateGrid = document.getElementById("qr-date-grid");
+                const timeGrid = document.getElementById("qr-time-grid");
+                const monthLabel = document.getElementById("qr-month-label");
+                const monthPrev = document.getElementById("qr-month-prev");
+                const monthNext = document.getElementById("qr-month-next");
 
-                // Setup Default Date
-                dateInp.value = new Date().toISOString().split("T")[0];
+                let editingId = null;
+                let calendarMonth = new Date().getMonth();
+                let calendarYear = new Date().getFullYear();
+
+                // ----- Date dropdown -----
+                function buildDateGrid(year, month) {
+                    const today = new Date();
+                    const first = new Date(year, month, 1).getDay();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const daysInPrev = new Date(year, month, 0).getDate();
+                    const selected = dateInp.value ? new Date(dateInp.value + "T00:00") : null;
+
+                    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                    monthLabel.textContent = months[month] + " " + year;
+
+                    let html = "";
+                    ["Su","Mo","Tu","We","Th","Fr","Sa"].forEach(d => html += `<div class="qr-dow">${d}</div>`);
+
+                    // Prev month days
+                    for (let i = first - 1; i >= 0; i--) {
+                        const d = daysInPrev - i;
+                        const m = month === 0 ? 11 : month - 1;
+                        const y = month === 0 ? year - 1 : year;
+                        html += `<div class="qr-dt-pill other-month" data-date="${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}">${d}</div>`;
+                    }
+
+                    // Current month days
+                    for (let d = 1; d <= daysInMonth; d++) {
+                        const dateStr = year + "-" + String(month+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+                        const dow = new Date(year, month, d).getDay();
+                        const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                        const isSelected = selected && d === selected.getDate() && month === selected.getMonth() && year === selected.getFullYear();
+                        let cls = "qr-dt-pill";
+                        if (isToday) cls += " today";
+                        if (isSelected) cls += " selected";
+                        html += `<div class="${cls}" data-day="${dow}" data-date="${dateStr}">${d}</div>`;
+                    }
+
+                    // Next month days to fill last row
+                    const totalCells = first + daysInMonth;
+                    const remaining = (7 - totalCells % 7) % 7;
+                    for (let d = 1; d <= remaining; d++) {
+                        const m = month === 11 ? 0 : month + 1;
+                        const y = month === 11 ? year + 1 : year;
+                        html += `<div class="qr-dt-pill other-month" data-date="${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}">${d}</div>`;
+                    }
+
+                    dateGrid.innerHTML = html;
+                }
+
+                function openDateDropdown() {
+                    closeAllDropdowns();
+                    const d = dateInp.value ? new Date(dateInp.value + "T00:00") : new Date();
+                    calendarMonth = d.getMonth();
+                    calendarYear = d.getFullYear();
+                    buildDateGrid(calendarYear, calendarMonth);
+                    dateDropdown.classList.add("open");
+                    dateTrigger.classList.add("open");
+                }
+
+                dateTrigger.onclick = (e) => {
+                    e.stopPropagation();
+                    if (dateDropdown.classList.contains("open")) {
+                        dateDropdown.classList.remove("open");
+                        dateTrigger.classList.remove("open");
+                    } else {
+                        openDateDropdown();
+                    }
+                };
+
+                dateGrid.onclick = (e) => {
+                    const pill = e.target.closest(".qr-dt-pill");
+                    if (!pill) return;
+                    const val = pill.dataset.date;
+                    dateInp.value = val;
+                    const d = new Date(val + "T00:00");
+                    dateDisplay.textContent = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                    dateDropdown.classList.remove("open");
+                    dateTrigger.classList.remove("open");
+                };
+
+                monthPrev.onclick = (e) => {
+                    e.stopPropagation();
+                    calendarMonth--;
+                    if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
+                    buildDateGrid(calendarYear, calendarMonth);
+                };
+
+                monthNext.onclick = (e) => {
+                    e.stopPropagation();
+                    calendarMonth++;
+                    if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+                    buildDateGrid(calendarYear, calendarMonth);
+                };
+
+                // ----- Time dropdown -----
+                function buildTimeGrid() {
+                    const selected = timeInp.value || "";
+                    let html = "";
+                    for (let h = 0; h < 24; h++) {
+                        for (let m = 0; m < 60; m += 30) {
+                            const val = String(h).padStart(2,"0") + ":" + String(m).padStart(2,"0");
+                            const display = h === 0 ? "12:" + String(m).padStart(2,"0") + " AM"
+                                          : h < 12 ? h + ":" + String(m).padStart(2,"0") + " AM"
+                                          : h === 12 ? "12:" + String(m).padStart(2,"0") + " PM"
+                                          : (h-12) + ":" + String(m).padStart(2,"0") + " PM";
+                            const isSelected = val === selected;
+                            html += `<div class="qr-dt-pill${isSelected ? " selected" : ""}" data-time="${val}">${display.replace(" ","&nbsp;")}</div>`;
+                        }
+                    }
+                    timeGrid.innerHTML = html;
+                }
+
+                function openTimeDropdown() {
+                    closeAllDropdowns();
+                    buildTimeGrid();
+                    timeDropdown.classList.add("open");
+                    timeTrigger.classList.add("open");
+                }
+
+                timeTrigger.onclick = (e) => {
+                    e.stopPropagation();
+                    if (timeDropdown.classList.contains("open")) {
+                        timeDropdown.classList.remove("open");
+                        timeTrigger.classList.remove("open");
+                    } else {
+                        openTimeDropdown();
+                    }
+                };
+
+                timeGrid.onclick = (e) => {
+                    const pill = e.target.closest(".qr-dt-pill");
+                    if (!pill) return;
+                    const val = pill.dataset.time;
+                    timeInp.value = val;
+                    const [h, m] = val.split(":").map(Number);
+                    const ampm = h >= 12 ? "PM" : "AM";
+                    const hr = h % 12 || 12;
+                    timeDisplay.textContent = hr + ":" + String(m).padStart(2,"0") + " " + ampm;
+                    timeDropdown.classList.remove("open");
+                    timeTrigger.classList.remove("open");
+                };
+
+                function closeAllDropdowns() {
+                    dateDropdown.classList.remove("open");
+                    dateTrigger.classList.remove("open");
+                    timeDropdown.classList.remove("open");
+                    timeTrigger.classList.remove("open");
+                }
+
+                document.addEventListener("click", (e) => {
+                    if (!e.target.closest(".qr-dt-wrap")) closeAllDropdowns();
+                });
+
+                // Init default
+                {
+                    const now = new Date();
+                    dateInp.value = now.toISOString().split("T")[0];
+                    dateDisplay.textContent = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                    const h = now.getHours(), m = now.getMinutes();
+                    const rounded = m < 30 ? "00" : "30";
+                    const val = String(h).padStart(2,"0") + ":" + rounded;
+                    timeInp.value = val;
+                    const ampm = h >= 12 ? "PM" : "AM";
+                    const hr = h % 12 || 12;
+                    timeDisplay.textContent = hr + ":" + rounded + " " + ampm;
+                }
 
                 // Load data independently so this page manages itself beautifully
                 let reminders = JSON.parse(
@@ -361,6 +555,7 @@
                 }
 
                 addBtn.addEventListener("click", () => {
+                    getAlarmAudioCtx(); // pre-warm AudioContext under user gesture
                     const note = noteInp.value.trim();
                     if (!note) return alert("Please enter a note");
 
@@ -437,7 +632,220 @@
                 });
 
                 render();
+                startAlarmChecker();
             });
+
+            // ----- Alarm / Notification Engine -----
+            let alarmTimer = null;
+            let alarmAudioCtx = null;
+            const FIRED_IDS_KEY = "planner-alarms-fired";
+            const CHECK_INTERVAL = 15_000; // 15 seconds
+
+            function getAlarmAudioCtx() {
+                if (!alarmAudioCtx) {
+                    try {
+                        const AC = window.AudioContext || window.webkitAudioContext;
+                        if (!AC) return null;
+                        alarmAudioCtx = new AC();
+                    } catch (e) { return null; }
+                }
+                if (alarmAudioCtx.state === "suspended") {
+                    alarmAudioCtx.resume();
+                }
+                return alarmAudioCtx;
+            }
+
+            function getFiredIds() {
+                try {
+                    return JSON.parse(localStorage.getItem(FIRED_IDS_KEY) || "[]");
+                } catch { return []; }
+            }
+
+            function markFired(id) {
+                const set = new Set(getFiredIds());
+                set.add(id);
+                localStorage.setItem(FIRED_IDS_KEY, JSON.stringify([...set]));
+            }
+
+            let alarmSoundTimer = null;
+            let alarmModal = null;
+
+            function playAlarmSound() {
+                const ctx = getAlarmAudioCtx();
+                if (!ctx) {
+                    if (window.playPopSound) { window.playPopSound(true); window.playPopSound(true); }
+                    return;
+                }
+                try {
+                    const notes = [880, 660, 880, 660, 880];
+                    notes.forEach((freq, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = "sine";
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.2);
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.2 + 0.18);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime + i * 0.2);
+                        osc.stop(ctx.currentTime + i * 0.2 + 0.2);
+                    });
+                } catch (e) { /* audio not available */ }
+            }
+
+            function startAlarmLoop() {
+                playAlarmSound();
+                alarmSoundTimer = setInterval(playAlarmSound, 1500);
+            }
+
+            function stopAlarmLoop() {
+                if (alarmSoundTimer) {
+                    clearInterval(alarmSoundTimer);
+                    alarmSoundTimer = null;
+                }
+            }
+
+            function dismissAlarm() {
+                stopAlarmLoop();
+                if (alarmModal && alarmModal.parentNode) {
+                    alarmModal.parentNode.removeChild(alarmModal);
+                }
+                alarmModal = null;
+            }
+
+            function showAlarmNotification(reminder) {
+                if (alarmModal) return; // already showing one
+
+                startAlarmLoop();
+
+                // Browser notification
+                if ("Notification" in window && Notification.permission === "granted") {
+                    new Notification("⏰ Reminder!", { body: reminder.note });
+                }
+
+                // Centered modal overlay
+                const overlay = document.createElement("div");
+                overlay.className = "alarm-overlay";
+                overlay.innerHTML = `
+                    <div class="alarm-modal">
+                        <div class="alarm-icon-wrap">⏰</div>
+                        <div class="alarm-title">Reminder</div>
+                        <div class="alarm-note">${reminder.note}</div>
+                        <div class="alarm-dateline">${reminder.date}${reminder.time ? ' at ' + reminder.time : ''}</div>
+                        <button class="alarm-dismiss-btn">Dismiss</button>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                alarmModal = overlay;
+
+                overlay.querySelector(".alarm-dismiss-btn").onclick = (e) => {
+                    e.stopPropagation();
+                    dismissAlarm();
+                };
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) dismissAlarm();
+                };
+            }
+
+            function checkAlarms() {
+                const reminders = JSON.parse(
+                    localStorage.getItem("planner-quick-reminders") || "[]"
+                );
+                const firedIds = new Set(getFiredIds());
+                const now = new Date();
+                const today = now.toISOString().split("T")[0];
+                const currentMin = now.getHours() * 60 + now.getMinutes();
+
+                reminders.forEach((rem) => {
+                    if (rem.completed) return;
+                    if (firedIds.has(rem.id)) return;
+
+                    // Check if the reminder's date matches today (or has passed) and time matches within 1 minute
+                    const remDate = rem.date || today;
+                    if (remDate > today) return; // future date, not yet
+
+                    if (rem.time) {
+                        const [h, m] = rem.time.split(":").map(Number);
+                        const remMin = h * 60 + m;
+                        if (Math.abs(currentMin - remMin) > 2) return;
+                    }
+
+                    showAlarmNotification(rem);
+                    markFired(rem.id);
+                });
+            }
+
+            function startAlarmChecker() {
+                // Request notification permission
+                if ("Notification" in window && Notification.permission === "default") {
+                    Notification.requestPermission();
+                }
+                checkAlarms();
+                alarmTimer = setInterval(checkAlarms, CHECK_INTERVAL);
+            }
         </script>
+        <!-- Alarm modal styles -->
+        <style>
+            .alarm-overlay {
+                position: fixed; inset: 0; z-index: 10002;
+                background: rgba(11,11,15,0.7);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                display: flex; align-items: center; justify-content: center;
+                padding: 20px;
+                animation: alarmFadeIn 0.3s ease;
+            }
+            @keyframes alarmFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+            .alarm-modal {
+                background: var(--bg-card, #12121a);
+                border: 1px solid rgba(255,200,50,0.35);
+                border-radius: 24px;
+                padding: 36px 32px 28px;
+                max-width: 380px;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+                animation: alarmPopup 0.4s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+                position: relative;
+            }
+            @keyframes alarmPopup {
+                from { transform: scale(0.7) translateY(20px); opacity: 0; }
+                to   { transform: scale(1) translateY(0); opacity: 1; }
+            }
+
+            .alarm-icon-wrap {
+                font-size: 48px; line-height: 1; margin-bottom: 8px;
+                animation: alarmPulse 1.2s ease-in-out infinite;
+            }
+            @keyframes alarmPulse {
+                0%, 100% { transform: scale(1); }
+                50%      { transform: scale(1.15); }
+            }
+
+            .alarm-title {
+                font-size: 18px; font-weight: 700; color: #fff;
+                margin-bottom: 8px;
+            }
+            .alarm-note {
+                font-size: 14px; color: var(--text-main, #d0d0e0);
+                margin-bottom: 4px; line-height: 1.4;
+            }
+            .alarm-dateline {
+                font-size: 11px; color: var(--text-sub, #9090a5);
+                margin-bottom: 20px;
+            }
+            .alarm-dismiss-btn {
+                padding: 8px 28px; border: 1px solid var(--border-color, #333);
+                border-radius: 10px; background: rgba(255,200,50,0.08);
+                color: var(--text-main, #ddd); font-size: 13px; font-weight: 600;
+                cursor: pointer; transition: all 0.15s ease; font-family: inherit;
+            }
+            .alarm-dismiss-btn:hover {
+                background: rgba(255,200,50,0.18);
+                border-color: rgba(255,200,50,0.5);
+                color: #fff;
+            }
+        </style>
     </body>
 </html>

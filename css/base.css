@@ -1657,6 +1657,15 @@ body {
     color: var(--accent-1);
 }
 
+.dopamine-section-subtitle {
+    font-size: 7.5px;
+    color: var(--text-sub, #9090a5);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-light, #222);
+    letter-spacing: 0.2px;
+}
+
 .dopamine-section .lined-area {
     flex: 1;
     background: repeating-linear-gradient(
@@ -1773,11 +1782,272 @@ body {
     font-size: 11px;
     color: var(--text-primary);
     outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .qr-input:focus {
     border-color: var(--accent-1);
+    box-shadow: 0 0 0 2px rgba(58,134,255,0.12);
 }
+
+/* Date & time dropdown — exact month-tab match */
+.qr-dt-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.qr-dt-wrap .qr-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+.qr-dt-wrap .qr-label .dt-icon {
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Trigger — exact copy of .month-tab */
+.qr-dt-trigger {
+    width: auto;
+    min-width: 50px;
+    max-width: 52px;
+    padding: 8px 8px;
+    font-family: var(--body-font);
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.qr-dt-trigger[data-type="date"] {
+    background: var(--tab-mar, #4a6fa5);
+}
+
+.qr-dt-trigger[data-type="time"] {
+    background: var(--tab-nov, #7a5c8a);
+}
+
+.qr-dt-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
+}
+
+.qr-dt-trigger.open {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
+}
+
+.qr-dt-arrow {
+    font-size: 5px;
+    opacity: 0.7;
+    transition: transform 0.2s;
+    margin-top: 1px;
+}
+
+.qr-dt-trigger.open .qr-dt-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown panel — glossy glassmorphism, adapts to theme */
+.qr-dt-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    margin-top: 6px;
+    min-width: 200px;
+    border-radius: 10px;
+    padding: 8px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    animation: qrDtFadeIn 0.15s ease;
+}
+
+/* Fallback if backdrop-filter unsupported */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .qr-dt-dropdown { background: #000; border-color: #000; box-shadow: 0 3px 8px rgba(0,0,0,0.18); }
+}
+
+/* Glossy tint overlay — pulls trigger's theme colour into the glass */
+.qr-dt-dropdown::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+#qr-date-dropdown::before {
+    background: linear-gradient(135deg, var(--tab-mar) 0%, transparent 60%);
+}
+
+#qr-time-dropdown::before {
+    background: linear-gradient(135deg, var(--tab-nov) 0%, transparent 60%);
+}
+
+.qr-dt-dropdown.open {
+    display: block;
+}
+
+@keyframes qrDtFadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-3px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Month navigation */
+.qr-dt-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.qr-dt-nav-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+.qr-dt-nav-btn {
+    font-size: 8px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    color: rgba(255,255,255,0.5);
+    user-select: none;
+    transition: all 0.15s;
+}
+
+.qr-dt-nav-btn:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+}
+
+/* Day grid */
+.qr-dt-grid {
+    display: grid;
+    gap: 3px;
+}
+
+#qr-date-grid {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+#qr-time-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 170px;
+    overflow-y: auto;
+}
+
+/* DOW headers */
+.qr-dow {
+    font-size: 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 3px 0;
+}
+
+/* Pills — exact .month-tab sizes */
+.qr-dt-pill {
+    width: auto;
+    min-width: 24px;
+    padding: 5px 2px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--body-font);
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transition: all 0.15s ease;
+    user-select: none;
+    line-height: 1;
+}
+
+.qr-dt-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.qr-dt-pill.selected {
+    outline: 2px solid rgba(255,255,255,0.4);
+    outline-offset: 1px;
+}
+
+.qr-dt-pill.other-month {
+    opacity: 0.3;
+}
+
+.qr-dt-pill.today {
+    outline: 1px solid rgba(255,255,255,0.25);
+    outline-offset: 1px;
+}
+
+/* Time pills */
+#qr-time-grid .qr-dt-pill {
+    background: rgba(255,255,255,0.06);
+    font-size: 7px;
+    padding: 6px 2px;
+    min-width: 0;
+}
+
+#qr-time-grid .qr-dt-pill:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+#qr-time-grid .qr-dt-pill.selected {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Day pill colors — like month tabs */
+.qr-dt-pill[data-day="0"] { background: var(--tab-jan, #c0392b); }
+.qr-dt-pill[data-day="1"] { background: var(--tab-feb, #e67e22); }
+.qr-dt-pill[data-day="2"] { background: var(--tab-mar, #f1c40f); }
+.qr-dt-pill[data-day="3"] { background: var(--tab-apr, #2ecc71); }
+.qr-dt-pill[data-day="4"] { background: var(--tab-may, #1abc9c); }
+.qr-dt-pill[data-day="5"] { background: var(--tab-jun, #3498db); }
+.qr-dt-pill[data-day="6"] { background: var(--tab-jul, #9b59b6); }
 
 .qr-btn {
     background: var(--accent-1);
@@ -3442,6 +3712,25 @@ body {
     border-color: var(--accent-1);
     color: var(--accent-1);
     background: var(--bg-primary);
+}
+
+.dopamine-checkbox {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    accent-color: var(--accent-1, #3a86ff);
+    cursor: pointer;
+    margin: 0;
+    transition: transform 0.15s ease;
+}
+
+.dopamine-checkbox:hover {
+    transform: scale(1.15);
+}
+
+.dopamine-checkbox:checked + .dopamine-text {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .dopamine-text {
