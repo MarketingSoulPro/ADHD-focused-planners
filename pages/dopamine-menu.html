@@ -645,4 +645,42 @@
             </div>
         </div>
     </body>
+    <script>
+        // Small helper: copy selected option text into the adjacent editable field,
+        // support a "clear row" option (text containing 'clear') and reset the select.
+        (function(){
+            function handleSelectChange(e){
+                const sel = e.target;
+                const row = sel.closest('.dopamine-row');
+                if(!row) return;
+                const text = row.querySelector('.dopamine-text');
+                const opt = sel.options[sel.selectedIndex];
+                if(!opt) return;
+                const label = (opt.text || '').trim();
+                if(/clear/i.test(label)){
+                    if(text) text.innerText = '';
+                } else if(label){
+                    if(text) text.innerText = label;
+                }
+                // reset select back to the plus prompt
+                try{ sel.selectedIndex = 0; } catch(err){}
+                if(text) text.focus();
+            }
+
+            document.addEventListener('DOMContentLoaded', function(){
+                document.querySelectorAll('.dopamine-select').forEach(function(sel){
+                    sel.addEventListener('change', handleSelectChange);
+                });
+                // allow Enter/Comma to commit contenteditable text to localStorage quickly
+                document.querySelectorAll('.dopamine-text').forEach(function(el){
+                    el.addEventListener('keydown', function(ev){
+                        if(ev.key === 'Enter'){
+                            ev.preventDefault();
+                            el.blur();
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
 </html>

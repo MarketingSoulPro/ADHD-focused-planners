@@ -3486,3 +3486,21 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Dopamine menu small tweaks */
+.dopamine-select {
+    min-width: 28px;
+    padding: 0 6px;
+}
+.dopamine-select:focus {
+    outline: 2px solid rgba(0,0,0,0.08);
+}
+.dopamine-text:empty:before {
+    content: "Add note";
+    color: var(--text-muted);
+    font-style: italic;
+    pointer-events: none;
+}
+.dopamine-text:focus:before {
+    content: "";
+}
