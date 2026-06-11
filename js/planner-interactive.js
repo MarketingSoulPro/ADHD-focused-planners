@@ -675,23 +675,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     if (dateStringEl) {
-      if (pageId === "weekly-overview") {
-        // Find Monday of the week
-        const day = d.getDay();
-        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-        const monday = new Date(d.getFullYear(), d.getMonth(), diff);
-        const wday = weekdaysShort[monday.getDay()];
-        const mday = monday.getDate();
-        const mname = monthsShort[monday.getMonth()];
-        const year = monday.getFullYear();
-        dateStringEl.textContent = `${wday}, ${mday} ${mname} ${year}`;
-      } else {
-        const wday = weekdaysShort[d.getDay()];
-        const mday = d.getDate();
-        const mname = monthsShort[d.getMonth()];
-        const year = d.getFullYear();
-        dateStringEl.textContent = `${wday}, ${mday} ${mname} ${year}`;
-      }
+      const wday = weekdaysShort[d.getDay()];
+      const mday = d.getDate();
+      const mname = monthsShort[d.getMonth()];
+      const year = d.getFullYear();
+      dateStringEl.textContent = `${wday}, ${mday} ${mname} ${year}`;
     }
 
     const selectedDateDisplay = document.getElementById(
