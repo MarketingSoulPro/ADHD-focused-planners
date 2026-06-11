@@ -454,11 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
       habitTrackerMonth.innerHTML = `Month of: ${fullMonthName}`;
     }
 
-    // 4. Update Monthly Calendar Year
-    const monthlyYear = document.querySelector(".monthly-year");
-    if (monthlyYear) {
-      monthlyYear.innerHTML = `Year: ${selectedYear}`;
-    }
   }
 
   function getMonthIndex(monthKey) {
