@@ -842,7 +842,7 @@ body {
 .time-slot {
     display: flex;
     align-items: center;
-    height: 22px;
+    height: 29px;
     border-bottom: 1px dotted var(--border-dotted);
 }
 
@@ -874,7 +874,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    height: 24px;
+    height: 31px;
     border-bottom: 1px solid var(--border-light);
     padding: 2px 0;
 }
@@ -907,7 +907,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    height: 22px;
+    height: 29px;
     border-bottom: 1px solid var(--border-light);
     padding: 2px 0;
 }
@@ -1276,7 +1276,7 @@ body {
 }
 
 .cal-cell {
-    min-height: 62px;
+    min-height: 81px;
     border-bottom: 1px solid var(--border-light);
     border-right: 1px solid var(--border-light);
     padding: 3px 4px;
@@ -1389,9 +1389,9 @@ body {
     flex: 1;
     background: repeating-linear-gradient(
         transparent,
-        transparent 20px,
-        var(--border-light) 20px,
-        var(--border-light) 20.5px
+        transparent 26px,
+        var(--border-light) 26px,
+        var(--border-light) 26.5px
     );
     min-height: 150px;
 }
@@ -1520,7 +1520,7 @@ body {
     border: 1px solid var(--border-light);
     padding: 0;
     text-align: center;
-    height: 18px;
+    height: 23px;
     cursor: pointer;
     position: relative;
 }
@@ -1565,9 +1565,9 @@ body {
 .summary-lines {
     background: repeating-linear-gradient(
         transparent,
-        transparent 16px,
-        var(--border-light) 16px,
-        var(--border-light) 16.5px
+        transparent 21px,
+        var(--border-light) 21px,
+        var(--border-light) 21.5px
     );
     min-height: 50px;
 }
@@ -1660,7 +1660,7 @@ body {
 .dopamine-section-subtitle {
     font-size: 8px;
     font-weight: 500;
-    color: var(--text-sub, #b0b0c0);
+    color: var(--text-secondary);
     margin-bottom: 6px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--border-light, #333);
@@ -1670,12 +1670,6 @@ body {
 
 .dopamine-section .lined-area {
     flex: 1;
-    background: repeating-linear-gradient(
-        transparent,
-        transparent 22px,
-        var(--border-light) 22px,
-        var(--border-light) 22.5px
-    );
     min-height: 100px;
 }
 
@@ -3724,7 +3718,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 26px;
+    height: 34px;
     border-bottom: 1px solid var(--border-light);
     padding: 0 4px;
 }
