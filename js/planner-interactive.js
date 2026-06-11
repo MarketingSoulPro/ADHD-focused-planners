@@ -445,13 +445,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Update Monthly Calendar Title
     const monthlyTitle = document.querySelector(".monthly-title");
     if (monthlyTitle) {
-      monthlyTitle.innerHTML = `Month of ${fullMonthName}`;
+      monthlyTitle.innerHTML = `Month of ${fullMonthName} ${selectedYear}`;
     }
 
     // 2. Update Habit Tracker Month
     const habitTrackerMonth = document.querySelector(".habit-tracker-month");
     if (habitTrackerMonth) {
-      habitTrackerMonth.innerHTML = `Month of: ${fullMonthName}`;
+      habitTrackerMonth.innerHTML = `Month of: ${fullMonthName} ${selectedYear}`;
     }
 
   }
