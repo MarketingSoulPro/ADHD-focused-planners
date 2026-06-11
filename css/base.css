@@ -3526,3 +3526,44 @@ body {
     color: var(--text-muted);
     margin-left: 6px;
 }
+
+/* Backup list */
+.backup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    max-height: 160px;
+    overflow: auto;
+}
+.backup-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 13px;
+}
+.backup-item button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.backup-controls .clear-all {
+    background: #b00020;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: white;
+}
+
+/* focus outlines for accessibility */
+button:focus, .backup-item button:focus {
+    outline: 3px solid rgba(58,134,255,0.25);
+    outline-offset: 2px;
+}

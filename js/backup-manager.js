@@ -57,6 +57,27 @@
     return false;
   }
 
+  function listBackups(){
+    return getBackups().map(b=>({ts:b.ts, size: Array.isArray(b.data)?b.data.length:0}));
+  }
+
+  function restoreByIndex(idx){
+    const backups = getBackups();
+    if(!backups || idx < 0 || idx >= backups.length) return false;
+    const target = backups[idx];
+    if(target && target.data){
+      const els = queryFields();
+      els.forEach((el,i)=>{ el.innerText = target.data[i]||''; });
+      saveAll();
+      return true;
+    }
+    return false;
+  }
+
+  function clearBackupsAndData(){
+    try{ localStorage.removeItem(BACKUP_KEY); localStorage.removeItem(STORAGE_KEY); } catch(e){}
+  }
+
   function exportJSON(){
     try{
       const arr = queryFields().map(el=>el.innerText||'');
@@ -137,6 +158,41 @@
     if(exportBtn) exportBtn.addEventListener('click', function(){ const ok = exportJSON(); if(indicatorEl) indicatorEl.innerText = ok ? 'Exported JSON' : 'Export failed'; setTimeout(()=>indicatorEl && (indicatorEl.innerText='Autosave: idle'),1000); });
     if(importBtn && importFile) importBtn.addEventListener('click', function(){ importFile.click(); });
     if(importFile) importFile.addEventListener('change', function(ev){ const f = ev.target.files && ev.target.files[0]; if(f) importJSONFromFile(f, indicatorEl); importFile.value=''; });
+
+    // clear all
+    const clearAll = document.getElementById('clear-all');
+    if(clearAll) clearAll.addEventListener('click', function(){ clearBackupsAndData(); // clear UI fields
+      const els = queryFields(); els.forEach(el=>el.innerText='');
+      // refresh backup list UI if present
+      renderBackupList();
+      if(indicatorEl) indicatorEl.innerText='Cleared all saved data'; setTimeout(()=>indicatorEl && (indicatorEl.innerText='Autosave: idle'),1000);
+    });
+
+    // render backup list UI
+    function renderBackupList(){
+      const listEl = document.getElementById('backup-list');
+      if(!listEl) return;
+      listEl.innerHTML = '';
+      const backups = getBackups();
+      if(!backups || backups.length===0){ listEl.innerHTML = '<div class="backup-item">No backups</div>'; return; }
+      backups.forEach((b, i)=>{
+        const item = document.createElement('div'); item.className='backup-item'; item.setAttribute('role','listitem');
+        const date = new Date(b.ts);
+        const left = document.createElement('div'); left.textContent = `${date.toLocaleString()} (${(b.data||[]).length} items)`;
+        const right = document.createElement('div');
+        const btn = document.createElement('button'); btn.textContent='Restore'; btn.setAttribute('aria-label',`Restore backup ${i+1}`);
+        btn.addEventListener('click', function(){ const ok = restoreByIndex(i); if(indicatorEl) indicatorEl.innerText = ok ? 'Restored backup' : 'Restore failed'; setTimeout(()=>indicatorEl && (indicatorEl.innerText='Autosave: idle'),1000); });
+        right.appendChild(btn);
+        item.appendChild(left); item.appendChild(right);
+        listEl.appendChild(item);
+      });
+    }
+
+    // initial render
+    renderBackupList();
+
+    // expose new API
+    window.BackupManager = Object.assign(window.BackupManager||{}, { listBackups, restoreByIndex, clearBackupsAndData });
 
     // expose API
     window.BackupManager = {
