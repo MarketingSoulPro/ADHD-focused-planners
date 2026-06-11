@@ -797,6 +797,7 @@
                 }
             }
         </style>
+        <script src="js/backup-manager.js" defer></script>
     </head>
 
     <body>
@@ -858,6 +859,16 @@
                     style="width: 20px; height: 20px"
                 ></div>
             </div>
+
+                <!-- App-level Backup Controls -->
+                <div class="backup-controls" style="justify-self: start;">
+                    <button id="backup-now">Backup Now</button>
+                    <button id="restore-latest">Restore Latest</button>
+                    <button id="export-json">Export JSON</button>
+                    <button id="import-json">Import JSON</button>
+                    <input id="import-file" type="file" accept="application/json" style="display:none" />
+                    <span class="autosave-indicator" id="autosave-indicator">Autosave: idle</span>
+                </div>
 
             <!-- Main Content Panels -->
             <div class="dashboard-grid">

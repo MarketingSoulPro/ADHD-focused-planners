@@ -24,6 +24,7 @@
         <script src="../js/theme-switcher.js" defer></script>
         <script src="../js/planner-interactive.js?v=3" defer></script>
         <script src="../js/stuck-buddy.js" defer></script>
+        <script src="../js/backup-manager.js" defer></script>
     </head>
 
     <body>
@@ -64,14 +65,7 @@
                         Healthy rewards & stimulation quick-lists
                     </div>
                 </div>
-                <div class="backup-controls">
-                    <button id="backup-now">Backup Now</button>
-                    <button id="restore-latest">Restore Latest</button>
-                    <button id="export-json">Export JSON</button>
-                    <button id="import-json">Import JSON</button>
-                    <input id="import-file" type="file" accept="application/json" style="display:none" />
-                    <span class="autosave-indicator" id="autosave-indicator">Autosave: idle</span>
-                </div>
+                <!-- App-level backup controls moved to dashboard -->
 
                 <div
                     style="
@@ -734,10 +728,12 @@
 
                 backupBtn && backupBtn.addEventListener('click', function(){
                     try{
-                        const data = JSON.parse(localStorage.getItem('dopamineMenuData')||'[]');
+                        const data = Array.from(document.querySelectorAll('.dopamine-text')).map(el=>el.innerText||'');
                         const backups = getBackups();
                         backups.push({ts: Date.now(), data: data});
                         setBackups(backups);
+                        // also persist the current data
+                        try{ localStorage.setItem('dopamineMenuData', JSON.stringify(data)); } catch(e){}
                         if(indicator.el) indicator.set('Backup saved');
                         setTimeout(()=>indicator.set('Autosave: idle'),1000);
                     } catch(e){ if(indicator.el) indicator.set('Backup failed'); }
@@ -758,7 +754,8 @@
 
                 exportBtn && exportBtn.addEventListener('click', function(){
                     try{
-                        const raw = localStorage.getItem('dopamineMenuData') || '[]';
+                        const arr = Array.from(document.querySelectorAll('.dopamine-text')).map(el=>el.innerText||'');
+                        const raw = JSON.stringify(arr, null, 2);
                         const blob = new Blob([raw], {type:'application/json'});
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
