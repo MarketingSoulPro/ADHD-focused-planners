@@ -3716,23 +3716,16 @@ body {
     background: var(--bg-primary);
 }
 
-.dopamine-checkbox {
+.dopamine-checkbox-static {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
-    accent-color: var(--accent-1, #3a86ff);
-    cursor: pointer;
-    margin: 0;
-    transition: transform 0.15s ease;
-}
-
-.dopamine-checkbox:hover {
-    transform: scale(1.15);
-}
-
-.dopamine-checkbox:checked + .dopamine-text {
-    text-decoration: line-through;
-    opacity: 0.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-right: 8px;
 }
 
 .dopamine-text {
