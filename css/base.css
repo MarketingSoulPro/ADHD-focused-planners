@@ -1765,6 +1765,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    position: relative;
 }
 
 .qr-label {
@@ -1792,264 +1793,259 @@ body {
     box-shadow: 0 0 0 2px rgba(58,134,255,0.12);
 }
 
-/* Date & time dropdown — exact month-tab match */
-.qr-dt-wrap {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.qr-dt-wrap .qr-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
-}
-
-.qr-dt-wrap .qr-label .dt-icon {
+.dt-icon {
     font-size: 12px;
     line-height: 1;
 }
 
-/* Trigger — exact copy of .month-tab */
-.qr-dt-trigger {
-    width: auto;
-    min-width: 50px;
-    max-width: 52px;
-    padding: 8px 8px;
-    font-family: var(--body-font);
-    font-size: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+#qr-date,
+#qr-time {
     text-align: center;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    user-select: none;
-    line-height: 1;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
-    transition: all 0.2s ease;
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
+    position: relative;
 }
 
-.qr-dt-trigger[data-type="date"] {
-    background: var(--tab-mar, #4a6fa5);
-}
-
-.qr-dt-trigger[data-type="time"] {
-    background: var(--tab-nov, #7a5c8a);
-}
-
-.qr-dt-trigger:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
-}
-
-.qr-dt-trigger.open {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
-}
-
-.qr-dt-arrow {
-    font-size: 5px;
-    opacity: 0.7;
-    transition: transform 0.2s;
-    margin-top: 1px;
-}
-
-.qr-dt-trigger.open .qr-dt-arrow {
-    transform: rotate(180deg);
-}
-
-/* Dropdown panel — glossy glassmorphism, adapts to theme */
-.qr-dt-dropdown {
+/* ── Custom transparent/glassmorphism picker ── */
+.qr-dtp {
     display: none;
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    margin-top: 6px;
-    min-width: 200px;
-    border-radius: 10px;
-    padding: 8px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.07);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-    animation: qrDtFadeIn 0.15s ease;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    margin-top: 4px;
+    background: color-mix(in srgb, var(--bg-secondary) 65%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid color-mix(in srgb, var(--border-color) 50%, transparent);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: dtpFade 0.12s ease;
 }
 
-/* Fallback if backdrop-filter unsupported */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .qr-dt-dropdown { background: #000; border-color: #000; box-shadow: 0 3px 8px rgba(0,0,0,0.18); }
-}
-
-/* Glossy tint overlay — pulls trigger's theme colour into the glass */
-.qr-dt-dropdown::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0.15;
-}
-
-#qr-date-dropdown::before {
-    background: linear-gradient(135deg, var(--tab-mar) 0%, transparent 60%);
-}
-
-#qr-time-dropdown::before {
-    background: linear-gradient(135deg, var(--tab-nov) 0%, transparent 60%);
-}
-
-.qr-dt-dropdown.open {
+.qr-dtp.o {
     display: block;
 }
 
-@keyframes qrDtFadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(-3px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+@keyframes dtpFade {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Month navigation */
-.qr-dt-nav {
+.qr-dtp-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 6px;
 }
 
-.qr-dt-nav-label {
-    font-size: 8px;
+.qr-dtp-nav-l {
+    font-size: 10px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
 }
 
-.qr-dt-nav-btn {
-    font-size: 8px;
+.qr-dtp-navb {
+    font-size: 10px;
     cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 6px;
-    color: rgba(255,255,255,0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--text-secondary);
     user-select: none;
-    transition: all 0.15s;
 }
 
-.qr-dt-nav-btn:hover {
-    color: #fff;
+.qr-dtp-navb:hover {
+    color: var(--text-primary);
     background: rgba(255,255,255,0.08);
 }
 
-/* Day grid */
-.qr-dt-grid {
+.qr-dtp-g {
     display: grid;
-    gap: 3px;
-}
-
-#qr-date-grid {
     grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
 }
 
-#qr-time-grid {
+.qr-dtp-dow {
+    font-size: 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 4px 0;
+    color: var(--text-muted);
+}
+
+.qr-dtp-d {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.qr-dtp-d:hover {
+    background: var(--accent-1, #7c6fa0);
+    color: #fff;
+}
+
+.qr-dtp-d.o {
+    opacity: 0.2;
+}
+
+.qr-dtp-d.td {
+    outline: 1px solid var(--border-color);
+    outline-offset: -1px;
+}
+
+.qr-dtp-d.sel {
+    background: var(--accent-1, #7c6fa0);
+    color: #fff;
+}
+
+.qr-dtp-g-tp {
     grid-template-columns: repeat(3, 1fr);
     max-height: 170px;
     overflow-y: auto;
 }
 
-/* DOW headers */
-.qr-dow {
-    font-size: 7px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    color: rgba(255,255,255,0.35);
-    text-align: center;
-    padding: 3px 0;
-}
-
-/* Pills — exact .month-tab sizes */
-.qr-dt-pill {
-    width: auto;
-    min-width: 24px;
-    padding: 5px 2px;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--body-font);
-    font-size: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+.qr-dtp-sl {
+    padding: 8px 4px;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-radius: 6px;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-    transition: all 0.15s ease;
     user-select: none;
+}
+
+.qr-dtp-sl:hover {
+    background: var(--accent-1, #7c6fa0);
+    color: #fff;
+}
+
+.qr-dtp-sl.sel {
+    background: var(--accent-1, #7c6fa0);
+    color: #fff;
+}
+
+/* ── Compact time picker with AM/PM ── */
+.qr-dtp-tp {
+    min-width: 180px;
+    padding: 12px;
+}
+
+.qr-dtp-tp.o {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.qr-tp-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.qr-tp-col-h,
+.qr-tp-col-m {
+    flex: 0 0 auto;
+}
+
+.qr-tp-col-c {
+    justify-content: center;
+}
+
+.qr-tp-col-ap {
+    justify-content: center;
+    gap: 3px;
+    margin-left: 2px;
+}
+
+.qr-tp-col-ap .qr-tp-done {
+    margin-top: 2px;
+}
+
+.qr-tp-btn {
+    background: rgba(0,0,0,0.06);
+    border: none;
+    color: var(--text-secondary);
+    padding: 2px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 9px;
     line-height: 1;
+    user-select: none;
+    min-height: 18px;
 }
 
-.qr-dt-pill:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+.qr-tp-btn:hover {
+    background: rgba(0,0,0,0.1);
+    color: var(--text-primary);
 }
 
-.qr-dt-pill.selected {
-    outline: 2px solid rgba(255,255,255,0.4);
-    outline-offset: 1px;
+.qr-tp-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 32px;
+    text-align: center;
+    line-height: 1.4;
 }
 
-.qr-dt-pill.other-month {
-    opacity: 0.3;
+.qr-tp-colon {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-muted);
+    line-height: 1.4;
 }
 
-.qr-dt-pill.today {
-    outline: 1px solid rgba(255,255,255,0.25);
-    outline-offset: 1px;
+.qr-tp-ap {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+    user-select: none;
+    transition: all 0.12s;
 }
 
-/* Time pills */
-#qr-time-grid .qr-dt-pill {
-    background: rgba(255,255,255,0.06);
-    font-size: 7px;
-    padding: 6px 2px;
-    min-width: 0;
+.qr-tp-ap:hover {
+    color: var(--text-primary);
+    background: rgba(0,0,0,0.06);
 }
 
-#qr-time-grid .qr-dt-pill:hover {
-    background: rgba(255,255,255,0.15);
+.qr-tp-ap.sel {
+    color: #fff;
+    background: var(--accent-1, #7c6fa0);
 }
 
-#qr-time-grid .qr-dt-pill.selected {
-    background: rgba(255,255,255,0.2);
+.qr-tp-done {
+    background: var(--accent-1, #7c6fa0);
+    border: none;
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    user-select: none;
 }
 
-/* Day pill colors — like month tabs */
-.qr-dt-pill[data-day="0"] { background: var(--tab-jan, #c0392b); }
-.qr-dt-pill[data-day="1"] { background: var(--tab-feb, #e67e22); }
-.qr-dt-pill[data-day="2"] { background: var(--tab-mar, #f1c40f); }
-.qr-dt-pill[data-day="3"] { background: var(--tab-apr, #2ecc71); }
-.qr-dt-pill[data-day="4"] { background: var(--tab-may, #1abc9c); }
-.qr-dt-pill[data-day="5"] { background: var(--tab-jun, #3498db); }
-.qr-dt-pill[data-day="6"] { background: var(--tab-jul, #9b59b6); }
+.qr-tp-done:hover {
+    filter: brightness(1.15);
+}
 
 .qr-btn {
     background: var(--accent-1);
@@ -3521,8 +3517,8 @@ body {
 }
 
 .stuck-modal {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #1a1a24;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
     width: 100%;
     max-width: 450px;
@@ -3584,7 +3580,7 @@ body {
 
 .stuck-modal-subtitle {
     font-size: 14px;
-    color: var(--text-sub);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 25px;
 }
 
@@ -3603,7 +3599,7 @@ body {
 .stuck-suggestion-text {
     font-size: 18px;
     font-weight: 700;
-    color: var(--accent-1);
+    color: #f0e6d0;
     line-height: 1.4;
 }
 
@@ -3619,6 +3615,53 @@ body {
     100% {
         transform: translateY(2px);
     }
+}
+
+.stuck-energy-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.stuck-energy-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.stuck-energy-pills {
+    display: flex;
+    gap: 6px;
+}
+
+.stuck-energy-pill {
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--body-font);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stuck-energy-pill:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: #fff;
+}
+
+.stuck-energy-pill.active {
+    border-color: var(--accent-1);
+    background: color-mix(in srgb, var(--accent-1) 20%, transparent);
+    color: #fff;
 }
 
 .stuck-modal-actions {
@@ -3639,7 +3682,7 @@ body {
 }
 
 .stuck-done-btn {
-    background: var(--color-success);
+    background: #3a9b5e;
     color: white;
 }
 
@@ -3661,7 +3704,7 @@ body {
     margin-top: 25px;
     font-size: 12px;
     font-style: italic;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.55);
 }
 
 @media screen and (max-width: 860px) {
@@ -3716,16 +3759,13 @@ body {
     background: var(--bg-primary);
 }
 
-.dopamine-checkbox-static {
+.dopamine-checkbox {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: var(--text-primary);
     margin-right: 8px;
+    accent-color: var(--accent-1, #7c6fa0);
+    cursor: pointer;
 }
 
 .dopamine-text {

@@ -227,32 +227,13 @@
                                 placeholder="What do you need to remember?"
                             />
                         </div>
-                        <div class="qr-dt-wrap">
-                            <label class="qr-label"><span class="dt-icon">📅</span> Date</label>
-                            <input type="hidden" id="qr-date" />
-                            <div class="qr-dt-trigger" id="qr-date-trigger" data-type="date">
-                                <span class="qr-dt-value" id="qr-date-display">Today</span>
-                                <span class="qr-dt-arrow">▾</span>
-                            </div>
-                            <div class="qr-dt-dropdown" id="qr-date-dropdown">
-                                <div class="qr-dt-nav">
-                                    <span class="qr-dt-nav-btn" id="qr-month-prev">◂</span>
-                                    <span class="qr-dt-nav-label" id="qr-month-label"></span>
-                                    <span class="qr-dt-nav-btn" id="qr-month-next">▸</span>
-                                </div>
-                                <div class="qr-dt-grid" id="qr-date-grid"></div>
-                            </div>
+                        <div class="qr-input-group">
+                            <label class="qr-label">Date</label>
+                            <input type="text" id="qr-date" class="qr-input" placeholder="YYYY-MM-DD" readonly>
                         </div>
-                        <div class="qr-dt-wrap">
-                            <label class="qr-label"><span class="dt-icon">⏰</span> Time</label>
-                            <input type="hidden" id="qr-time" />
-                            <div class="qr-dt-trigger" id="qr-time-trigger" data-type="time">
-                                <span class="qr-dt-value" id="qr-time-display">Now</span>
-                                <span class="qr-dt-arrow">▾</span>
-                            </div>
-                            <div class="qr-dt-dropdown" id="qr-time-dropdown">
-                                <div class="qr-dt-grid" id="qr-time-grid"></div>
-                            </div>
+                        <div class="qr-input-group">
+                            <label class="qr-label">Time</label>
+                            <input type="text" id="qr-time" class="qr-input" placeholder="HH:MM" readonly>
                         </div>
                         <div class="qr-input-group">
                             <label class="qr-label">Repeat</label>
@@ -307,185 +288,221 @@
                 const timeInp = document.getElementById("qr-time");
                 const repeatInp = document.getElementById("qr-repeat");
 
-                const dateTrigger = document.getElementById("qr-date-trigger");
-                const timeTrigger = document.getElementById("qr-time-trigger");
-                const dateDisplay = document.getElementById("qr-date-display");
-                const timeDisplay = document.getElementById("qr-time-display");
-                const dateDropdown = document.getElementById("qr-date-dropdown");
-                const timeDropdown = document.getElementById("qr-time-dropdown");
-                const dateGrid = document.getElementById("qr-date-grid");
-                const timeGrid = document.getElementById("qr-time-grid");
-                const monthLabel = document.getElementById("qr-month-label");
-                const monthPrev = document.getElementById("qr-month-prev");
-                const monthNext = document.getElementById("qr-month-next");
-
                 let editingId = null;
-                let calendarMonth = new Date().getMonth();
-                let calendarYear = new Date().getFullYear();
 
-                // ----- Date dropdown -----
-                function buildDateGrid(year, month) {
-                    const today = new Date();
-                    const first = new Date(year, month, 1).getDay();
-                    const daysInMonth = new Date(year, month + 1, 0).getDate();
-                    const daysInPrev = new Date(year, month, 0).getDate();
-                    const selected = dateInp.value ? new Date(dateInp.value + "T00:00") : null;
+                // ── Custom themed pickers ──
+                var dp = null, tp = null;
+                var calM = new Date().getMonth(), calY = new Date().getFullYear();
+                var MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-                    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-                    monthLabel.textContent = months[month] + " " + year;
+                function buildDP() {
+                    dp = document.createElement('div');
+                    dp.className = 'qr-dtp';
+                    dp.id = 'qr-dp';
+                    dp.innerHTML =
+                        '<div class="qr-dtp-nav">' +
+                            '<span class="qr-dtp-navb" data-dir="-1">\u25C0</span>' +
+                            '<span class="qr-dtp-nav-l"></span>' +
+                            '<span class="qr-dtp-navb" data-dir="1">\u25B6</span>' +
+                        '</div>' +
+                        '<div class="qr-dtp-g" id="qr-dp-g"></div>';
+                    dateInp.parentNode.appendChild(dp);
 
-                    let html = "";
-                    ["Su","Mo","Tu","We","Th","Fr","Sa"].forEach(d => html += `<div class="qr-dow">${d}</div>`);
+                    dp.querySelector('.qr-dtp-nav').onclick = function(e){
+                        var b = e.target.closest('.qr-dtp-navb');
+                        if(!b) return;
+                        e.stopPropagation();
+                        calM += parseInt(b.dataset.dir);
+                        if(calM < 0){ calM = 11; calY--; }
+                        if(calM > 11){ calM = 0; calY++; }
+                        renderDP();
+                    };
 
-                    // Prev month days
-                    for (let i = first - 1; i >= 0; i--) {
-                        const d = daysInPrev - i;
-                        const m = month === 0 ? 11 : month - 1;
-                        const y = month === 0 ? year - 1 : year;
-                        html += `<div class="qr-dt-pill other-month" data-date="${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}">${d}</div>`;
-                    }
-
-                    // Current month days
-                    for (let d = 1; d <= daysInMonth; d++) {
-                        const dateStr = year + "-" + String(month+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
-                        const dow = new Date(year, month, d).getDay();
-                        const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-                        const isSelected = selected && d === selected.getDate() && month === selected.getMonth() && year === selected.getFullYear();
-                        let cls = "qr-dt-pill";
-                        if (isToday) cls += " today";
-                        if (isSelected) cls += " selected";
-                        html += `<div class="${cls}" data-day="${dow}" data-date="${dateStr}">${d}</div>`;
-                    }
-
-                    // Next month days to fill last row
-                    const totalCells = first + daysInMonth;
-                    const remaining = (7 - totalCells % 7) % 7;
-                    for (let d = 1; d <= remaining; d++) {
-                        const m = month === 11 ? 0 : month + 1;
-                        const y = month === 11 ? year + 1 : year;
-                        html += `<div class="qr-dt-pill other-month" data-date="${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}">${d}</div>`;
-                    }
-
-                    dateGrid.innerHTML = html;
+                    dp.querySelector('.qr-dtp-g').onclick = function(e){
+                        var d = e.target.closest('[data-v]');
+                        if(!d) return;
+                        dateInp.value = d.dataset.v;
+                        dp.classList.remove('o');
+                        if(tp) tp.classList.remove('o');
+                    };
                 }
 
-                function openDateDropdown() {
-                    closeAllDropdowns();
-                    const d = dateInp.value ? new Date(dateInp.value + "T00:00") : new Date();
-                    calendarMonth = d.getMonth();
-                    calendarYear = d.getFullYear();
-                    buildDateGrid(calendarYear, calendarMonth);
-                    dateDropdown.classList.add("open");
-                    dateTrigger.classList.add("open");
+                function renderDP() {
+                    var t = new Date();
+                    var f = new Date(calY, calM, 1).getDay();
+                    var dim = new Date(calY, calM + 1, 0).getDate();
+                    var dip = new Date(calY, calM, 0).getDate();
+                    var s = dateInp.value || '';
+
+                    dp.querySelector('.qr-dtp-nav-l').textContent = MON[calM] + ' ' + calY;
+
+                    var h = '';
+                    'Su,Mo,Tu,We,Th,Fr,Sa'.split(',').forEach(function(d){ h += '<div class="qr-dtp-dow">' + d + '</div>'; });
+
+                    for(var i = f - 1; i >= 0; i--){
+                        var d = dip - i, m = calM === 0 ? 11 : calM - 1, y = calM === 0 ? calY - 1 : calY;
+                        h += '<div class="qr-dtp-d o" data-v="' + y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0') + '">' + d + '</div>';
+                    }
+                    for(var d = 1; d <= dim; d++){
+                        var v = calY + '-' + String(calM+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+                        var cl = 'qr-dtp-d';
+                        if(d === t.getDate() && calM === t.getMonth() && calY === t.getFullYear()) cl += ' td';
+                        if(v === s) cl += ' sel';
+                        h += '<div class="' + cl + '" data-v="' + v + '">' + d + '</div>';
+                    }
+                    var rem = (7 - (f + dim) % 7) % 7;
+                    for(var d = 1; d <= rem; d++){
+                        var m = calM === 11 ? 0 : calM + 1, y = calM === 11 ? calY + 1 : calY;
+                        h += '<div class="qr-dtp-d o" data-v="' + y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0') + '">' + d + '</div>';
+                    }
+                    dp.querySelector('.qr-dtp-g').innerHTML = h;
                 }
 
-                dateTrigger.onclick = (e) => {
-                    e.stopPropagation();
-                    if (dateDropdown.classList.contains("open")) {
-                        dateDropdown.classList.remove("open");
-                        dateTrigger.classList.remove("open");
-                    } else {
-                        openDateDropdown();
-                    }
-                };
+                var tp_h = 12, tp_m = 0, tp_ap = 'AM';
 
-                dateGrid.onclick = (e) => {
-                    const pill = e.target.closest(".qr-dt-pill");
-                    if (!pill) return;
-                    const val = pill.dataset.date;
-                    dateInp.value = val;
-                    const d = new Date(val + "T00:00");
-                    dateDisplay.textContent = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                    dateDropdown.classList.remove("open");
-                    dateTrigger.classList.remove("open");
-                };
+                function tpSetDisplay(){
+                    document.getElementById('tp-h').textContent = String(tp_h).padStart(2,'0');
+                    document.getElementById('tp-m').textContent = String(tp_m).padStart(2,'0');
+                    document.querySelectorAll('.qr-tp-ap').forEach(function(el){
+                        el.classList.toggle('sel', el.dataset.ap === tp_ap);
+                    });
+                }
 
-                monthPrev.onclick = (e) => {
-                    e.stopPropagation();
-                    calendarMonth--;
-                    if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
-                    buildDateGrid(calendarYear, calendarMonth);
-                };
+                function buildTP() {
+                    tp = document.createElement('div');
+                    tp.className = 'qr-dtp qr-dtp-tp';
+                    tp.id = 'qr-tp';
+                    tp.innerHTML =
+                        '<div class="qr-tp-col qr-tp-col-h">' +
+                            '<button class="qr-tp-btn" data-t="h" data-d="-1">\u25B2</button>' +
+                            '<span class="qr-tp-num" id="tp-h">12</span>' +
+                            '<button class="qr-tp-btn" data-t="h" data-d="1">\u25BC</button>' +
+                        '</div>' +
+                        '<div class="qr-tp-col qr-tp-col-c">' +
+                            '<span></span>' +
+                            '<span class="qr-tp-colon">:</span>' +
+                            '<span></span>' +
+                        '</div>' +
+                        '<div class="qr-tp-col qr-tp-col-m">' +
+                            '<button class="qr-tp-btn" data-t="m" data-d="-1">\u25B2</button>' +
+                            '<span class="qr-tp-num" id="tp-m">00</span>' +
+                            '<button class="qr-tp-btn" data-t="m" data-d="1">\u25BC</button>' +
+                        '</div>' +
+                        '<div class="qr-tp-col qr-tp-col-ap">' +
+                            '<span class="qr-tp-ap" data-ap="AM">AM</span>' +
+                            '<span class="qr-tp-ap" data-ap="PM">PM</span>' +
+                            '<button class="qr-tp-done" id="tp-ok">OK</button>' +
+                        '</div>';
+                    timeInp.parentNode.appendChild(tp);
 
-                monthNext.onclick = (e) => {
-                    e.stopPropagation();
-                    calendarMonth++;
-                    if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
-                    buildDateGrid(calendarYear, calendarMonth);
-                };
-
-                // ----- Time dropdown -----
-                function buildTimeGrid() {
-                    const selected = timeInp.value || "";
-                    let html = "";
-                    for (let h = 0; h < 24; h++) {
-                        for (let m = 0; m < 60; m += 30) {
-                            const val = String(h).padStart(2,"0") + ":" + String(m).padStart(2,"0");
-                            const display = h === 0 ? "12:" + String(m).padStart(2,"0") + " AM"
-                                          : h < 12 ? h + ":" + String(m).padStart(2,"0") + " AM"
-                                          : h === 12 ? "12:" + String(m).padStart(2,"0") + " PM"
-                                          : (h-12) + ":" + String(m).padStart(2,"0") + " PM";
-                            const isSelected = val === selected;
-                            html += `<div class="qr-dt-pill${isSelected ? " selected" : ""}" data-time="${val}">${display.replace(" ","&nbsp;")}</div>`;
+                    tp.onclick = function(e){
+                        var btn = e.target.closest('.qr-tp-btn');
+                        if(btn){
+                            e.stopPropagation();
+                            var t = btn.dataset.t;
+                            var d = parseInt(btn.dataset.d, 10);
+                            if(t === 'h'){
+                                tp_h += d;
+                                if(tp_h > 12) tp_h = 1;
+                                if(tp_h < 1) tp_h = 12;
+                            } else {
+                                tp_m += d * 5;
+                                if(tp_m >= 60) tp_m = 0;
+                                if(tp_m < 0) tp_m = 55;
+                            }
+                            tpSetDisplay();
+                            return;
                         }
-                    }
-                    timeGrid.innerHTML = html;
+                        var ap = e.target.closest('.qr-tp-ap');
+                        if(ap){
+                            e.stopPropagation();
+                            tp_ap = ap.dataset.ap;
+                            tpSetDisplay();
+                            return;
+                        }
+                        var ok = e.target.closest('#tp-ok');
+                        if(ok){
+                            e.stopPropagation();
+                            var h24 = tp_ap === 'PM' ? (tp_h === 12 ? 12 : tp_h + 12) : (tp_h === 12 ? 0 : tp_h);
+                            var v24 = String(h24).padStart(2,'0') + ':' + String(tp_m).padStart(2,'0');
+                            timeInp.value = fmt12(v24);
+                            tp.classList.remove('o');
+                            if(dp) dp.classList.remove('o');
+                        }
+                    };
+
+                    tpSetDisplay();
                 }
 
-                function openTimeDropdown() {
-                    closeAllDropdowns();
-                    buildTimeGrid();
-                    timeDropdown.classList.add("open");
-                    timeTrigger.classList.add("open");
+                function fmt12(v){
+                    if(!v) return '';
+                    var p = v.split(':');
+                    var h = parseInt(p[0], 10), m = p[1];
+                    var ampm = h >= 12 ? 'PM' : 'AM';
+                    var hr = h % 12 || 12;
+                    return hr + ':' + m + ' ' + ampm;
                 }
 
-                timeTrigger.onclick = (e) => {
+                function fmt24(v){
+                    if(!v) return '';
+                    var p = v.split(' ');
+                    if(p.length < 2) return v;
+                    var t = p[0].split(':');
+                    var h = parseInt(t[0], 10), m = t[1];
+                    var ampm = p[1].toUpperCase();
+                    if(ampm === 'PM' && h !== 12) h += 12;
+                    if(ampm === 'AM' && h === 12) h = 0;
+                    return String(h).padStart(2,'0') + ':' + m;
+                }
+
+                buildDP(); buildTP();
+
+                dateInp.onclick = function(e){
                     e.stopPropagation();
-                    if (timeDropdown.classList.contains("open")) {
-                        timeDropdown.classList.remove("open");
-                        timeTrigger.classList.remove("open");
-                    } else {
-                        openTimeDropdown();
+                    if(tp) tp.classList.remove('o');
+                    var d = dateInp.value ? new Date(dateInp.value + 'T00:00') : new Date();
+                    calM = d.getMonth(); calY = d.getFullYear();
+                    renderDP();
+                    dp.classList.toggle('o');
+                };
+
+                function syncTPtoInput(){
+                    var v = timeInp.value || '';
+                    var v24 = fmt24(v);
+                    if(v24){
+                        var p = v24.split(':');
+                        var hh = parseInt(p[0], 10);
+                        tp_ap = hh < 12 ? 'AM' : 'PM';
+                        tp_h = hh % 12 || 12;
+                        tp_m = parseInt(p[1], 10);
                     }
-                };
-
-                timeGrid.onclick = (e) => {
-                    const pill = e.target.closest(".qr-dt-pill");
-                    if (!pill) return;
-                    const val = pill.dataset.time;
-                    timeInp.value = val;
-                    const [h, m] = val.split(":").map(Number);
-                    const ampm = h >= 12 ? "PM" : "AM";
-                    const hr = h % 12 || 12;
-                    timeDisplay.textContent = hr + ":" + String(m).padStart(2,"0") + " " + ampm;
-                    timeDropdown.classList.remove("open");
-                    timeTrigger.classList.remove("open");
-                };
-
-                function closeAllDropdowns() {
-                    dateDropdown.classList.remove("open");
-                    dateTrigger.classList.remove("open");
-                    timeDropdown.classList.remove("open");
-                    timeTrigger.classList.remove("open");
+                    tpSetDisplay();
                 }
 
-                document.addEventListener("click", (e) => {
-                    if (!e.target.closest(".qr-dt-wrap")) closeAllDropdowns();
+                timeInp.onclick = function(e){
+                    e.stopPropagation();
+                    if(dp) dp.classList.remove('o');
+                    syncTPtoInput();
+                    tp.classList.toggle('o');
+                };
+
+                document.addEventListener('click', function(){
+                    if(dp) dp.classList.remove('o');
+                    if(tp) tp.classList.remove('o');
                 });
 
-                // Init default
+                // Init defaults
                 {
-                    const now = new Date();
-                    dateInp.value = now.toISOString().split("T")[0];
-                    dateDisplay.textContent = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                    const h = now.getHours(), m = now.getMinutes();
-                    const rounded = m < 30 ? "00" : "30";
-                    const val = String(h).padStart(2,"0") + ":" + rounded;
-                    timeInp.value = val;
-                    const ampm = h >= 12 ? "PM" : "AM";
-                    const hr = h % 12 || 12;
-                    timeDisplay.textContent = hr + ":" + rounded + " " + ampm;
+                    var now = new Date();
+                    dateInp.value = now.toISOString().split('T')[0];
+                    var h = now.getHours(), m = now.getMinutes();
+                    var rounded = String(Math.round(m / 5) * 5).padStart(2,'0');
+                    if(rounded === '60') rounded = '00';
+                    var v24 = String(h).padStart(2,'0') + ':' + rounded;
+                    timeInp.value = fmt12(v24);
                 }
+
+
 
                 // Load data independently so this page manages itself beautifully
                 let reminders = JSON.parse(
@@ -564,7 +581,7 @@
                         if (rem) {
                             rem.note = note;
                             rem.date = dateInp.value;
-                            rem.time = timeInp.value;
+                            rem.time = fmt24(timeInp.value);
                             rem.repeat = repeatInp.value;
                         }
                         editingId = null;
@@ -574,7 +591,7 @@
                             id: Date.now().toString(),
                             note,
                             date: dateInp.value,
-                            time: timeInp.value,
+                            time: fmt24(timeInp.value),
                             repeat: repeatInp.value,
                             completed: false,
                         });
@@ -608,7 +625,7 @@
                             editingId = rem.id;
                             noteInp.value = rem.note;
                             dateInp.value = rem.date;
-                            timeInp.value = rem.time || "";
+                            timeInp.value = fmt12(rem.time || "");
                             repeatInp.value = rem.repeat || "";
                             addBtn.textContent = "Update";
                             noteInp.focus();
@@ -776,10 +793,6 @@
             }
 
             function startAlarmChecker() {
-                // Request notification permission
-                if ("Notification" in window && Notification.permission === "default") {
-                    Notification.requestPermission();
-                }
                 checkAlarms();
                 alarmTimer = setInterval(checkAlarms, CHECK_INTERVAL);
             }
