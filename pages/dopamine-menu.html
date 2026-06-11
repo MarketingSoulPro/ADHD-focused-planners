@@ -64,6 +64,14 @@
                         Healthy rewards & stimulation quick-lists
                     </div>
                 </div>
+                <div class="backup-controls">
+                    <button id="backup-now">Backup Now</button>
+                    <button id="restore-latest">Restore Latest</button>
+                    <button id="export-json">Export JSON</button>
+                    <button id="import-json">Import JSON</button>
+                    <input id="import-file" type="file" accept="application/json" style="display:none" />
+                    <span class="autosave-indicator" id="autosave-indicator">Autosave: idle</span>
+                </div>
 
                 <div
                     style="
@@ -683,7 +691,19 @@
                 saveAll();
             }
 
+            // autosave debounce and UI helpers
+            let saveTimer = null;
+            const AUTO_SAVE_DELAY = 600; // ms
+            const indicator = { el: null, set(text){ if(this.el) this.el.innerText = text; } };
+
+            function scheduleSave(){
+                if(indicator.el) indicator.set('Autosave: typing...');
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(()=>{ saveAll(); if(indicator.el) indicator.set('Autosave: saved'); setTimeout(()=>indicator.set('Autosave: idle'), 1000); }, AUTO_SAVE_DELAY);
+            }
+
             document.addEventListener('DOMContentLoaded', function(){
+                indicator.el = document.getElementById('autosave-indicator');
                 document.querySelectorAll('.dopamine-select').forEach(function(sel){
                     sel.addEventListener('change', handleSelectChange);
                 });
@@ -695,10 +715,92 @@
                             el.blur();
                         }
                     });
-                    el.addEventListener('input', function(){ saveAll(); });
+                    el.addEventListener('input', function(){ scheduleSave(); });
                 });
 
                 loadAll();
+
+                // Backup / export / import UI
+                const backupBtn = document.getElementById('backup-now');
+                const restoreBtn = document.getElementById('restore-latest');
+                const exportBtn = document.getElementById('export-json');
+                const importBtn = document.getElementById('import-json');
+                const importFile = document.getElementById('import-file');
+
+                function getBackups(){
+                    try{ return JSON.parse(localStorage.getItem('dopamineMenuBackups')||'[]') } catch(e){ return [] }
+                }
+                function setBackups(arr){ try{ localStorage.setItem('dopamineMenuBackups', JSON.stringify(arr)); } catch(e){} }
+
+                backupBtn && backupBtn.addEventListener('click', function(){
+                    try{
+                        const data = JSON.parse(localStorage.getItem('dopamineMenuData')||'[]');
+                        const backups = getBackups();
+                        backups.push({ts: Date.now(), data: data});
+                        setBackups(backups);
+                        if(indicator.el) indicator.set('Backup saved');
+                        setTimeout(()=>indicator.set('Autosave: idle'),1000);
+                    } catch(e){ if(indicator.el) indicator.set('Backup failed'); }
+                });
+
+                restoreBtn && restoreBtn.addEventListener('click', function(){
+                    const backups = getBackups();
+                    if(!backups || backups.length===0){ if(indicator.el) indicator.set('No backups'); return; }
+                    const latest = backups[backups.length-1];
+                    if(latest && latest.data){
+                        const els = Array.from(document.querySelectorAll('.dopamine-text'));
+                        els.forEach((el,i)=>{ el.innerText = latest.data[i]||''; });
+                        saveAll();
+                        if(indicator.el) indicator.set('Restored latest backup');
+                        setTimeout(()=>indicator.set('Autosave: idle'),1000);
+                    }
+                });
+
+                exportBtn && exportBtn.addEventListener('click', function(){
+                    try{
+                        const raw = localStorage.getItem('dopamineMenuData') || '[]';
+                        const blob = new Blob([raw], {type:'application/json'});
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `dopamine-menu-backup-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        URL.revokeObjectURL(url);
+                        if(indicator.el) indicator.set('Exported JSON');
+                        setTimeout(()=>indicator.set('Autosave: idle'),1000);
+                    } catch(e){ if(indicator.el) indicator.set('Export failed'); }
+                });
+
+                importBtn && importBtn.addEventListener('click', function(){
+                    importFile && importFile.click();
+                });
+
+                importFile && importFile.addEventListener('change', function(ev){
+                    const f = ev.target.files && ev.target.files[0];
+                    if(!f) return;
+                    const reader = new FileReader();
+                    reader.onload = function(evt){
+                        try{
+                            const arr = JSON.parse(evt.target.result);
+                            if(Array.isArray(arr)){
+                                const els = Array.from(document.querySelectorAll('.dopamine-text'));
+                                els.forEach((el,i)=>{ el.innerText = arr[i]||''; });
+                                saveAll();
+                                if(indicator.el) indicator.set('Imported JSON');
+                                setTimeout(()=>indicator.set('Autosave: idle'),1000);
+                            } else {
+                                if(indicator.el) indicator.set('Import: invalid format');
+                            }
+                        } catch(e){ if(indicator.el) indicator.set('Import failed'); }
+                    };
+                    reader.readAsText(f);
+                    // reset input
+                    importFile.value = '';
+                });
+
+            });
             });
         })();
     </script>

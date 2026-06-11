@@ -3504,3 +3504,25 @@ body {
 .dopamine-text:focus:before {
     content: "";
 }
+
+/* Backup controls */
+.backup-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+.backup-controls button {
+    background: var(--bg-accent);
+    color: var(--text-on-accent);
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.autosave-indicator {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 6px;
+}
