@@ -1757,6 +1757,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadAllData();
   updateAllDateDisplays();
   updateThemeSpecificBackground();
+  renderMonthlyCalendar(); // Re-render calendar after all initialization
 
   // Sizing Canvas delay to ensure page sizing has finished rendering
   setTimeout(() => {
