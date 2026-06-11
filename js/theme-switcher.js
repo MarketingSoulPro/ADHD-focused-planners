@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Rose Gold Abstract",
       category: "Feminine",
     },
+    { id: "peach-bloom", name: "Peach Bloom", category: "Feminine" },
+    { id: "lavender-mist", name: "Lavender Mist", category: "Feminine" },
 
     { id: "dark-slate", name: "Dark Slate", category: "Masculine" },
     {
@@ -33,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Concrete Industrial",
       category: "Masculine",
     },
+    { id: "smoke-and-steel", name: "Smoke & Steel", category: "Masculine" },
+    { id: "rustic-urban", name: "Rustic Urban", category: "Masculine" },
 
     {
       id: "abstract-brushstrokes",
@@ -46,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Classic Calligraphy",
       category: "Universal",
     },
+    { id: "opal-skyline", name: "Opal Skyline", category: "Universal" },
+    { id: "sunrise-echo", name: "Sunrise Echo", category: "Universal" },
   ];
 
   // Get current active theme or default to first

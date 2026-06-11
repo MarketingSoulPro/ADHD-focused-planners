@@ -3623,3 +3623,17 @@ button:focus, .backup-item button:focus {
     .backup-panel { padding: 12px; }
     .backup-panel .panel-body { flex-direction: column; }
 }
+
+/* ── Planner Copyright Footer ── */
+.planner-footer {
+    margin-top: auto;
+    text-align: center;
+    font-size: 8px;
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding-top: 15px;
+    opacity: 0.75;
+}

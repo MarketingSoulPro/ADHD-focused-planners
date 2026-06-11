@@ -230,14 +230,26 @@
             }
 
             .panel {
-                background: var(--bg-card);
-                border: 1px solid var(--border-color);
-                border-radius: 16px;
-                padding: 30px;
+                background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
+                border: 1.5px solid rgba(58, 134, 255, 0.18);
+                border-radius: 20px;
+                padding: 26px;
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                gap: 18px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .panel::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, #3a86ff, #8338ec, #3a86ff);
+                background-size: 200%;
+                animation: shimmerLine 3s linear infinite;
             }
 
             .panel-header {
@@ -436,6 +448,30 @@
 
             .swatch-classic {
                 background: linear-gradient(135deg, #fdfbf7, #3b332c);
+            }
+
+            .swatch-lavender {
+                background: linear-gradient(135deg, #f4f0fb, #8a72c8);
+            }
+
+            .swatch-peach {
+                background: linear-gradient(135deg, #fff3f0, #f19d94);
+            }
+
+            .swatch-opal {
+                background: linear-gradient(135deg, #ebf5f9, #6ebac9);
+            }
+
+            .swatch-sunrise {
+                background: linear-gradient(135deg, #fff8f0, #f4ab6c);
+            }
+
+            .swatch-rustic {
+                background: linear-gradient(135deg, #2f2b24, #d18b5e);
+            }
+
+            .swatch-smoke {
+                background: linear-gradient(135deg, #1f2429, #7aa6dd);
             }
 
             /* ── Page Selectors ── */
@@ -796,6 +832,491 @@
                     gap: 12px;
                 }
             }
+
+            /* ── Backup & Buddy Footer Grid ── */
+            .bottom-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                margin-top: 10px;
+            }
+
+            @media (max-width: 860px) {
+                .bottom-grid {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                }
+            }
+
+            /* ── Backup Panel ── */
+            .backup-panel {
+                background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
+                border: 1.5px solid rgba(58, 134, 255, 0.18);
+                border-radius: 20px;
+                padding: 26px;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .backup-panel::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, #3a86ff, #8338ec, #3a86ff);
+                background-size: 200%;
+                animation: shimmerLine 3s linear infinite;
+            }
+
+            @keyframes shimmerLine {
+                0% { background-position: 0% 0%; }
+                100% { background-position: 200% 0%; }
+            }
+
+            .backup-panel-header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+                padding-bottom: 14px;
+            }
+
+            .backup-icon-wrap {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                background: rgba(58, 134, 255, 0.12);
+                border: 1px solid rgba(58, 134, 255, 0.25);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .backup-icon-wrap svg {
+                width: 18px;
+                height: 18px;
+                stroke: #3a86ff;
+                fill: none;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .backup-panel-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: #fff;
+                flex: 1;
+            }
+
+            .autosave-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 10px;
+                border-radius: 99px;
+                font-size: 10px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                background: rgba(56, 176, 0, 0.1);
+                border: 1px solid rgba(56, 176, 0, 0.3);
+                color: #38b000;
+                transition: all 0.3s ease;
+            }
+
+            .autosave-pill.typing {
+                background: rgba(255, 165, 0, 0.1);
+                border-color: rgba(255, 165, 0, 0.35);
+                color: #ffa500;
+            }
+
+            .autosave-pill.saved {
+                background: rgba(56, 176, 0, 0.15);
+                border-color: rgba(56, 176, 0, 0.4);
+                color: #4cd137;
+            }
+
+            .autosave-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: currentColor;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse-dot {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.4; transform: scale(0.7); }
+            }
+
+            /* Backup action buttons - tab style */
+            .backup-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .backup-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 7px 14px;
+                border-radius: 8px;
+                font-size: 11px;
+                font-weight: 600;
+                cursor: pointer;
+                border: 1.5px solid transparent;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Inter', sans-serif;
+                letter-spacing: 0.2px;
+                white-space: nowrap;
+            }
+
+            .backup-btn svg {
+                width: 13px;
+                height: 13px;
+                stroke: currentColor;
+                fill: none;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+            }
+
+            .btn-primary {
+                background: rgba(58, 134, 255, 0.15);
+                border-color: rgba(58, 134, 255, 0.4);
+                color: #6ba3ff;
+            }
+
+            .btn-primary:hover {
+                background: rgba(58, 134, 255, 0.28);
+                border-color: rgba(58, 134, 255, 0.7);
+                color: #fff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(58, 134, 255, 0.2);
+            }
+
+            .btn-secondary {
+                background: rgba(131, 56, 236, 0.12);
+                border-color: rgba(131, 56, 236, 0.35);
+                color: #a970ff;
+            }
+
+            .btn-secondary:hover {
+                background: rgba(131, 56, 236, 0.25);
+                border-color: rgba(131, 56, 236, 0.6);
+                color: #fff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(131, 56, 236, 0.2);
+            }
+
+            .btn-success {
+                background: rgba(56, 176, 0, 0.1);
+                border-color: rgba(56, 176, 0, 0.3);
+                color: #4cd137;
+            }
+
+            .btn-success:hover {
+                background: rgba(56, 176, 0, 0.22);
+                border-color: rgba(56, 176, 0, 0.55);
+                color: #fff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(56, 176, 0, 0.18);
+            }
+
+            .btn-danger {
+                background: rgba(220, 53, 69, 0.1);
+                border-color: rgba(220, 53, 69, 0.3);
+                color: #ff6b7a;
+            }
+
+            .btn-danger:hover {
+                background: rgba(220, 53, 69, 0.22);
+                border-color: rgba(220, 53, 69, 0.55);
+                color: #fff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+            }
+
+            .btn-active {
+                background: rgba(255, 165, 0, 0.12);
+                border-color: rgba(255, 165, 0, 0.3);
+                color: #ffb347;
+            }
+
+            .btn-active:hover {
+                background: rgba(255, 165, 0, 0.22);
+                border-color: rgba(255, 165, 0, 0.55);
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+            /* Backup List */
+            .backup-empty-msg {
+                font-size: 12px;
+                color: var(--text-sub);
+                font-style: italic;
+                padding: 14px;
+                text-align: center;
+                background: rgba(255,255,255,0.02);
+                border: 1px dashed rgba(255,255,255,0.08);
+                border-radius: 10px;
+            }
+
+            .backup-list-area {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                max-height: 160px;
+                overflow-y: auto;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(58, 134, 255, 0.3) transparent;
+            }
+
+            .backup-list-area::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .backup-list-area::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .backup-list-area::-webkit-scrollbar-thumb {
+                background: rgba(58, 134, 255, 0.3);
+                border-radius: 4px;
+            }
+
+            .backup-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 14px;
+                background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 10px;
+                gap: 12px;
+                transition: all 0.2s ease;
+            }
+
+            .backup-item:hover {
+                background: rgba(58, 134, 255, 0.06);
+                border-color: rgba(58, 134, 255, 0.2);
+            }
+
+            .backup-item-info {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .backup-item-date {
+                font-size: 12px;
+                font-weight: 600;
+                color: #d0d0e0;
+            }
+
+            .backup-item-meta {
+                font-size: 10px;
+                color: var(--text-sub);
+            }
+
+            .backup-restore-btn {
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 10px;
+                font-weight: 700;
+                cursor: pointer;
+                background: rgba(58, 134, 255, 0.1);
+                border: 1px solid rgba(58, 134, 255, 0.3);
+                color: #6ba3ff;
+                font-family: 'Inter', sans-serif;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .backup-restore-btn:hover {
+                background: rgba(58, 134, 255, 0.25);
+                border-color: rgba(58, 134, 255, 0.6);
+                color: #fff;
+                transform: scale(1.05);
+            }
+
+            /* ── Buddy Suggests Panel ── */
+            .buddy-panel {
+                background: linear-gradient(145deg, #13131f 0%, #100f1e 100%);
+                border: 1.5px solid rgba(131, 56, 236, 0.2);
+                border-radius: 20px;
+                padding: 26px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                position: relative;
+                overflow: hidden;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .buddy-panel::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, #8338ec, #ff006e, #8338ec);
+                background-size: 200%;
+                animation: shimmerLine 3s linear infinite reverse;
+            }
+
+            .buddy-sparkle {
+                font-size: 28px;
+                animation: float 3s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-6px); }
+            }
+
+            .buddy-title {
+                font-size: 20px;
+                font-weight: 800;
+                color: #fff;
+                letter-spacing: -0.3px;
+            }
+
+            .buddy-suggestion-box {
+                background: rgba(131, 56, 236, 0.08);
+                border: 1.5px solid rgba(131, 56, 236, 0.2);
+                border-radius: 14px;
+                padding: 16px 20px;
+                width: 100%;
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .buddy-suggestion-text {
+                font-size: 14px;
+                font-weight: 500;
+                color: #d0c4f0;
+                line-height: 1.5;
+                transition: opacity 0.3s ease;
+            }
+
+            .buddy-suggestion-text.fade {
+                opacity: 0;
+            }
+
+            .buddy-subtitle {
+                font-size: 13px;
+                color: var(--text-sub);
+                margin-top: -6px;
+            }
+
+            .buddy-affirmation {
+                font-size: 11px;
+                color: #7a7a9a;
+                font-style: italic;
+                min-height: 16px;
+                transition: opacity 0.3s ease;
+            }
+
+            .buddy-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .buddy-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 9px 18px;
+                border-radius: 10px;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                border: 1.5px solid transparent;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Inter', sans-serif;
+            }
+
+            .buddy-btn-another {
+                background: rgba(255,255,255,0.05);
+                border-color: rgba(255,255,255,0.12);
+                color: #c0c0d0;
+            }
+
+            .buddy-btn-another:hover {
+                background: rgba(255,255,255,0.1);
+                border-color: rgba(255,255,255,0.25);
+                color: #fff;
+                transform: rotate(-10deg) scale(1.05);
+            }
+
+            .buddy-btn-do {
+                background: rgba(56, 176, 0, 0.12);
+                border-color: rgba(56, 176, 0, 0.35);
+                color: #4cd137;
+            }
+
+            .buddy-btn-do:hover {
+                background: rgba(56, 176, 0, 0.25);
+                border-color: rgba(56, 176, 0, 0.6);
+                color: #fff;
+                transform: scale(1.08);
+                box-shadow: 0 4px 16px rgba(56, 176, 0, 0.25);
+            }
+
+            .buddy-btn-stuck {
+                background: rgba(255, 180, 0, 0.1);
+                border-color: rgba(255, 180, 0, 0.3);
+                color: #ffcc44;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .buddy-btn-stuck:hover {
+                background: rgba(255, 180, 0, 0.22);
+                border-color: rgba(255, 180, 0, 0.55);
+                color: #fff;
+                transform: scale(1.04);
+                box-shadow: 0 4px 16px rgba(255, 180, 0, 0.2);
+            }
+
+            /* ── Footer ── */
+            footer.main-footer {
+                width: 100%;
+                text-align: center;
+                padding: 40px 20px 20px;
+                margin-top: 20px;
+                border-top: 1px solid var(--border-color);
+                font-size: 13px;
+                color: var(--text-sub);
+                font-family: 'Inter', sans-serif;
+                letter-spacing: 0.5px;
+            }
+            footer.main-footer a {
+                color: var(--color-primary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.2s ease;
+            }
+            footer.main-footer a:hover {
+                color: var(--color-secondary);
+                text-decoration: underline;
+            }
         </style>
         <script src="js/backup-manager.js" defer></script>
     </head>
@@ -826,10 +1347,12 @@
                 </div>
                 <h1>Buddy ADHD Printable Planner Suite</h1>
                 <p class="subtitle">
-                    Custom-styled layout grids built to soothe the ADHD brain.
-                    Choose one of our 12 tailored backgrounds (Feminine,
-                    Masculine, or Universal) and print your planners directly
-                    from your web browser.
+                    Buddy offers ADHD-friendly printable planners designed to
+                    reduce overwhelm, improve focus, and support healthier daily
+                    routines. Our Planner Suite features customizable,
+                    easy-to-use planning tools that help you prioritize tasks,
+                    stay organized, maintain focus, and celebrate every
+                    achievement—big or small.
                 </p>
                 <p class="branding">
                     A project by
@@ -840,9 +1363,6 @@
                         >MarketingSoulPro</a
                     >.
                 </p>
-                <a href="user-manual.html" class="manual-btn">
-                    <span>📖</span> User Manual & Setup Guide
-                </a>
             </header>
 
             <!-- Global Active Theme Bar -->
@@ -868,7 +1388,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2 class="panel-title">1. Select Background Theme</h2>
-                        <span class="panel-badge">12 Themes</span>
+                        <span class="panel-badge">18 Themes</span>
                     </div>
 
                     <div class="theme-categories">
@@ -959,6 +1479,48 @@
                                         >
                                         <span class="theme-desc"
                                             >Geometric warm metallics</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Lavender Mist -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="lavender-mist"
+                                    data-name="Lavender Mist"
+                                    data-swatch="swatch-lavender"
+                                    data-desc="Soft pastels & light lavender"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-lavender"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Lavender Mist</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Soft lavender & elegant script</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Peach Bloom -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="peach-bloom"
+                                    data-name="Peach Bloom"
+                                    data-swatch="swatch-peach"
+                                    data-desc="Warm peach & coral tones"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-peach"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Peach Bloom</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Peachy rose & warm pastels</span
                                         >
                                     </div>
                                     <div class="active-badge"></div>
@@ -1057,6 +1619,48 @@
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
+                                <!-- Rustic Urban -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="rustic-urban"
+                                    data-name="Rustic Urban"
+                                    data-swatch="swatch-rustic"
+                                    data-desc="Dark warm earthy tones"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-rustic"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Rustic Urban</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Warm browns & crafted aesthetics</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Smoke & Steel -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="smoke-and-steel"
+                                    data-name="Smoke & Steel"
+                                    data-swatch="swatch-smoke"
+                                    data-desc="Cool grays & steel blue"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-smoke"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Smoke & Steel</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Smoky grays & muted steel tones</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -1150,12 +1754,54 @@
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
+                                <!-- Opal Skyline -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="opal-skyline"
+                                    data-name="Opal Skyline"
+                                    data-swatch="swatch-opal"
+                                    data-desc="Cool blues & opal tones"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-opal"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Opal Skyline</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Opal blue & architectural feel</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
+                                <!-- Sunrise Echo -->
+                                <div
+                                    class="theme-card"
+                                    data-theme="sunrise-echo"
+                                    data-name="Sunrise Echo"
+                                    data-swatch="swatch-sunrise"
+                                    data-desc="Warm golden sunrise glow"
+                                >
+                                    <div
+                                        class="theme-swatch swatch-sunrise"
+                                    ></div>
+                                    <div class="theme-details">
+                                        <span class="theme-name"
+                                            >Sunrise Echo</span
+                                        >
+                                        <span class="theme-desc"
+                                            >Golden sunrise & warm amber</span
+                                        >
+                                    </div>
+                                    <div class="active-badge"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Panel 2: Planner Templates Selection -->
+                <!-- Panel 3: Planner Templates Selection -->
                 <div class="panel">
                     <div class="panel-header">
                         <h2 class="panel-title">2. Choose Planner Sheet</h2>
@@ -1368,274 +2014,113 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Backup footer panel (moved to bottom of dashboard) -->
-        <div class="backup-footer">
-            <div class="backup-panel panel" role="region" aria-label="Backups and sync">
-                <div class="panel-header">
-                    <h3 class="panel-title">Backups & Sync</h3>
-                    <div class="panel-actions">
-                        <button id="backup-now" aria-label="Backup now">Backup Now</button>
-                        <button id="restore-latest" aria-label="Restore latest backup">Restore Latest</button>
-                        <button id="export-json" aria-label="Export backups as JSON">Export JSON</button>
-                        <button id="import-json" aria-label="Import backups from JSON">Import JSON</button>
-                        <button id="clear-all" class="clear-all" aria-label="Clear all saved data">Clear All</button>
-                        <input id="import-file" type="file" accept="application/json" style="display:none" />
+                <!-- Panel 3: User Manual & Setup Guide -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">3. User Manual & Setup Guide</h2>
+                        <span class="panel-badge">Quick Start</span>
                     </div>
-                </div>
-                <div class="panel-body">
-                    <div style="display:flex;flex-direction:column;gap:6px;min-width:240px;">
-                        <span class="autosave-indicator" id="autosave-indicator" aria-live="polite">Autosave: idle</span>
-                        <div style="font-size:13px;color:var(--text-sub);">Use backups to keep local copies of your planner data.</div>
-                    </div>
-                    <div class="backup-list" id="backup-list" role="list" aria-label="Available backups" style="flex:1"></div>
+
+                    <a href="user-manual.html" class="page-card">
+                        <div class="page-icon-wrapper">
+                            <span style="font-size: 24px;">📖</span>
+                        </div>
+                        <div class="page-info">
+                            <span class="page-title">User Manual & Setup Guide</span>
+                            <span class="page-desc">Open the guide for setup tips, print instructions, and ADHD-friendly planner workflows.</span>
+                        </div>
+                        <span class="print-badge">Guide</span>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const themeCards = document.querySelectorAll(".theme-card");
-                const bannerDisplay = document.getElementById(
-                    "banner-theme-display",
-                );
-                const bannerIndicator = document.getElementById(
-                    "banner-theme-indicator",
-                );
+        <!-- Bottom 2-Div Pattern: Backup & Sync + Buddy Suggests -->
+        <div class="container" style="margin-top:-20px">
+        <div class="bottom-grid">
 
-                // Audio context for satisfying pop/click sound
-                let audioCtx = null;
-                window.playPopSound = function (isChecking) {
-                    try {
-                        if (!audioCtx) {
-                            const AudioContext =
-                                window.AudioContext ||
-                                window.webkitAudioContext;
-                            if (!AudioContext) return;
-                            audioCtx = new AudioContext();
-                        }
-                        if (audioCtx.state === "suspended") {
-                            audioCtx.resume();
-                        }
+            <!-- DIV 1: Backups & Sync Panel -->
+            <div class="backup-panel" role="region" aria-label="Backups and sync">
+                <div class="backup-panel-header">
+                    <div class="backup-icon-wrap">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <span class="backup-panel-title">Backups &amp; Sync</span>
+                    <div class="autosave-pill" id="autosave-indicator" aria-live="polite">
+                        <span class="autosave-dot"></span>
+                        <span id="autosave-label">Idle</span>
+                    </div>
+                </div>
 
-                        const osc = audioCtx.createOscillator();
-                        const gainNode = audioCtx.createGain();
+                <!-- Action Buttons (Tab-style) -->
+                <div class="backup-actions">
+                    <button id="backup-now" class="backup-btn btn-primary" aria-label="Backup now">
+                        <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Backup Now
+                    </button>
+                    <button id="restore-latest" class="backup-btn btn-secondary" aria-label="Restore latest backup">
+                        <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                        Restore Latest
+                    </button>
+                    <button id="export-json" class="backup-btn btn-success" aria-label="Export backups as JSON">
+                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Export JSON
+                    </button>
+                    <button id="import-json" class="backup-btn btn-active" aria-label="Import backups from JSON">
+                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Import JSON
+                    </button>
+                    <button id="clear-all" class="backup-btn btn-danger" aria-label="Clear all saved data">
+                        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                        Clear All
+                    </button>
+                    <input id="import-file" type="file" accept="application/json" style="display:none" />
+                </div>
 
-                        osc.type = "sine";
-                        const startFreq = isChecking ? 620 : 240;
-                        const endFreq = isChecking ? 260 : 160;
-                        const duration = 0.065;
+                <!-- Hint Text -->
+                <div style="font-size:11.5px;color:var(--text-sub);margin-top:-4px;">
+                    💾 Backups are stored locally in your browser. Export JSON to save permanently.
+                </div>
 
-                        osc.frequency.setValueAtTime(
-                            startFreq,
-                            audioCtx.currentTime,
-                        );
-                        osc.frequency.exponentialRampToValueAtTime(
-                            endFreq,
-                            audioCtx.currentTime + duration,
-                        );
+                <!-- Backup List -->
+                <div class="backup-list-area" id="backup-list" role="list" aria-label="Available backups"></div>
+            </div>
 
-                        gainNode.gain.setValueAtTime(
-                            0.028,
-                            audioCtx.currentTime,
-                        );
-                        gainNode.gain.exponentialRampToValueAtTime(
-                            0.001,
-                            audioCtx.currentTime + duration,
-                        );
+            <!-- DIV 2: Buddy Suggests Panel -->
+            <div class="buddy-panel">
+                <div class="buddy-sparkle">✨</div>
+                <div class="buddy-title">Buddy Suggests</div>
+                <div class="buddy-subtitle">Small steps break the freeze.</div>
 
-                        osc.connect(gainNode);
-                        gainNode.connect(audioCtx.destination);
+                <div class="buddy-suggestion-box">
+                    <div class="buddy-suggestion-text" id="buddy-inline-text">Click a button below to get a quick idea!</div>
+                </div>
 
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + duration);
-                    } catch (e) {
-                        // Silently fail if audio is not supported
-                    }
-                };
+                <div class="buddy-affirmation" id="buddy-inline-affirmation"></div>
 
-                // Initialize from localstorage
-                let currentTheme =
-                    localStorage.getItem("selected-theme") ||
-                    "blush-calligraphy";
-                setActiveCard(currentTheme);
+                <div class="buddy-actions">
+                    <button class="buddy-btn buddy-btn-another" id="buddy-inline-another">
+                        🔄 Another Idea
+                    </button>
+                    <button class="buddy-btn buddy-btn-do" id="buddy-inline-do">
+                        ✅ I'll Do This!
+                    </button>
+                </div>
+                <button class="buddy-btn buddy-btn-stuck" id="buddy-inline-stuck">
+                    ⚡ I'M STUCK — Open Full Buddy
+                </button>
+            </div>
 
-                themeCards.forEach((card) => {
-                    card.addEventListener("click", () => {
-                        playPopSound(!card.classList.contains("active"));
-                        const themeId = card.dataset.theme;
-                        setActiveCard(themeId);
+        </div>
+        </div>
 
-                        // Trigger bouncy animation
-                        card.classList.remove("pop-anim");
-                        void card.offsetWidth; // Force reflow to restart animation
-                        card.classList.add("pop-anim");
-                    });
-                });
-
-                function setActiveCard(themeId) {
-                    let name = "Blush Calligraphy";
-                    let swatchClass = "swatch-blush";
-
-                    themeCards.forEach((card) => {
-                        if (card.dataset.theme === themeId) {
-                            card.classList.add("active");
-                            name = card.dataset.name;
-                            swatchClass = card.dataset.swatch;
-                            localStorage.setItem("selected-theme", themeId);
-                        } else {
-                            card.classList.remove("active");
-                        }
-                    });
-
-                    // Update top banner
-                    bannerDisplay.textContent = name;
-                    bannerIndicator.className = "theme-swatch " + swatchClass;
-                }
-
-                const categoryGroups =
-                    document.querySelectorAll(".category-group");
-
-                function syncMobileThemeSections() {
-                    const isMobile = window.innerWidth <= 860;
-
-                    categoryGroups.forEach((group, index) => {
-                        const title = group.querySelector(".category-title");
-                        if (!title) return;
-
-                        if (isMobile) {
-                            title.setAttribute("role", "button");
-                            title.setAttribute("tabindex", "0");
-                            if (
-                                !group.classList.contains("expanded") &&
-                                index === 0
-                            ) {
-                                group.classList.add("expanded");
-                            }
-                        } else {
-                            group.classList.remove("expanded");
-                            title.removeAttribute("role");
-                            title.removeAttribute("tabindex");
-                        }
-                    });
-                }
-
-                categoryGroups.forEach((group) => {
-                    const title = group.querySelector(".category-title");
-                    if (!title) return;
-
-                    const toggleGroup = () => {
-                        if (window.innerWidth > 860) return;
-                        const isExpanded = group.classList.contains("expanded");
-                        categoryGroups.forEach((otherGroup) => {
-                            otherGroup.classList.remove("expanded");
-                        });
-                        if (!isExpanded) {
-                            group.classList.add("expanded");
-                        }
-                    };
-
-                    title.addEventListener("click", toggleGroup);
-                    title.addEventListener("keydown", (event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            toggleGroup();
-                        }
-                    });
-                });
-
-                // Mobile Responsiveness handler for dashboard
-                function handleMobileResponsiveness() {
-                    const container = document.querySelector(".container");
-                    if (!container) return;
-
-                    container.style.width = "";
-                    container.style.maxWidth = "";
-                    container.style.transform = "";
-                    container.style.transformOrigin = "";
-                    container.style.marginBottom = "";
-                    syncMobileThemeSections();
-                }
-
-                window.addEventListener("resize", handleMobileResponsiveness);
-                handleMobileResponsiveness();
-
-                // PWA Installation Logic
-                let deferredPrompt;
-                const installBanner = document.getElementById("install-banner");
-                const installButton = document.getElementById("install-button");
-                const installClose = document.getElementById("install-close");
-                const installText =
-                    installBanner.querySelector(".install-text");
-
-                // Detect if it's iOS
-                const isIos = () => {
-                    const userAgent = window.navigator.userAgent.toLowerCase();
-                    return /iphone|ipad|ipod/.test(userAgent);
-                };
-                // Detect if it's already installed (standalone mode)
-                const isStandalone = () => {
-                    return (
-                        window.matchMedia("(display-mode: standalone)")
-                            .matches || window.navigator.standalone
-                    );
-                };
-
-                if (isStandalone()) {
-                    installBanner.style.display = "none";
-                } else if (isIos()) {
-                    // Show iOS specific instructions after a delay
-                    installText.innerText =
-                        "Tap 'Share' then 'Add to Home Screen'";
-                    installButton.style.display = "none";
-                    setTimeout(() => {
-                        installBanner.classList.add("visible");
-                    }, 3000);
-                }
-
-                window.addEventListener("beforeinstallprompt", (e) => {
-                    console.log("PWA: beforeinstallprompt fired");
-                    e.preventDefault();
-                    deferredPrompt = e;
-                    setTimeout(() => {
-                        installBanner.classList.add("visible");
-                    }, 2000);
-                });
-
-                installButton.addEventListener("click", async () => {
-                    if (!deferredPrompt) {
-                        alert(
-                            "Please use your browser menu to 'Install' or 'Add to Home Screen'.",
-                        );
-                        return;
-                    }
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    console.log(
-                        `PWA: User response to the install prompt: ${outcome}`,
-                    );
-                    deferredPrompt = null;
-                    installBanner.classList.remove("visible");
-                });
-
-                installClose.addEventListener("click", () => {
-                    installBanner.classList.remove("visible");
-                });
-
-                // Register Service Worker
-                if ("serviceWorker" in navigator) {
-                    window.addEventListener("load", () => {
-                        navigator.serviceWorker
-                            .register("service-worker.js")
-                            .then((reg) => console.log("SW Registered"))
-                            .catch((err) =>
-                                console.log("SW Registration failed: ", err),
-                            );
-                    });
-                }
-            });
-        </script>
-        <script src="js/stuck-buddy.js" defer></script>
+        <footer class="main-footer">
+            <p>Copyright © <a href="https://msoulpro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a></p>
+        </footer>
     </body>
 </html>

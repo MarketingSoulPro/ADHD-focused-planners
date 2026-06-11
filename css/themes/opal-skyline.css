@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════
+   Theme: Opal Skyline (Universal)
+   ══════════════════════════════════════ */
+.theme-opal-skyline {
+  --bg-primary: #ebf5f9;
+  --bg-secondary: #e7f1f4;
+  --bg-accent: #d9e8ef;
+  --text-primary: #2d3f4c;
+  --text-secondary: #627886;
+  --text-muted: #8a9ca9;
+  --accent-1: #6ebac9;
+  --accent-2: #4f97aa;
+  --accent-3: #8fc8d9;
+  --accent-4: #7aa7b9;
+  --accent-5: #b7dce9;
+  --border-color: #c5d7df;
+  --border-light: #e0ebf1;
+  --border-dotted: #c9d9e1;
+  --checkbox-border: #8badbf;
+  --icon-color: #6d96a5;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+  --bg-pattern: radial-gradient(circle at 20% 20%, rgba(110,186,201,0.14), transparent 20%), linear-gradient(135deg, rgba(255,255,255,0.3), transparent 40%);
+
+  --tab-jan: #6ebac9; --tab-feb: #4f97aa; --tab-mar: #8fc8d9;
+  --tab-apr: #7aa7b9; --tab-may: #b7dce9; --tab-jun: #6ebac9;
+  --tab-jul: #4f97aa; --tab-aug: #8fc8d9; --tab-sep: #7aa7b9;
+  --tab-oct: #b7dce9; --tab-nov: #6ebac9; --tab-dec: #4f97aa;
+}
+
+.theme-opal-skyline .planner-page {
+  background-image: radial-gradient(circle at 90% 15%, rgba(110,186,201,0.12), transparent 22%), linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%);
+}
+
+.theme-opal-skyline .daily-title,
+.theme-opal-skyline .weekly-title,
+.theme-opal-skyline .braindump-page-title,
+.theme-opal-skyline .habit-tracker-title,
+.theme-opal-skyline .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.theme-opal-skyline .section-label {
+  color: #4f97aa;
+}
+
+.theme-opal-skyline .reward-box {
+  border-color: #9ec5d4;
+  background: rgba(110, 186, 201, 0.07);
+}

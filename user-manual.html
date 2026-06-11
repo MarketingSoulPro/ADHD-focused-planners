@@ -217,8 +217,28 @@
                     font-size: 14px;
                 }
                 .subtitle {
-                    font-size: 14px;
-                }
+            }
+            /* ── Footer ── */
+            footer.main-footer {
+                width: 100%;
+                text-align: center;
+                padding: 40px 20px 20px;
+                margin-top: 20px;
+                border-top: 1px solid var(--border);
+                font-size: 13px;
+                color: var(--muted);
+                font-family: 'Inter', sans-serif;
+                letter-spacing: 0.5px;
+            }
+            footer.main-footer a {
+                color: var(--primary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.2s ease;
+            }
+            footer.main-footer a:hover {
+                color: var(--accent);
+                text-decoration: underline;
             }
         </style>
     </head>
@@ -496,8 +516,10 @@
                         Enable <strong>Background graphics</strong> in your
                         browser print settings before printing or saving to PDF.
                     </p>
-                </div>
             </section>
+            <footer class="main-footer">
+                <p>Copyright © <a href="https://msoulpro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a></p>
+            </footer>
         </main>
     </body>
 </html>
