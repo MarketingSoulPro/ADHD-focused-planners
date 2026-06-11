@@ -3567,3 +3567,59 @@ button:focus, .backup-item button:focus {
     outline: 3px solid rgba(58,134,255,0.25);
     outline-offset: 2px;
 }
+
+/* Footer backup panel */
+.backup-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.backup-panel {
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.backup-panel .panel-header {
+    border-bottom: none;
+    padding: 0;
+}
+.backup-panel .panel-title {
+    font-size: 15px;
+    color: var(--text-main);
+}
+.backup-panel .panel-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.backup-panel .panel-actions button {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.backup-panel .panel-actions .clear-all {
+    background: #b00020;
+    color: white;
+    border: none;
+}
+.backup-panel .panel-body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.backup-panel .panel-body .autosave-indicator { margin-left: 0; }
+
+@media (max-width: 760px) {
+    .backup-panel { padding: 12px; }
+    .backup-panel .panel-body { flex-direction: column; }
+}

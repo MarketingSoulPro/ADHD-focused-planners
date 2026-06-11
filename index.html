@@ -860,19 +860,7 @@
                 ></div>
             </div>
 
-                <!-- App-level Backup Controls -->
-                <div class="backup-controls" style="justify-self: start;">
-                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-                        <button id="backup-now" aria-label="Backup now">Backup Now</button>
-                        <button id="restore-latest" aria-label="Restore latest backup">Restore Latest</button>
-                        <button id="export-json" aria-label="Export backups as JSON">Export JSON</button>
-                        <button id="import-json" aria-label="Import backups from JSON">Import JSON</button>
-                        <button id="clear-all" class="clear-all" aria-label="Clear all saved data">Clear All</button>
-                        <input id="import-file" type="file" accept="application/json" style="display:none" />
-                    </div>
-                    <span class="autosave-indicator" id="autosave-indicator" aria-live="polite">Autosave: idle</span>
-                    <div class="backup-list" id="backup-list" role="list" aria-label="Available backups"></div>
-                </div>
+                <!-- App-level Backup Controls moved to footer panel -->
 
             <!-- Main Content Panels -->
             <div class="dashboard-grid">
@@ -1378,6 +1366,30 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup footer panel (moved to bottom of dashboard) -->
+        <div class="backup-footer">
+            <div class="backup-panel panel" role="region" aria-label="Backups and sync">
+                <div class="panel-header">
+                    <h3 class="panel-title">Backups & Sync</h3>
+                    <div class="panel-actions">
+                        <button id="backup-now" aria-label="Backup now">Backup Now</button>
+                        <button id="restore-latest" aria-label="Restore latest backup">Restore Latest</button>
+                        <button id="export-json" aria-label="Export backups as JSON">Export JSON</button>
+                        <button id="import-json" aria-label="Import backups from JSON">Import JSON</button>
+                        <button id="clear-all" class="clear-all" aria-label="Clear all saved data">Clear All</button>
+                        <input id="import-file" type="file" accept="application/json" style="display:none" />
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div style="display:flex;flex-direction:column;gap:6px;min-width:240px;">
+                        <span class="autosave-indicator" id="autosave-indicator" aria-live="polite">Autosave: idle</span>
+                        <div style="font-size:13px;color:var(--text-sub);">Use backups to keep local copies of your planner data.</div>
+                    </div>
+                    <div class="backup-list" id="backup-list" role="list" aria-label="Available backups" style="flex:1"></div>
                 </div>
             </div>
         </div>
