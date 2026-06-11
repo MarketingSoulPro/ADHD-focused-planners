@@ -3404,4 +3404,85 @@ body {
     }
 }
 
-/* ── Print Styles ── */
+/* ── Dopamine Menu Enhancements ── */
+.dopamine-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 26px;
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 4px;
+}
+
+.dopamine-row:last-child {
+    border-bottom: none;
+}
+
+.dopamine-select {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+.dopamine-select:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: var(--bg-primary);
+}
+
+.dopamine-text {
+    flex: 1;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--text-primary);
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.energy-section-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.energy-column {
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.energy-header-mini {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+@media screen and (max-width: 860px) {
+    .energy-section-grid {
+        grid-template-columns: 1fr;
+    }
+}
