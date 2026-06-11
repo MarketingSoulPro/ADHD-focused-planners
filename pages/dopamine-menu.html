@@ -438,7 +438,13 @@
                     const arr = JSON.parse(raw);
                     const els = Array.from(document.querySelectorAll('.dopamine-text'));
                     if (arr.length !== els.length) {
-                        // Structure changed — discard old data, use new defaults
+                        localStorage.removeItem(STORAGE_KEY);
+                        localStorage.removeItem(CHECK_KEY);
+                        return;
+                    }
+                    // If saved data is mostly empty, it's stale — discard it
+                    const nonEmpty = arr.filter(v => v && typeof v === 'string' && v.trim()).length;
+                    if (nonEmpty === 0) {
                         localStorage.removeItem(STORAGE_KEY);
                         localStorage.removeItem(CHECK_KEY);
                         return;

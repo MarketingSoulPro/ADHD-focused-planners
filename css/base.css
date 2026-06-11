@@ -1658,12 +1658,14 @@ body {
 }
 
 .dopamine-section-subtitle {
-    font-size: 7.5px;
-    color: var(--text-sub, #9090a5);
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--text-sub, #b0b0c0);
     margin-bottom: 6px;
     padding-bottom: 4px;
-    border-bottom: 1px solid var(--border-light, #222);
+    border-bottom: 1px solid var(--border-light, #333);
     letter-spacing: 0.2px;
+    line-height: 1.4;
 }
 
 .dopamine-section .lined-area {
