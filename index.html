@@ -278,6 +278,45 @@
                 color: var(--text-sub);
             }
 
+            .region-text {
+                font-size: 13px;
+                line-height: 1.7;
+                color: var(--text-sub);
+                max-width: 720px;
+                margin-bottom: 18px;
+            }
+
+            .region-form {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                max-width: 420px;
+            }
+
+            .region-form label {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.6px;
+                color: #fff;
+            }
+
+            .region-select {
+                width: 100%;
+                border: 1px solid var(--border-color);
+                border-radius: 14px;
+                background: #11111a;
+                color: #f8f8fc;
+                padding: 14px 16px;
+                font-size: 14px;
+                outline: none;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .region-select:focus {
+                border-color: var(--color-primary);
+                box-shadow: 0 0 0 4px rgba(58, 134, 255, 0.14);
+            }
+
             /* ── Theme Selectors ── */
             .theme-categories {
                 display: flex;
@@ -1319,6 +1358,7 @@
             }
         </style>
         <script src="js/backup-manager.js" defer></script>
+        <script src="js/region-selector.js" defer></script>
     </head>
 
     <body>
@@ -1801,10 +1841,38 @@
                     </div>
                 </div>
 
+                <!-- Panel 2: Region Selection -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">2. Select Your Region</h2>
+                        <span class="panel-badge">Major Countries</span>
+                    </div>
+
+                    <p class="region-text">
+                        Choose your country to load local public holidays and major events automatically across the planner suite. This helps the calendar stay aligned with your regional schedule.
+                    </p>
+
+                    <div class="region-form">
+                        <label for="region-select">Country / Region</label>
+                        <select id="region-select" class="region-select" aria-label="Select your region">
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="ca">Canada</option>
+                            <option value="au">Australia</option>
+                            <option value="in">India</option>
+                            <option value="de">Germany</option>
+                            <option value="fr">France</option>
+                            <option value="jp">Japan</option>
+                            <option value="br">Brazil</option>
+                            <option value="za">South Africa</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Panel 3: Planner Templates Selection -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h2 class="panel-title">2. Choose Planner Sheet</h2>
+                        <h2 class="panel-title">3. Choose Planner Sheet</h2>
                         <span class="panel-badge">8 Page Formats</span>
                     </div>
 
@@ -2015,10 +2083,10 @@
                 </div>
             </div>
 
-                <!-- Panel 3: User Manual & Setup Guide -->
+                <!-- Panel 4: User Manual & Setup Guide -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h2 class="panel-title">3. User Manual & Setup Guide</h2>
+                        <h2 class="panel-title">4. User Manual & Setup Guide</h2>
                         <span class="panel-badge">Quick Start</span>
                     </div>
 

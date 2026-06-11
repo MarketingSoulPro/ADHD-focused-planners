@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstDay = new Date(year, monthIndex, 1);
     const startIndex = (firstDay.getDay() + 6) % 7;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-    const holidayMap = getUSHolidayMap(year);
+    const holidayMap = getHolidayMap(year, getSelectedRegion());
     cells.forEach((cell, idx) => {
       const dayNumber = idx - startIndex + 1;
       const dateDiv = cell.querySelector(".popup-date");
@@ -511,30 +511,130 @@ document.addEventListener("DOMContentLoaded", () => {
     return date;
   }
 
-  function getUSHolidayMap(year) {
+  function getHolidayMapForRegion(region, year) {
     const holidays = {};
     const add = (date, label) => {
       holidays[getLocalDateString(date)] = label;
     };
 
-    add(getObservedDate(year, 0, 1), "New Year's Day");
-    const mlk = getNthWeekdayOfMonth(year, 0, 1, 3);
-    if (mlk) add(mlk, "MLK Jr. Day");
-    const presidents = getNthWeekdayOfMonth(year, 1, 1, 3);
-    if (presidents) add(presidents, "Presidents' Day");
-    const memorial = getLastWeekdayOfMonth(year, 4, 1);
-    if (memorial) add(memorial, "Memorial Day");
-    add(getObservedDate(year, 5, 19), "Juneteenth");
-    add(getObservedDate(year, 6, 4), "Independence Day");
-    const labor = getNthWeekdayOfMonth(year, 8, 1, 1);
-    if (labor) add(labor, "Labor Day");
-    const columbus = getNthWeekdayOfMonth(year, 9, 1, 2);
-    if (columbus) add(columbus, "Columbus Day");
-    add(getObservedDate(year, 10, 11), "Veterans Day");
-    const thanksgiving = getNthWeekdayOfMonth(year, 10, 4, 4);
-    if (thanksgiving) add(thanksgiving, "Thanksgiving");
-    add(getObservedDate(year, 11, 25), "Christmas Day");
+    const addFixed = (month, day, label, observed = true) => {
+      const date = new Date(year, month, day);
+      add(observed ? getObservedDate(date) : date, label);
+    };
+
+    const addNth = (month, weekday, nth, label) => {
+      const date = getNthWeekdayOfMonth(year, month, weekday, nth);
+      if (date) add(date, label);
+    };
+
+    const addLast = (month, weekday, label) => {
+      const date = getLastWeekdayOfMonth(year, month, weekday);
+      if (date) add(date, label);
+    };
+
+    switch (region) {
+      case "uk":
+        addFixed(0, 1, "New Year's Day");
+        addFixed(0, 2, "New Year's Day (substitute)", true);
+        addFixed(3, 5, "Early May Bank Holiday", false);
+        addNth(4, 1, 1, "Spring Bank Holiday");
+        addNth(7, 1, 1, "Summer Bank Holiday");
+        addFixed(11, 25, "Christmas Day");
+        addFixed(11, 26, "Boxing Day");
+        break;
+      case "ca":
+        addFixed(0, 1, "New Year's Day");
+        addNth(1, 1, 3, "Family Day");
+        addNth(2, 1, 3, "Good Friday");
+        addNth(4, 1, 2, "Victoria Day");
+        addFixed(6, 1, "Canada Day");
+        addNth(8, 1, 1, "Labour Day");
+        addNth(9, 1, 2, "Thanksgiving");
+        addFixed(11, 25, "Christmas Day");
+        addFixed(11, 26, "Boxing Day");
+        break;
+      case "au":
+        addFixed(0, 1, "New Year's Day");
+        addFixed(0, 26, "Australia Day");
+        addNth(2, 1, 2, "Labour Day");
+        addFixed(3, 25, "Anzac Day");
+        addNth(4, 1, 2, "Mother's Day");
+        addNth(9, 0, 1, "Labour Day");
+        addFixed(11, 25, "Christmas Day");
+        addFixed(11, 26, "Boxing Day");
+        break;
+      case "in":
+        addFixed(0, 26, "Republic Day", false);
+        addFixed(7, 15, "Independence Day", false);
+        addFixed(9, 2, "Gandhi Jayanti", false);
+        break;
+      case "de":
+        addFixed(0, 1, "New Year's Day", false);
+        addFixed(3, 1, "Labour Day", false);
+        addFixed(9, 3, "German Unity Day", false);
+        addFixed(11, 25, "Christmas Day", false);
+        addFixed(11, 26, "St. Stephen's Day", false);
+        break;
+      case "fr":
+        addFixed(0, 1, "New Year's Day", false);
+        addFixed(4, 1, "Labor Day", false);
+        addFixed(6, 14, "Bastille Day", false);
+        addFixed(10, 1, "All Saints' Day", false);
+        addFixed(11, 11, "Armistice Day", false);
+        break;
+      case "jp":
+        addFixed(0, 1, "New Year's Day", false);
+        addFixed(1, 11, "Coming of Age Day", false);
+        addFixed(1, 23, "Emperor's Birthday", false);
+        addFixed(3, 29, "Shōwa Day", false);
+        addFixed(4, 29, "Greenery Day", false);
+        addFixed(4, 3, "Constitution Memorial Day", false);
+        addFixed(4, 4, "Greenery Day", false);
+        addFixed(4, 5, "Children's Day", false);
+        addFixed(10, 3, "Culture Day", false);
+        addFixed(10, 23, "Labor Thanksgiving Day", false);
+        break;
+      case "br":
+        addFixed(0, 1, "New Year's Day", false);
+        addFixed(3, 21, "Tiradentes Day", false);
+        addFixed(4, 1, "Labor Day", false);
+        addFixed(8, 7, "Independence Day", false);
+        addFixed(9, 12, "Our Lady of Aparecida", false);
+        addFixed(10, 2, "All Souls' Day", false);
+        addFixed(10, 15, "Republic Proclamation Day", false);
+        addFixed(11, 25, "Christmas Day", false);
+        break;
+      case "za":
+        addFixed(2, 21, "Human Rights Day", false);
+        addFixed(3, 27, "Freedom Day", false);
+        addFixed(4, 1, "Workers' Day", false);
+        addFixed(5, 16, "Youth Day", false);
+        addFixed(8, 24, "Heritage Day", false);
+        addFixed(11, 16, "Day of Reconciliation", false);
+        addFixed(11, 25, "Christmas Day", false);
+        addFixed(11, 26, "Day of Goodwill", false);
+        break;
+      case "us":
+      default:
+        addFixed(0, 1, "New Year's Day");
+        addNth(0, 1, 3, "MLK Jr. Day");
+        addNth(1, 1, 3, "Presidents' Day");
+        addLast(4, 1, "Memorial Day");
+        addFixed(5, 19, "Juneteenth");
+        addFixed(6, 4, "Independence Day");
+        addNth(8, 1, 1, "Labor Day");
+        addNth(9, 1, 2, "Columbus Day");
+        addFixed(10, 11, "Veterans Day");
+        addNth(10, 4, 4, "Thanksgiving");
+        addFixed(11, 25, "Christmas Day");
+        break;
+    }
+
     return holidays;
+  }
+
+  function getHolidayMap(year, region) {
+    return getHolidayMapForRegion(region, year);
   }
 
   function syncDateFromMonthYear() {
@@ -606,6 +706,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function getSelectedRegion() {
+    return (
+      document.documentElement.dataset.plannerRegion ||
+      localStorage.getItem("planner-selected-region") ||
+      "us"
+    );
+  }
+
   function renderMonthlyCalendar() {
     if (pageId !== "monthly-calendar") return;
     const calendarGrid = document.querySelector(".calendar-grid");
@@ -617,7 +725,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startIndex = (firstDay.getDay() + 6) % 7;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
     const cells = Array.from(calendarGrid.querySelectorAll(".cal-cell"));
-    const holidayMap = getUSHolidayMap(year);
+    const holidayMap = getHolidayMap(year, getSelectedRegion());
     cells.forEach((cell, idx) => {
       const dayNumber = idx - startIndex + 1;
       const dateDiv = cell.querySelector(".cal-date");
