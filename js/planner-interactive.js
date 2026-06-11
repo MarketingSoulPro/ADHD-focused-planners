@@ -966,7 +966,7 @@ document.addEventListener("DOMContentLoaded", () => {
         audioCtx.currentTime + duration,
       );
 
-      gainNode.gain.setValueAtTime(0.028, audioCtx.currentTime);
+      gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(
         0.001,
         audioCtx.currentTime + duration,

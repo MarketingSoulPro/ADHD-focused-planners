@@ -288,7 +288,8 @@
 
             .region-form {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                align-items: center;
                 gap: 12px;
                 max-width: 420px;
             }
@@ -298,6 +299,7 @@
                 font-weight: 700;
                 letter-spacing: 0.6px;
                 color: #fff;
+                white-space: nowrap;
             }
 
             .region-select {
@@ -1405,22 +1407,38 @@
                 </p>
             </header>
 
-            <!-- Global Active Theme Bar -->
-            <div class="active-theme-banner">
-                <div class="banner-text">
-                    Current Theme:
-                    <span id="banner-theme-display" class="banner-theme-name"
-                        >Blush Calligraphy</span
-                    >
-                </div>
-                <div
-                    id="banner-theme-indicator"
-                    class="theme-swatch swatch-blush"
-                    style="width: 20px; height: 20px"
-                ></div>
-            </div>
+            <!-- Panel: Region Selection -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <span style="display:flex;align-items:center;gap:8px">
+                            <span style="font-size:20px">🌐</span>
+                            <h2 class="panel-title" style="margin:0">Select Your Region</h2>
+                        </span>
+                        <span class="panel-badge">Major Countries</span>
+                    </div>
 
-                <!-- App-level Backup Controls moved to footer panel -->
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                    <p class="region-text" style="margin-bottom:0">
+                        Choose your country to load local public holidays and major events automatically across the planner suite. This helps the calendar stay aligned with your regional schedule.
+                    </p>
+
+                    <div class="region-form">
+                        <label for="region-select">Country / Region</label>
+                        <select id="region-select" class="region-select" aria-label="Select your region">
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="ca">Canada</option>
+                            <option value="au">Australia</option>
+                            <option value="in">India</option>
+                            <option value="de">Germany</option>
+                            <option value="fr">France</option>
+                            <option value="jp">Japan</option>
+                            <option value="br">Brazil</option>
+                            <option value="za">South Africa</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
 
             <!-- Main Content Panels -->
             <div class="dashboard-grid">
@@ -1429,6 +1447,20 @@
                     <div class="panel-header">
                         <h2 class="panel-title">1. Select Background Theme</h2>
                         <span class="panel-badge">18 Themes</span>
+                    </div>
+
+                    <div class="active-theme-banner" style="margin-bottom: 16px">
+                        <div class="banner-text">
+                            Current Theme:
+                            <span id="banner-theme-display" class="banner-theme-name"
+                                >Blush Calligraphy</span
+                            >
+                        </div>
+                        <div
+                            id="banner-theme-indicator"
+                            class="theme-swatch swatch-blush"
+                            style="width: 20px; height: 20px"
+                        ></div>
                     </div>
 
                     <div class="theme-categories">
@@ -1841,38 +1873,10 @@
                     </div>
                 </div>
 
-                <!-- Panel 2: Region Selection -->
+                <!-- Panel 2: Planner Templates Selection -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h2 class="panel-title">2. Select Your Region</h2>
-                        <span class="panel-badge">Major Countries</span>
-                    </div>
-
-                    <p class="region-text">
-                        Choose your country to load local public holidays and major events automatically across the planner suite. This helps the calendar stay aligned with your regional schedule.
-                    </p>
-
-                    <div class="region-form">
-                        <label for="region-select">Country / Region</label>
-                        <select id="region-select" class="region-select" aria-label="Select your region">
-                            <option value="us">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="ca">Canada</option>
-                            <option value="au">Australia</option>
-                            <option value="in">India</option>
-                            <option value="de">Germany</option>
-                            <option value="fr">France</option>
-                            <option value="jp">Japan</option>
-                            <option value="br">Brazil</option>
-                            <option value="za">South Africa</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Panel 3: Planner Templates Selection -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title">3. Choose Planner Sheet</h2>
+                        <h2 class="panel-title">2. Choose Planner Sheet</h2>
                         <span class="panel-badge">8 Page Formats</span>
                     </div>
 
