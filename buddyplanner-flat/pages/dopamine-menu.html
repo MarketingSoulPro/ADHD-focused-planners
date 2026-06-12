@@ -397,9 +397,9 @@
 
             </div>
         <script>
-            console.log('Dopamine Menu script loaded');
-            // ── Dopamine Menu: Checkbox persistence ──
-            (function(){
+    console.log('Dopamine Menu script loaded');
+    // ── Dopamine Menu: Checkbox persistence ──
+    (function(){
                 function getDopamineKey() {
                     const sd = localStorage.getItem("selected-date") || new Date().toISOString().slice(0, 10);
                     return `planner-dopamine-menu-checked-${sd}`;

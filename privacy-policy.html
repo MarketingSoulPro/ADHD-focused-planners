@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Privacy Policy — Buddy Planner</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg-dark: #0b0b0f;
+                --bg-card: #12121a;
+                --bg-card-soft: #161622;
+                --border-color: #222232;
+                --border-glow: rgba(58, 134, 255, 0.15);
+                --text-main: #f0f0f5;
+                --text-sub: #9090a5;
+                --color-primary: #3a86ff;
+                --color-secondary: #ff006e;
+                --color-accent: #8338ec;
+                --color-success: #38b000;
+                --color-warning: #ff9e00;
+                
+                --sidebar-width: 280px;
+                --header-height: 70px;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+            }
+
+            /* Custom scrollbar for Webkit */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 99px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--bg-dark);
+                color: var(--text-main);
+                line-height: 1.6;
+                overflow-x: hidden;
+                
+                /* Dynamic mesh background */
+                background-image:
+                    radial-gradient(circle at 10% 10%, rgba(131, 56, 236, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 20%, rgba(58, 134, 255, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 0, 110, 0.05) 0%, transparent 50%);
+                background-attachment: fixed;
+            }
+
+            a {
+                color: var(--color-primary);
+                text-decoration: none;
+                transition: color 0.2s ease, text-shadow 0.2s ease;
+            }
+            a:hover {
+                color: var(--color-secondary);
+                text-shadow: 0 0 8px rgba(255, 0, 110, 0.3);
+            }
+
+            /* ── Layout Structure ── */
+            .app-container {
+                display: flex;
+                min-height: 100vh;
+                position: relative;
+            }
+
+            /* Sidebar Table of Contents */
+            .sidebar {
+                width: var(--sidebar-width);
+                background: rgba(18, 18, 26, 0.85);
+                border-right: 1px solid var(--border-color);
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                padding: 24px;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .sidebar-logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 20px;
+            }
+
+            .sidebar-logo img {
+                width: 36px;
+                height: 36px;
+                object-fit: contain;
+            }
+
+            .sidebar-logo span {
+                font-family: "Playfair Display", serif;
+                font-size: 18px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #ffffff, #a0a0c0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .sidebar-nav {
+                flex: 1;
+                overflow-y: auto;
+                padding-right: 8px;
+            }
+
+            .sidebar-nav ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sidebar-nav li a {
+                display: flex;
+                align-items: center;
+                padding: 10px 14px;
+                border-radius: 10px;
+                color: var(--text-sub);
+                font-size: 13px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+            }
+
+            .sidebar-nav li a:hover,
+            .sidebar-nav li a.active {
+                background: rgba(58, 134, 255, 0.1);
+                color: #fff;
+                border-left: 3px solid var(--color-primary);
+                padding-left: 11px;
+            }
+
+            /* Main Content Area */
+            .main-content {
+                flex: 1;
+                margin-left: var(--sidebar-width);
+                padding: 40px;
+                max-width: calc(100% - var(--sidebar-width));
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            /* Header Bar */
+            .search-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                background: rgba(18, 18, 26, 0.6);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 16px 24px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .header-info-title {
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--text-sub);
+            }
+
+            .header-buttons {
+                display: flex;
+                gap: 12px;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 18px;
+                border-radius: 12px;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                border: 1px solid transparent;
+            }
+
+            .btn-primary {
+                background: var(--color-primary);
+                color: white;
+            }
+            .btn-primary:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+            }
+
+            .btn-secondary {
+                background: rgba(255, 255, 255, 0.04);
+                border-color: var(--border-color);
+                color: var(--text-main);
+            }
+            .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.08);
+                transform: translateY(-1px);
+            }
+
+            /* Hero Section */
+            .hero-card {
+                text-align: center;
+                padding: 40px 20px;
+                background: linear-gradient(135deg, rgba(19, 19, 31, 0.8) 0%, rgba(15, 15, 26, 0.8) 100%);
+                border: 1.5px solid var(--border-glow);
+                border-radius: 24px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            }
+
+            .hero-card img {
+                width: 100px;
+                height: 100px;
+                object-fit: contain;
+                margin-bottom: 16px;
+                animation: floatLogo 4s ease-in-out infinite;
+            }
+
+            @keyframes floatLogo {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-8px); }
+            }
+
+            .hero-card h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 38px;
+                margin-bottom: 12px;
+                background: linear-gradient(135deg, #ffffff 40%, #a0a0c0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .hero-card p.subtitle {
+                max-width: 680px;
+                margin: 0 auto 8px;
+                color: var(--text-sub);
+                font-size: 15px;
+            }
+
+            .last-updated {
+                font-size: 12px;
+                color: var(--text-sub);
+                font-style: italic;
+            }
+
+            .copy-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--border-color);
+                padding: 4px 10px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-family: monospace;
+                font-size: 11px;
+                color: var(--color-primary);
+                transition: all 0.2s ease;
+                margin-left: 6px;
+            }
+
+            .copy-badge:hover {
+                background: rgba(58, 134, 255, 0.1);
+                border-color: var(--color-primary);
+            }
+
+            /* Sections & Cards */
+            .guide-section {
+                scroll-margin-top: 100px;
+            }
+
+            .card {
+                background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
+                border: 1.5px solid rgba(255, 255, 255, 0.02);
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                transition: border-color 0.3s ease;
+            }
+            .card:hover {
+                border-color: rgba(58, 134, 255, 0.2);
+            }
+
+            h2 {
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                border-left: 4px solid var(--color-primary);
+                padding-left: 12px;
+            }
+
+            h3 {
+                font-size: 16px;
+                font-weight: 700;
+                color: #fff;
+                margin-top: 8px;
+            }
+
+            p, li {
+                color: var(--text-sub);
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            ul, ol {
+                padding-left: 20px;
+            }
+
+            /* Grid Layouts */
+            .grid-half {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            /* Alerts & Tips */
+            .alert-box {
+                padding: 16px;
+                border-radius: 12px;
+                font-size: 13.5px;
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .alert-info {
+                background: rgba(58, 134, 255, 0.08);
+                border: 1px solid rgba(58, 134, 255, 0.2);
+                color: #bcd6ff;
+            }
+            .alert-info strong { color: var(--color-primary); }
+
+            .alert-warning {
+                background: rgba(255, 158, 0, 0.08);
+                border: 1px solid rgba(255, 158, 0, 0.2);
+                color: #ffdda1;
+            }
+            .alert-warning strong { color: var(--color-warning); }
+
+            /* Floating Tools */
+            .floating-top-btn {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.3s ease;
+            }
+
+            .floating-top-btn.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .floating-top-btn:hover {
+                background: var(--color-secondary);
+                transform: scale(1.1);
+            }
+
+            /* Mobile Menu Toggle button */
+            .mobile-menu-btn {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 1001;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            /* About Modal */
+            .about-overlay {
+                position: fixed;
+                inset: 0;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.65);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                animation: fadeIn 0.2s ease;
+            }
+
+            .about-modal {
+                background: #12121a;
+                border: 1.5px solid var(--border-color);
+                border-radius: 20px;
+                padding: 36px;
+                text-align: center;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+                max-width: 360px;
+                width: 100%;
+                animation: slideUp 0.25s ease;
+            }
+
+            .about-icon {
+                width: 72px;
+                height: 72px;
+                margin: 0 auto 16px;
+                border-radius: 16px;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-color);
+            }
+
+            .about-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .about-name {
+                font-size: 22px;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 8px;
+            }
+
+            .about-version {
+                font-size: 14px;
+                color: var(--color-primary);
+                font-weight: 600;
+                margin-bottom: 12px;
+            }
+
+            .about-divider {
+                height: 1px;
+                background: var(--border-color);
+                margin: 18px 0;
+            }
+
+            .about-detail {
+                font-size: 12px;
+                color: var(--text-sub);
+                margin-bottom: 6px;
+            }
+
+            .about-close {
+                margin-top: 12px;
+                width: 100%;
+                padding: 12px;
+                border-radius: 12px;
+                border: none;
+                background: var(--color-primary);
+                color: white;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .about-close:hover {
+                background: var(--color-secondary);
+            }
+
+            /* Animations */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* Footer */
+            footer.main-footer {
+                border-top: 1px solid var(--border-color);
+                padding-top: 30px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Responsive Design Breakpoints */
+            @media (max-width: 992px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .mobile-menu-btn {
+                    display: flex;
+                }
+                .main-content {
+                    margin-left: 0;
+                    max-width: 100%;
+                    padding: 80px 20px 40px;
+                }
+                .search-header {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .grid-half {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="app-container">
+
+            <!-- ── SIDEBAR TABLE OF CONTENTS ── -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-logo">
+                    <img src="img/logo.png" alt="Buddy Planner" />
+                    <span>Buddy Planner</span>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#intro" class="active">1. Introduction</a></li>
+                        <li><a href="#data-collection">2. Data We Collect</a></li>
+                        <li><a href="#data-usage">3. How We Use Data</a></li>
+                        <li><a href="#data-sharing">4. Data Sharing & Third Parties</a></li>
+                        <li><a href="#data-security">5. Data Security</a></li>
+                        <li><a href="#your-rights">6. Your Rights</a></li>
+                        <li><a href="#retention">7. Data Retention</a></li>
+                        <li><a href="#children">8. Children's Privacy</a></li>
+                        <li><a href="#policy-changes">9. Policy Changes</a></li>
+                        <li><a href="#contact">10. Contact Info</a></li>
+                        <li><a href="#disclaimer">11. Legal Disclaimer</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- ── MAIN CONTENT AREA ── -->
+            <main class="main-content">
+
+                <!-- ── HEADER ── -->
+                <header class="search-header">
+                    <div class="header-info-title">Buddy Planner Privacy Policy</div>
+                    <div class="header-buttons">
+                        <a class="btn btn-primary" href="index.html">Dashboard</a>
+                        <a class="btn btn-secondary" href="user-manual.html">User Manual</a>
+                    </div>
+                </header>
+
+                <!-- ── HERO SECTION ── -->
+                <section class="hero-card">
+                    <img src="img/logo.png" alt="Buddy Planner logo" />
+                    <h1>Privacy Policy</h1>
+                    <p class="subtitle">Buddy Planner &mdash; by MarketingSoulPro</p>
+                    <p class="last-updated">Last updated: June 2026</p>
+                </section>
+
+                <!-- ── 1. INTRODUCTION ── -->
+                <section class="guide-section" id="intro">
+                    <div class="card">
+                        <h2>1. Introduction</h2>
+                        <p>
+                            MarketingSoulPro (“we,” “our,” or “us”) operates the Buddy Planner application (the “Software”). This Privacy Policy explains how your data is collected, used, and protected when you use our Software.
+                        </p>
+                        <p>
+                            By using the Buddy Planner, you agree to the practices described in this policy. If you do not agree, please do not use the Software.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 2. DATA WE COLLECT ── -->
+                <section class="guide-section" id="data-collection">
+                    <div class="card">
+                        <h2>2. Data We Collect</h2>
+
+                        <h3>2.1 Planner Data (Stored Locally)</h3>
+                        <p>
+                            All planner data you enter—including text, checkboxes, habit logs, expense entries, drawings, theme preferences, and settings—is stored exclusively in your browser’s <strong>localStorage</strong>.
+                        </p>
+                        <ul>
+                            <li><strong>This data never leaves your device.</strong> It is not transmitted to any server, cloud, or third party.</li>
+                            <li>Clearing your browser data (cache, cookies, site data) will erase this information. We strongly recommend using the built-in <strong>Export JSON</strong> feature in the Backup & Sync panel to create a safety copy.</li>
+                            <li>We cannot access, recover, or restore your planner data because it never reaches our servers.</li>
+                        </ul>
+
+                        <h3>2.2 License Activation Data (Sent to Server)</h3>
+                        <p>
+                            When you activate your license key, the following information is sent to our license server for the sole purpose of validating your purchase and registering your device:
+                        </p>
+                        <ul>
+                            <li>Your license key</li>
+                            <li>Your name (as entered during activation)</li>
+                            <li>Your email address</li>
+                            <li>Your chosen device name (e.g. “Laptop”)</li>
+                        </ul>
+                        <p>
+                            This information is <strong>only</strong> used for license management, including verifying your entitlement, limiting activations to 3 devices, and providing customer support.
+                        </p>
+
+                        <h3>2.3 Automated Data (Not Collected)</h3>
+                        <p>
+                            The Buddy Planner does <strong>not</strong> use cookies, analytics trackers, fingerprinting, or any automated data collection tools. We do not collect usage statistics, page views, click data, or any behavioural information.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 3. HOW WE USE YOUR DATA ── -->
+                <section class="guide-section" id="data-usage">
+                    <div class="card">
+                        <h2>3. How We Use Your Data</h2>
+                        <p>
+                            The limited data we receive (name, email, device name, license key during activation) is used exclusively for:
+                        </p>
+                        <ul>
+                            <li>Validating your license key and granting access</li>
+                            <li>Registering and managing your 3-device activation limit</li>
+                            <li>Providing customer support and license recovery</li>
+                            <li>Communicating with you about your license or account if you initiate contact</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ── 4. DATA SHARING & THIRD PARTIES ── -->
+                <section class="guide-section" id="data-sharing">
+                    <div class="card">
+                        <h2>4. Data Sharing &amp; Third Parties</h2>
+                        <p>
+                            We do <strong>not</strong> sell, rent, trade, or share your personal information with any third party.
+                        </p>
+                        <p>Exceptions (where required by law):</p>
+                        <ul>
+                            <li>If compelled by a valid legal request (court order, subpoena), we may disclose information as required by law.</li>
+                            <li>If necessary to protect our rights, property, or safety, or the rights of others.</li>
+                        </ul>
+                        <div class="alert-box alert-info">
+                            <div>
+                                <strong>Third-party services:</strong> The Software may load fonts from Google Fonts. Google’s use of data is governed by their own privacy policy. We do not control and are not responsible for third-party data practices.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 5. DATA SECURITY ── -->
+                <section class="guide-section" id="data-security">
+                    <div class="card">
+                        <h2>5. Data Security</h2>
+                        <p>
+                            We take reasonable precautions to protect the information you provide during license activation. Our license server uses industry-standard security measures. However:
+                        </p>
+                        <ul>
+                            <li>No method of transmission over the Internet is 100% secure.</li>
+                            <li>Your planner data’s security depends on your own browser and device security. Keep your device and browser updated.</li>
+                            <li>We cannot be held responsible for unauthorised access to your device or browser storage.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ── 6. YOUR RIGHTS ── -->
+                <section class="guide-section" id="your-rights">
+                    <div class="card">
+                        <h2>6. Your Rights</h2>
+                        <p>
+                            Depending on your jurisdiction, you may have the following rights:
+                        </p>
+                        <ul>
+                            <li><strong>Access:</strong> Request a copy of the personal data we hold about you (limited to license activation data).</li>
+                            <li><strong>Correction:</strong> Request correction of inaccurate data.</li>
+                            <li><strong>Deletion:</strong> Request deletion of your license activation data. Note that this will revoke your license.</li>
+                            <li><strong>Data portability:</strong> Request a copy of your data in a machine-readable format.</li>
+                        </ul>
+                        <p style="margin-top: 10px">
+                            To exercise any of these rights, contact us at:
+                            <span class="copy-badge" onclick="copyText('buddyplannerpk@gmail.com', this)">buddyplannerpk@gmail.com</span>.
+                            We will respond within 30 days.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 7. DATA RETENTION ── -->
+                <section class="guide-section" id="retention">
+                    <div class="card">
+                        <h2>7. Data Retention</h2>
+                        <p>
+                            <strong>License activation data</strong> (name, email, device name, license key) is retained for as long as your license is active. If you request deletion of this data, your license will be deactivated.
+                        </p>
+                        <p>
+                            <strong>Planner data</strong> is stored in your browser and is not retained on any server. It exists only as long as you keep it in your browser or in exported files you create.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 8. CHILDREN'S PRIVACY ── -->
+                <section class="guide-section" id="children">
+                    <div class="card">
+                        <h2>8. Children’s Privacy</h2>
+                        <p>
+                            The Buddy Planner is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately so we can delete it.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 9. CHANGES TO THIS POLICY ── -->
+                <section class="guide-section" id="policy-changes">
+                    <div class="card">
+                        <h2>9. Changes to This Policy</h2>
+                        <p>
+                            We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated “Last updated” date. Continued use of the Software after changes constitutes acceptance of the new policy.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ── 10. CONTACT ── -->
+                <section class="guide-section" id="contact">
+                    <div class="card">
+                        <h2>10. Contact Info</h2>
+                        <p>
+                            If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact us:
+                        </p>
+                        <div class="alert-box alert-warning">
+                            <div>
+                                <strong>Email:</strong> <span class="copy-badge" onclick="copyText('buddyplannerpk@gmail.com', this)">buddyplannerpk@gmail.com</span>
+                                <br/>
+                                <strong style="margin-top:4px;display:inline-block">Developer:</strong> MarketingSoulPro
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 11. DISCLAIMER ── -->
+                <section class="guide-section" id="disclaimer">
+                    <div class="card">
+                        <h2>11. Legal Disclaimer</h2>
+                        <p>
+                            The Buddy Planner is provided on an “as is” and “as available” basis. MarketingSoulPro makes no representations or warranties of any kind, express or implied, regarding the operation or availability of the Software.
+                        </p>
+                        <p>
+                            To the fullest extent permitted by law, MarketingSoulPro disclaims all liability for any damages, losses, or claims arising from the use or inability to use the Software, including but not limited to data loss, lost productivity, or personal injury. Users assume full responsibility for their use of the Software.
+                        </p>
+                        <div class="alert-box alert-warning">
+                            <div>
+                                <strong>Important Medical Disclaimer:</strong> The Buddy Planner is an organizational tool. It is not a medical device and does not diagnose, treat, or cure any medical or mental health condition. Always consult a qualified professional for medical advice.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── FOOTER ── -->
+                <footer class="main-footer">
+                    <p>
+                        <a href="user-manual.html">User Manual</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="index.html">Back to Dashboard</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="pages/daily-focus.html">Open Daily Focus</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="#" onclick="document.getElementById('aboutOverlay').style.display='flex';return false;">About</a>
+                    </p>
+                    <p style="font-size:12px;color:var(--text-sub)">
+                        Copyright &copy; 2026 <a href="https://marketingsoulpro.com" target="_blank">MarketingSoulPro</a>. All Rights Reserved.
+                    </p>
+                </footer>
+
+            </main>
+        </div>
+
+        <!-- ── About Modal ── -->
+        <div class="about-overlay" id="aboutOverlay" onclick="if(event.target==this)this.style.display='none'">
+            <div class="about-modal">
+                <div class="about-icon">
+                    <img src="img/Buddy%20Planner%20favicon.png" alt="Buddy Planner" />
+                </div>
+                <div class="about-name">Buddy Planner</div>
+                <div class="about-version">Version: 4.2.0</div>
+                <div class="about-divider"></div>
+                <div class="about-detail">Build: 1</div>
+                <div class="about-detail">Date: 2026-06-12</div>
+                <div class="about-detail">HTML5 · CSS3 · JavaScript</div>
+                <div class="about-detail">localStorage · IndexedDB</div>
+                <div class="about-divider"></div>
+                <p style="font-size:11px;color:var(--text-sub);margin-bottom:15px">
+                    &copy; 2026 <a href="https://MSoulPro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a>
+                </p>
+                <button class="about-close" onclick="document.getElementById('aboutOverlay').style.display='none'">Close</button>
+            </div>
+        </div>
+
+        <!-- Floating Back to Top Button -->
+        <button class="floating-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </button>
+
+        <!-- ── INTERACTIVE LOGIC SCRIPTS ── -->
+        <script>
+            // Responsive Sidebar Toggle
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            // Active Sidebar Navigation Highlighting on Scroll
+            const sections = document.querySelectorAll('.guide-section');
+            const navLinks = document.querySelectorAll('.sidebar-nav li a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 120) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Floating Scroll Button visibility
+                const scrollBtn = document.getElementById('scrollTopBtn');
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+
+            document.getElementById('scrollTopBtn').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Smooth Scroll for sidebar nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        sidebar.classList.remove('open');
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 90,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Copy to Clipboard Utility
+            function copyText(text, element) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = element.textContent;
+                    element.textContent = 'Copied!';
+                    element.style.borderColor = 'var(--color-success)';
+                    element.style.color = 'var(--color-success)';
+                    setTimeout(() => {
+                        element.textContent = originalText;
+                        element.style.borderColor = '';
+                        element.style.color = '';
+                    }, 1800);
+                });
+            }
+        </script>
+    </body>
+</html>

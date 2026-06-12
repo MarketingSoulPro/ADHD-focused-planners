@@ -1,0 +1,89 @@
+/* ══════════════════════════════════════
+   Theme: Dark Slate (Masculine)
+   ══════════════════════════════════════ */
+.theme-dark-slate {
+  --bg-primary: #2a2d32;
+  --bg-secondary: #33373d;
+  --bg-accent: #3c4148;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b4ba;
+  --text-muted: #787e88;
+  --accent-1: #6ca0d0;
+  --accent-2: #e8a060;
+  --accent-3: #70b8a0;
+  --accent-4: #80c080;
+  --accent-5: #d0a060;
+  --border-color: #4a5058;
+  --border-light: #3c4148;
+  --border-dotted: #4a5058;
+  --checkbox-border: #606870;
+  --icon-color: #8890a0;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+
+  --tab-jan: #6ca0d0; --tab-feb: #e8a060; --tab-mar: #70b8a0;
+  --tab-apr: #80c080; --tab-may: #d0a060; --tab-jun: #6ca0d0;
+  --tab-jul: #e8a060; --tab-aug: #70b8a0; --tab-sep: #80c080;
+  --tab-oct: #d0a060; --tab-nov: #6ca0d0; --tab-dec: #70b8a0;
+}
+
+.theme-dark-slate .planner-page {
+  background-image:
+    linear-gradient(180deg, rgba(108, 160, 208, 0.03) 0%, transparent 30%);
+}
+
+.theme-dark-slate .daily-title,
+.theme-dark-slate .weekly-title,
+.theme-dark-slate .braindump-page-title,
+.theme-dark-slate .habit-tracker-title,
+.theme-dark-slate .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.theme-dark-slate .section-label,
+.theme-dark-slate .section-label-accent {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.theme-dark-slate .selfcare-icon {
+  border-radius: 4px;
+  background: rgba(108, 160, 208, 0.08);
+  border-color: #4a5058;
+}
+
+.theme-dark-slate .reward-box {
+  border-style: solid;
+  border-color: #4a5058;
+  background: rgba(108, 160, 208, 0.05);
+  border-width: 1.5px;
+}
+
+.theme-dark-slate .month-tab {
+  color: #2a2d32;
+  font-weight: 700;
+}
+
+.theme-dark-slate .braindump-area,
+.theme-dark-slate .day-content,
+.theme-dark-slate .lined-area,
+.theme-dark-slate .summary-lines {
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 18px,
+    rgba(255,255,255,0.06) 18px,
+    rgba(255,255,255,0.06) 18.5px
+  ) !important;
+}
+
+.theme-dark-slate .cal-day-header {
+  background: #33373d;
+}
+
+.theme-dark-slate .cal-cell.empty {
+  background: #2a2d32;
+}

@@ -1478,7 +1478,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPen = document.createElement("button");
     btnPen.className = "pen-tool-btn";
     btnPen.dataset.tooltip = "Pen Mode";
-    btnPen.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" stroke="currentColor"/></svg>`;
+    btnPen.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor"/></svg>`;
     btnPen.onclick = () => {
       playPopSound(true);
       setTool("pen");
@@ -1489,7 +1489,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnEraser = document.createElement("button");
     btnEraser.className = "pen-tool-btn";
     btnEraser.dataset.tooltip = "Eraser Mode";
-    btnEraser.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16.24 3.76c-.39-.39-1.02-.39-1.41 0L5 13.59V19h5.41l9.83-9.83c.39-.39.39-1.02 0-1.41l-3.6-3.6z" stroke="currentColor"/></svg>`;
+    btnEraser.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 20H7L3 16c-1.5-1.5-1.5-3.5 0-5l8.5-8.5c1.5-1.5 3.5-1.5 5 0l4.5 4.5c1.5 1.5 1.5 3.5 0 5L13 20" stroke="currentColor"/></svg>`;
     btnEraser.onclick = () => {
       playPopSound(true);
       setTool("eraser");

@@ -1,0 +1,102 @@
+/* ══════════════════════════════════════
+   Theme: Carbon Fiber (Masculine)
+   ══════════════════════════════════════ */
+.theme-carbon-fiber {
+  --bg-primary: #242424;
+  --bg-secondary: #2c2c2c;
+  --bg-accent: #363636;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a8a8a8;
+  --text-muted: #707070;
+  --accent-1: #c0c0c0;
+  --accent-2: #e04040;
+  --accent-3: #808080;
+  --accent-4: #90b090;
+  --accent-5: #d0a040;
+  --border-color: #444444;
+  --border-light: #363636;
+  --border-dotted: #444444;
+  --checkbox-border: #606060;
+  --icon-color: #888888;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+
+  --tab-jan: #c0c0c0; --tab-feb: #e04040; --tab-mar: #808080;
+  --tab-apr: #90b090; --tab-may: #d0a040; --tab-jun: #c0c0c0;
+  --tab-jul: #e04040; --tab-aug: #808080; --tab-sep: #90b090;
+  --tab-oct: #d0a040; --tab-nov: #c0c0c0; --tab-dec: #e04040;
+}
+
+.theme-carbon-fiber .planner-page {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+}
+
+.theme-carbon-fiber .daily-title,
+.theme-carbon-fiber .weekly-title,
+.theme-carbon-fiber .braindump-page-title,
+.theme-carbon-fiber .habit-tracker-title,
+.theme-carbon-fiber .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.theme-carbon-fiber .section-label,
+.theme-carbon-fiber .section-label-accent {
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.theme-carbon-fiber .selfcare-icon {
+  border-radius: 2px;
+  background: rgba(192, 192, 192, 0.06);
+  border-color: #444;
+}
+
+.theme-carbon-fiber .reward-box {
+  border-style: solid;
+  border-color: #444;
+  background: rgba(224, 64, 64, 0.04);
+  border-radius: 2px;
+}
+
+.theme-carbon-fiber .braindump-area,
+.theme-carbon-fiber .day-content,
+.theme-carbon-fiber .lined-area,
+.theme-carbon-fiber .summary-lines {
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 18px,
+    rgba(255,255,255,0.04) 18px,
+    rgba(255,255,255,0.04) 18.5px
+  ) !important;
+}
+
+.theme-carbon-fiber .month-tab {
+  color: #242424;
+  font-weight: 800;
+}
+
+.theme-carbon-fiber .cal-day-header {
+  background: #2c2c2c;
+}
+
+.theme-carbon-fiber .cal-cell.empty {
+  background: #242424;
+}

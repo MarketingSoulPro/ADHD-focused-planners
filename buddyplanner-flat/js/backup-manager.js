@@ -234,7 +234,6 @@
     if (backupBtn)
       backupBtn.addEventListener('click', function () {
         makeBackup();
-        renderBackupList();
         if (indicatorEl) indicatorEl.innerText = 'Backup saved';
         setTimeout(() => indicatorEl && (indicatorEl.innerText = 'Autosave: idle'), 1000);
       });
@@ -242,7 +241,6 @@
     if (restoreBtn)
       restoreBtn.addEventListener('click', function () {
         const ok = restoreLatest();
-        renderBackupList();
         if (indicatorEl)
           indicatorEl.innerText = ok ? 'Restored latest backup' : 'No backups';
         setTimeout(() => indicatorEl && (indicatorEl.innerText = 'Autosave: idle'), 1000);
@@ -274,7 +272,7 @@
         setTimeout(() => indicatorEl && (indicatorEl.innerText = 'Autosave: idle'), 1000);
       });
 
-    // Database folder UI handlers
+    // ── Database folder UI handlers ──
     const dbFolderSet = document.getElementById('db-folder-set');
     const dbFolderSync = document.getElementById('db-folder-sync');
     const dbFolderDisconnect = document.getElementById('db-folder-disconnect');
@@ -300,7 +298,6 @@
       }
     }
 
-    // Check folder status on load
     (async function () {
       const status = await window.BackupManager.getDatabaseFolderStatus();
       updateDbFolderUI(status);
@@ -312,11 +309,10 @@
         if (result === 'UNSUPPORTED') {
           dbFolderInfo.textContent = '⚠️ Folder access is not supported in this browser. Try Chrome or Edge.';
         } else if (result === 'DENIED') {
-          dbFolderInfo.textContent = '⚠️ Folder access was denied. Please allow permission to use this feature.';
+          dbFolderInfo.textContent = '⚠️ Folder access was denied. Please allow permission.';
         } else if (result === 'OK') {
           const status = await window.BackupManager.getDatabaseFolderStatus();
           updateDbFolderUI(status);
-          // Write initial data
           await window.BackupManager.syncToFolder();
           if (indicatorEl) indicatorEl.innerText = 'Folder connected & synced';
           setTimeout(() => indicatorEl && (indicatorEl.innerText = 'Autosave: idle'), 1000);
@@ -401,7 +397,6 @@
     const DB_HANDLE_KEY = 'planner-db-handle';
     let dbDirHandle = null;
 
-    // Simple IndexedDB wrapper for storing the directory handle
     function openDB() {
       return new Promise((resolve, reject) => {
         const req = indexedDB.open('PlannerDB', 1);
@@ -438,7 +433,6 @@
       }));
     }
 
-    // Restore directory handle from IndexedDB on init
     (async function restoreHandle() {
       try {
         const handle = await idbGet(DB_HANDLE_KEY);
@@ -459,7 +453,6 @@
       clearBackupsAndData,
       listBackups: getBackups,
 
-      // Database folder API
       async setDatabaseFolder() {
         if (!window.showDirectoryPicker) return 'UNSUPPORTED';
         try {
@@ -471,7 +464,6 @@
           }
           dbDirHandle = handle;
           await idbSet(DB_HANDLE_KEY, handle);
-          // Write a test file to verify
           const testFile = await handle.getFileHandle('planner-db.json', { create: true });
           const writable = await testFile.createWritable();
           await writable.write(JSON.stringify({ created: Date.now() }));
@@ -489,7 +481,6 @@
 
       async getDatabaseFolderStatus() {
         if (!dbDirHandle) {
-          // Try to restore from IDB
           try {
             const handle = await idbGet(DB_HANDLE_KEY);
             if (handle && handle.queryPermission) {
@@ -502,7 +493,6 @@
           } catch (e) { /* no-op */ }
           return { connected: false };
         }
-        // Check permission is still valid
         try {
           const perm = await dbDirHandle.queryPermission({ mode: 'readwrite' });
           return { connected: perm === 'granted' };
@@ -514,7 +504,13 @@
       async syncToFolder() {
         if (!dbDirHandle) return false;
         try {
-          const snapshot = getSnapshot();
+          const snapshot = {};
+          for (let i = 0; i < localStorage.length; i += 1) {
+            const key = localStorage.key(i);
+            if (!key || IGNORED_KEYS.includes(key)) continue;
+            const value = localStorage.getItem(key);
+            if (value !== null) snapshot[key] = value;
+          }
           const fileHandle = await dbDirHandle.getFileHandle('planner-data.json', { create: true });
           const writable = await fileHandle.createWritable();
           await writable.write(JSON.stringify(snapshot, null, 2));

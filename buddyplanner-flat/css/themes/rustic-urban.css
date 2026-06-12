@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════
+   Theme: Rustic Urban (Masculine)
+   ══════════════════════════════════════ */
+.theme-rustic-urban {
+  --bg-primary: #2f2b24;
+  --bg-secondary: #3f3a34;
+  --bg-accent: #4c453d;
+  --text-primary: #f5efe3;
+  --text-secondary: #c5b8a7;
+  --text-muted: #9a8d7e;
+  --accent-1: #d18b5e;
+  --accent-2: #a6784f;
+  --accent-3: #7c6450;
+  --accent-4: #caa581;
+  --accent-5: #e3c7a3;
+  --border-color: #5e5347;
+  --border-light: #4a4036;
+  --border-dotted: #5c5045;
+  --checkbox-border: #8c7969;
+  --icon-color: #b2947f;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Playfair Display', serif;
+  --bg-pattern: radial-gradient(circle at 15% 15%, rgba(209,139,94,0.12), transparent 20%), radial-gradient(circle at 85% 85%, rgba(227,199,163,0.16), transparent 22%);
+
+  --tab-jan: #d18b5e; --tab-feb: #a6784f; --tab-mar: #7c6450;
+  --tab-apr: #caa581; --tab-may: #e3c7a3; --tab-jun: #d18b5e;
+  --tab-jul: #a6784f; --tab-aug: #7c6450; --tab-sep: #caa581;
+  --tab-oct: #e3c7a3; --tab-nov: #d18b5e; --tab-dec: #a6784f;
+}
+
+.theme-rustic-urban .planner-page {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%), radial-gradient(circle at 80% 18%, rgba(227,199,163,0.14), transparent 20%);
+}
+
+.theme-rustic-urban .daily-title,
+.theme-rustic-urban .weekly-title,
+.theme-rustic-urban .braindump-page-title,
+.theme-rustic-urban .habit-tracker-title,
+.theme-rustic-urban .dopamine-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.theme-rustic-urban .section-label {
+  color: #d8b893;
+}
+
+.theme-rustic-urban .reward-box {
+  border-color: #aa8c73;
+  background: rgba(209, 139, 94, 0.08);
+}

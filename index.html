@@ -9,145 +9,144 @@
         <link rel="apple-touch-icon" href="img/logo.png" />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
-            rel="stylesheet"
+            rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
         />
+        <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" /></noscript>
         <style>
             :root {
                 --bg-dark: #0b0b0f;
                 --bg-card: #12121a;
-                --border-color: #222230;
+                --bg-card-soft: #161624;
+                --border-color: #222232;
+                --border-glow: rgba(58, 134, 255, 0.15);
                 --text-main: #f0f0f5;
                 --text-sub: #9090a5;
                 --color-primary: #3a86ff;
                 --color-secondary: #ff006e;
                 --color-accent: #8338ec;
                 --color-success: #38b000;
+                --color-warning: #ff9e00;
             }
 
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+            }
+
+            /* Custom scrollbar */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 99px;
             }
 
             body {
                 font-family: "Inter", sans-serif;
                 background-color: var(--bg-dark);
                 color: var(--text-main);
-                padding: 40px 20px;
+                padding: 30px 20px 50px;
                 line-height: 1.6;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                overflow-x: hidden;
+
+                /* Dynamic mesh backdrop */
+                background-image:
+                    radial-gradient(circle at 10% 10%, rgba(131, 56, 236, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 20%, rgba(58, 134, 255, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 0, 110, 0.05) 0%, transparent 50%);
+                background-attachment: fixed;
             }
 
             .container {
                 width: 100%;
-                max-width: 1200px;
+                max-width: 1100px;
                 display: flex;
                 flex-direction: column;
-                gap: 40px;
+                gap: 24px;
             }
 
-            /* ── Header ── */
+            /* Header Section - Modern and Sleek */
             header {
                 text-align: center;
-                padding: 10px 0;
+                padding: 10px 0 20px;
                 border-bottom: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
             }
 
             .logo-container {
                 display: inline-flex;
                 flex-direction: column;
                 align-items: center;
-                margin-bottom: 10px;
             }
 
             .logo-img {
-                width: 180px;
-                height: 180px;
+                width: 120px;
+                height: 120px;
                 object-fit: contain;
+                animation: floatLogo 4s ease-in-out infinite;
             }
 
-            .logo-text {
-                font-weight: 800;
-                font-size: 11px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                background: linear-gradient(to right, #fff, #bbb);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                display: none;
-                /* Hidden since the image is large and contains text */
+            @keyframes floatLogo {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-6px); }
             }
 
             h1 {
                 font-family: "Playfair Display", serif;
-                font-size: 42px;
+                font-size: 36px;
                 font-weight: 700;
-                margin-bottom: 12px;
                 letter-spacing: -0.5px;
-                background: linear-gradient(135deg, #ffffff 30%, #a0a0c0 100%);
+                background: linear-gradient(135deg, #ffffff 40%, #a0a0c0 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
 
             .subtitle {
-                font-size: 16px;
+                font-size: 14.5px;
                 color: var(--text-sub);
-                max-width: 700px;
+                max-width: 680px;
                 margin: 0 auto;
-                font-weight: 400;
+                line-height: 1.6;
             }
 
             .branding {
-                font-size: 13px;
-                color: #b8b8c8;
-                margin-top: 16px;
+                font-size: 12px;
+                color: #7a7a9a;
             }
 
             .branding a {
                 color: var(--color-primary);
                 text-decoration: none;
-                font-weight: 700;
+                font-weight: 600;
             }
-
             .branding a:hover {
                 color: var(--color-secondary);
-            }
-
-            .manual-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid var(--border-color);
-                color: #fff;
-                text-decoration: none;
-                padding: 8px 16px;
-                border-radius: 99px;
-                font-size: 12px;
-                font-weight: 600;
-                margin-top: 16px;
-                transition: all 0.2s ease;
-            }
-
-            .manual-btn:hover {
-                background: rgba(255, 255, 255, 0.1);
-                border-color: var(--color-primary);
-                transform: translateY(-1px);
             }
 
             /* PWA Install Banner */
             .install-banner {
                 position: fixed;
-                top: 20px;
-                right: 20px;
+                bottom: 24px;
+                right: 24px;
                 left: auto;
-                transform: translateX(100%) translateY(0);
-                width: 90%;
-                max-width: 320px;
-                background: var(--bg-card);
+                transform: translateY(150%);
+                width: calc(100% - 48px);
+                max-width: 340px;
+                background: rgba(18, 18, 26, 0.95);
                 border: 1px solid var(--border-color);
                 border-radius: 16px;
                 padding: 16px;
@@ -156,19 +155,22 @@
                 align-items: center;
                 gap: 12px;
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-                transition: transform 0.5s
-                    cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             }
 
             .install-banner.visible {
-                transform: translateX(0) translateY(0);
+                transform: translateY(0);
             }
 
             .install-logo {
-                width: 48px;
-                height: 48px;
+                width: 44px;
+                height: 44px;
                 border-radius: 10px;
                 object-fit: contain;
+                background: rgba(255,255,255,0.02);
+                border: 1px solid var(--border-color);
             }
 
             .install-content {
@@ -176,7 +178,7 @@
             }
 
             .install-title {
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 700;
                 color: #fff;
                 display: block;
@@ -192,52 +194,44 @@
                 background: var(--color-primary);
                 color: white;
                 border: none;
-                padding: 8px 16px;
-                border-radius: 99px;
+                padding: 8px 14px;
+                border-radius: 8px;
                 font-size: 12px;
                 font-weight: 700;
                 cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .install-btn:hover {
+                background: var(--color-secondary);
             }
 
             .install-close {
                 position: absolute;
                 top: -8px;
                 right: -8px;
-                width: 24px;
-                height: 24px;
-                background: #222;
+                width: 22px;
+                height: 22px;
+                background: #1b1b26;
                 border: 1px solid var(--border-color);
                 border-radius: 50%;
                 color: #fff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 14px;
+                font-size: 13px;
                 cursor: pointer;
             }
 
-            /* ── Main Layout Panels ── */
-            .dashboard-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-            }
-
-            @media (max-width: 900px) {
-                .dashboard-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
-
+            /* Panels - Compact & Polished */
             .panel {
                 background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
-                border: 1.5px solid rgba(58, 134, 255, 0.18);
-                border-radius: 20px;
-                padding: 26px;
+                border: 1.5px solid rgba(255, 255, 255, 0.02);
+                border-radius: 18px;
+                padding: 22px;
                 display: flex;
                 flex-direction: column;
-                gap: 18px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                gap: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
                 position: relative;
                 overflow: hidden;
             }
@@ -257,11 +251,11 @@
                 justify-content: space-between;
                 align-items: center;
                 border-bottom: 1.5px solid var(--border-color);
-                padding-bottom: 12px;
+                padding-bottom: 10px;
             }
 
             .panel-title {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 700;
                 letter-spacing: 0.5px;
                 color: #fff;
@@ -273,25 +267,20 @@
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 background: rgba(255, 255, 255, 0.05);
-                padding: 4px 10px;
-                border-radius: 12px;
+                padding: 4px 8px;
+                border-radius: 8px;
                 color: var(--text-sub);
             }
 
             .region-text {
-                font-size: 13px;
-                line-height: 1.7;
+                font-size: 12.5px;
                 color: var(--text-sub);
-                max-width: 720px;
-                margin-bottom: 18px;
             }
 
             .region-form {
                 display: flex;
-                flex-direction: row;
                 align-items: center;
                 gap: 12px;
-                max-width: 420px;
             }
 
             .region-form label {
@@ -303,137 +292,170 @@
             }
 
             .region-select {
-                width: 100%;
+                flex: 1;
                 border: 1px solid var(--border-color);
-                border-radius: 14px;
+                border-radius: 10px;
                 background: #11111a;
                 color: #f8f8fc;
-                padding: 14px 16px;
-                font-size: 14px;
+                padding: 10px 14px;
+                font-size: 13.5px;
                 outline: none;
                 transition: border-color 0.2s ease, box-shadow 0.2s ease;
             }
 
             .region-select:focus {
                 border-color: var(--color-primary);
-                box-shadow: 0 0 0 4px rgba(58, 134, 255, 0.14);
+                box-shadow: 0 0 10px rgba(58, 134, 255, 0.15);
             }
 
-            /* ── Theme Selectors ── */
-            .theme-categories {
+            /* Dashboard Main Layout Dynamic Grids */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            @media (max-width: 900px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* Compact Theme selector Tab Bar */
+            .theme-tabs-nav {
                 display: flex;
-                flex-direction: column;
-                gap: 20px;
+                border-bottom: 1.5px solid var(--border-color);
+                gap: 6px;
+                margin-bottom: 8px;
             }
 
-            .category-group {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .category-title {
+            .theme-tab-btn {
+                padding: 8px 12px;
+                background: transparent;
+                border: none;
+                color: var(--text-sub);
                 font-size: 11px;
                 font-weight: 700;
                 text-transform: uppercase;
-                letter-spacing: 1px;
-                color: var(--text-sub);
-                border-left: 3px solid var(--color-primary);
-                padding-left: 8px;
+                letter-spacing: 0.8px;
+                cursor: pointer;
+                transition: all 0.2s;
+                position: relative;
             }
 
-            .category-toggle-icon {
+            .theme-tab-btn:hover {
+                color: #fff;
+            }
+
+            .theme-tab-btn.active {
+                color: var(--color-primary);
+            }
+
+            .theme-tab-btn.active::after {
+                content: '';
+                position: absolute;
+                bottom: -1.5px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: var(--color-primary);
+            }
+
+            .theme-categories {
+                display: block;
+            }
+
+            .category-group {
                 display: none;
-                margin-left: auto;
-                font-size: 12px;
-                color: var(--text-sub);
-                transition: transform 0.2s ease;
+            }
+
+            .category-group.active {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                animation: fadeIn 0.25s ease;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(4px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
             .theme-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 12px;
+                gap: 8px;
+            }
+
+            @media (max-width: 420px) {
+                .theme-grid {
+                    grid-template-columns: 1fr;
+                }
             }
 
             .theme-card {
-                background: #191924;
-                border: 1.5px solid var(--border-color);
+                background: #151520;
+                border: 1px solid var(--border-color);
                 border-radius: 10px;
-                padding: 12px;
+                padding: 10px;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                gap: 12px;
-                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                gap: 10px;
+                transition: all 0.2s ease;
                 position: relative;
-                overflow: hidden;
             }
 
             .theme-card:hover {
-                border-color: #3f3f5a;
-                transform: translateY(-2px);
-                background: #20202e;
+                border-color: rgba(58, 134, 255, 0.3);
+                background: #1a1a28;
+                transform: translateY(-1px);
             }
 
             .theme-card.active {
                 border-color: var(--color-primary);
                 background: rgba(58, 134, 255, 0.08);
-                box-shadow: 0 0 15px rgba(58, 134, 255, 0.15);
-            }
-
-            .pop-anim {
-                animation: themePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            }
-
-            @keyframes themePop {
-                0% {
-                    transform: scale(1) translateY(-2px);
-                }
-
-                40% {
-                    transform: scale(1.05) translateY(-2px);
-                }
-
-                100% {
-                    transform: scale(1) translateY(-2px);
-                }
             }
 
             .theme-swatch {
-                width: 28px;
-                height: 28px;
+                width: 24px;
+                height: 24px;
                 border-radius: 50%;
-                border: 2px solid rgba(255, 255, 255, 0.1);
+                border: 1.5px solid rgba(255, 255, 255, 0.1);
                 flex-shrink: 0;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
 
             .theme-details {
                 display: flex;
                 flex-direction: column;
-                gap: 2px;
+                gap: 1px;
+                min-width: 0;
             }
 
             .theme-name {
-                font-size: 13px;
+                font-size: 12px;
                 font-weight: 600;
                 color: #fff;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .theme-desc {
-                font-size: 10px;
+                font-size: 9.5px;
                 color: var(--text-sub);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            /* Active Indicator Badge */
             .active-badge {
                 position: absolute;
                 top: 6px;
                 right: 6px;
                 background: var(--color-primary);
-                width: 6px;
-                height: 6px;
+                width: 5px;
+                height: 5px;
                 border-radius: 50%;
                 display: none;
             }
@@ -442,128 +464,93 @@
                 display: block;
             }
 
-            /* Theme colors for dashboard swatches */
-            .swatch-blush {
-                background: linear-gradient(135deg, #fdf6f4, #c47a8a);
+            /* Theme swatches gradients */
+            .swatch-blush { background: linear-gradient(135deg, #fdf6f4, #c47a8a); }
+            .swatch-watercolor { background: linear-gradient(135deg, #f5fcf8, #a2ccb6); }
+            .swatch-botanical { background: linear-gradient(135deg, #faf7f2, #6e8068); }
+            .swatch-rose-gold { background: linear-gradient(135deg, #ffffff, #d4a090); }
+            .swatch-slate { background: linear-gradient(135deg, #1b1c20, #4f5b66); }
+            .swatch-blueprint { background: linear-gradient(135deg, #0f1424, #2c448c); }
+            .swatch-carbon { background: linear-gradient(135deg, #121212, #c62828); }
+            .swatch-concrete { background: linear-gradient(135deg, #fafafa, #757575); }
+            .swatch-brushstrokes { background: linear-gradient(135deg, #fafcfc, #1a6f7a); }
+            .swatch-zen { background: linear-gradient(135deg, #faf9f6, #6b705c); }
+            .swatch-sunset { background: linear-gradient(135deg, #fffbf7, #e76f51); }
+            .swatch-classic { background: linear-gradient(135deg, #fdfbf7, #3b332c); }
+            .swatch-lavender { background: linear-gradient(135deg, #f4f0fb, #8a72c8); }
+            .swatch-peach { background: linear-gradient(135deg, #fff3f0, #f19d94); }
+            .swatch-opal { background: linear-gradient(135deg, #ebf5f9, #6ebac9); }
+            .swatch-sunrise { background: linear-gradient(135deg, #fff8f0, #f4ab6c); }
+            .swatch-rustic { background: linear-gradient(135deg, #2f2b24, #d18b5e); }
+            .swatch-smoke { background: linear-gradient(135deg, #1f2429, #7aa6dd); }
+
+            .active-theme-banner {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                padding: 10px 14px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
 
-            .swatch-watercolor {
-                background: linear-gradient(135deg, #f5fcf8, #a2ccb6);
+            .banner-text {
+                font-size: 11.5px;
+                color: var(--text-sub);
             }
 
-            .swatch-botanical {
-                background: linear-gradient(135deg, #faf7f2, #6e8068);
+            .banner-theme-name {
+                font-weight: 700;
+                color: var(--color-primary);
             }
 
-            .swatch-rose-gold {
-                background: linear-gradient(135deg, #ffffff, #d4a090);
-            }
-
-            .swatch-slate {
-                background: linear-gradient(135deg, #1b1c20, #4f5b66);
-            }
-
-            .swatch-blueprint {
-                background: linear-gradient(135deg, #0f1424, #2c448c);
-            }
-
-            .swatch-carbon {
-                background: linear-gradient(135deg, #121212, #c62828);
-            }
-
-            .swatch-concrete {
-                background: linear-gradient(135deg, #fafafa, #757575);
-            }
-
-            .swatch-brushstrokes {
-                background: linear-gradient(135deg, #fafcfc, #1a6f7a);
-            }
-
-            .swatch-zen {
-                background: linear-gradient(135deg, #faf9f6, #6b705c);
-            }
-
-            .swatch-sunset {
-                background: linear-gradient(135deg, #fffbf7, #e76f51);
-            }
-
-            .swatch-classic {
-                background: linear-gradient(135deg, #fdfbf7, #3b332c);
-            }
-
-            .swatch-lavender {
-                background: linear-gradient(135deg, #f4f0fb, #8a72c8);
-            }
-
-            .swatch-peach {
-                background: linear-gradient(135deg, #fff3f0, #f19d94);
-            }
-
-            .swatch-opal {
-                background: linear-gradient(135deg, #ebf5f9, #6ebac9);
-            }
-
-            .swatch-sunrise {
-                background: linear-gradient(135deg, #fff8f0, #f4ab6c);
-            }
-
-            .swatch-rustic {
-                background: linear-gradient(135deg, #2f2b24, #d18b5e);
-            }
-
-            .swatch-smoke {
-                background: linear-gradient(135deg, #1f2429, #7aa6dd);
-            }
-
-            /* ── Page Selectors ── */
+            /* Planner Cards List - Highly Compact rows */
             .pages-list {
                 display: flex;
                 flex-direction: column;
-                gap: 15px;
+                gap: 8px;
             }
 
             .page-card {
-                background: #191924;
+                background: #14141e;
                 border: 1px solid var(--border-color);
-                border-radius: 12px;
-                padding: 18px;
+                border-radius: 10px;
+                padding: 10px 14px;
                 display: flex;
                 align-items: center;
-                gap: 20px;
+                gap: 14px;
                 text-decoration: none;
                 color: inherit;
                 transition: all 0.2s ease;
             }
 
             .page-card:hover {
-                border-color: #3f3f5a;
-                background: #20202e;
-                transform: translateX(4px);
+                border-color: rgba(58, 134, 255, 0.3);
+                background: #181826;
+                transform: translateX(3px);
             }
 
             .page-icon-wrapper {
-                width: 48px;
-                height: 48px;
-                border-radius: 10px;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1.5px solid var(--border-color);
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-color);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: var(--color-primary);
                 flex-shrink: 0;
-                transition: all 0.2s;
             }
 
             .page-card:hover .page-icon-wrapper {
                 background: rgba(58, 134, 255, 0.1);
                 border-color: var(--color-primary);
-                color: #fff;
             }
 
             .page-icon-wrapper svg {
-                width: 24px;
-                height: 24px;
+                width: 18px;
+                height: 18px;
                 fill: none;
                 stroke: currentColor;
                 stroke-width: 2;
@@ -574,331 +561,108 @@
             .page-info {
                 display: flex;
                 flex-direction: column;
-                gap: 4px;
+                gap: 1px;
                 flex: 1;
+                min-width: 0;
             }
 
             .page-title {
-                font-size: 15px;
+                font-size: 13.5px;
                 font-weight: 700;
                 color: #fff;
             }
 
             .page-desc {
-                font-size: 11px;
+                font-size: 10.5px;
                 color: var(--text-sub);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .print-badge {
-                font-size: 9px;
+                font-size: 8px;
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 background: rgba(56, 176, 0, 0.1);
-                border: 1px solid var(--color-success);
-                color: var(--color-success);
-                padding: 3px 8px;
+                border: 1px solid rgba(56, 176, 0, 0.3);
+                color: #38b000;
+                padding: 2px 6px;
                 border-radius: 4px;
-                opacity: 0.8;
-                transition: opacity 0.2s;
             }
 
-            .page-card:hover .print-badge {
-                opacity: 1;
-            }
-
-            /* ── How to print info ── */
+            /* How to Print instructions box - collapsible details */
             .print-info-box {
-                background: linear-gradient(135deg, #12121a 0%, #171224 100%);
+                background: rgba(18, 18, 26, 0.3);
                 border: 1px dashed var(--border-color);
-                border-radius: 12px;
-                padding: 24px;
-                display: flex;
-                gap: 16px;
-                align-items: flex-start;
-                margin-top: 10px;
+                border-radius: 10px;
+                padding: 12px;
+                margin-top: 4px;
             }
 
-            .info-icon {
-                font-size: 24px;
-                line-height: 1;
+            .print-info-details summary {
+                cursor: pointer;
+                font-size: 12.5px;
+                font-weight: 700;
+                color: #fff;
+                outline: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
             }
+
+            .print-info-details summary::-webkit-details-marker { display: none; }
 
             .info-content {
+                margin-top: 10px;
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
-            }
-
-            .info-title {
-                font-size: 14px;
-                font-weight: 700;
-                color: #fff;
+                padding-left: 6px;
             }
 
             .info-text {
-                font-size: 12px;
+                font-size: 11px;
                 color: var(--text-sub);
             }
 
             .info-list {
-                margin-top: 4px;
-                padding-left: 16px;
+                padding-left: 14px;
                 display: flex;
                 flex-direction: column;
-                gap: 4px;
+                gap: 3px;
             }
 
             .info-list li {
-                font-size: 11.5px;
+                font-size: 11px;
                 color: var(--text-sub);
             }
 
-            .active-theme-banner {
-                background: #1a1a26;
-                border: 1.5px solid var(--border-color);
-                border-radius: 12px;
-                padding: 12px 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-            }
-
-            .banner-text {
-                font-size: 12px;
-                font-weight: 500;
-                color: var(--text-sub);
-            }
-
-            .banner-theme-name {
-                font-weight: 700;
-                color: var(--color-primary);
-            }
-
-            @media (max-width: 860px) {
-                body {
-                    padding: 18px 12px 28px;
-                }
-
-                .container {
-                    gap: 20px;
-                }
-
-                header {
-                    padding: 4px 0 0;
-                }
-
-                .logo-img {
-                    width: 112px;
-                    height: 112px;
-                }
-
-                h1 {
-                    font-size: 32px;
-                    line-height: 1.15;
-                    margin-bottom: 10px;
-                }
-
-                .subtitle {
-                    font-size: 15px;
-                    line-height: 1.7;
-                    max-width: 100%;
-                }
-
-                .branding {
-                    margin-top: 12px;
-                    font-size: 12px;
-                }
-
-                .panel {
-                    padding: 18px;
-                    gap: 16px;
-                    border-radius: 14px;
-                }
-
-                .panel-header {
-                    align-items: flex-start;
-                    gap: 10px;
-                    flex-wrap: wrap;
-                }
-
-                .panel-title {
-                    font-size: 16px;
-                }
-
-                .active-theme-banner {
-                    padding: 12px 14px;
-                    align-items: flex-start;
-                    flex-direction: column;
-                }
-
-                .banner-text {
-                    font-size: 13px;
-                }
-
-                .category-group {
-                    gap: 0;
-                    border: 1px solid var(--border-color);
-                    border-radius: 12px;
-                    background: rgba(255, 255, 255, 0.02);
-                    overflow: hidden;
-                }
-
-                .category-title {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin: 0;
-                    padding: 14px 14px 14px 12px;
-                    border-left: none;
-                    cursor: pointer;
-                    background: rgba(255, 255, 255, 0.02);
-                }
-
-                .category-toggle-icon {
-                    display: inline-flex;
-                }
-
-                .category-group .theme-grid {
-                    display: none;
-                    grid-template-columns: 1fr;
-                    gap: 10px;
-                    padding: 0 12px 12px;
-                }
-
-                .category-group.expanded .theme-grid {
-                    display: grid;
-                }
-
-                .category-group.expanded .category-toggle-icon {
-                    transform: rotate(180deg);
-                }
-
-                .theme-card {
-                    padding: 14px;
-                    border-radius: 12px;
-                }
-
-                .theme-swatch {
-                    width: 24px;
-                    height: 24px;
-                }
-
-                .theme-name {
-                    font-size: 14px;
-                }
-
-                .theme-desc {
-                    font-size: 11px;
-                }
-
-                .page-card {
-                    padding: 14px;
-                    gap: 14px;
-                    align-items: flex-start;
-                }
-
-                .page-card:hover {
-                    transform: none;
-                }
-
-                .page-icon-wrapper {
-                    width: 42px;
-                    height: 42px;
-                }
-
-                .page-icon-wrapper svg {
-                    width: 20px;
-                    height: 20px;
-                }
-
-                .page-title {
-                    font-size: 14px;
-                }
-
-                .page-desc {
-                    font-size: 11px;
-                    line-height: 1.5;
-                }
-
-                .print-badge {
-                    align-self: flex-start;
-                }
-
-                .print-info-box {
-                    padding: 18px;
-                    gap: 12px;
-                    flex-direction: column;
-                }
-
-                .info-title {
-                    font-size: 13px;
-                }
-
-                .info-text,
-                .info-list li {
-                    font-size: 11px;
-                    line-height: 1.6;
-                }
-            }
-
-            @media (max-width: 520px) {
-                body {
-                    padding: 14px 10px 24px;
-                }
-
-                .container {
-                    gap: 16px;
-                }
-
-                h1 {
-                    font-size: 25px;
-                }
-
-                .subtitle {
-                    font-size: 14px;
-                }
-
-                .panel {
-                    padding: 14px;
-                }
-
-                .theme-card,
-                .page-card {
-                    padding: 12px;
-                }
-
-                .page-card {
-                    gap: 12px;
-                }
-            }
-
-            /* ── Backup & Buddy Footer Grid ── */
+            /* Backup & Suggests Bottom Grid */
             .bottom-grid {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1.1fr 0.9fr;
                 gap: 24px;
                 margin-top: 10px;
             }
 
-            @media (max-width: 860px) {
+            @media (max-width: 900px) {
                 .bottom-grid {
                     grid-template-columns: 1fr;
-                    gap: 16px;
                 }
             }
 
-            /* ── Backup Panel ── */
+            /* Backup panel details */
             .backup-panel {
                 background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
-                border: 1.5px solid rgba(58, 134, 255, 0.18);
-                border-radius: 20px;
-                padding: 26px;
+                border: 1.5px solid rgba(255,255,255,0.02);
+                border-radius: 18px;
+                padding: 22px;
                 display: flex;
                 flex-direction: column;
-                gap: 18px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                gap: 14px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
                 position: relative;
                 overflow: hidden;
             }
@@ -913,25 +677,20 @@
                 animation: shimmerLine 3s linear infinite;
             }
 
-            @keyframes shimmerLine {
-                0% { background-position: 0% 0%; }
-                100% { background-position: 200% 0%; }
-            }
-
             .backup-panel-header {
                 display: flex;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
                 border-bottom: 1px solid rgba(255,255,255,0.07);
-                padding-bottom: 14px;
+                padding-bottom: 10px;
             }
 
             .backup-icon-wrap {
-                width: 36px;
-                height: 36px;
-                border-radius: 10px;
-                background: rgba(58, 134, 255, 0.12);
-                border: 1px solid rgba(58, 134, 255, 0.25);
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                background: rgba(58, 134, 255, 0.1);
+                border: 1px solid rgba(58, 134, 255, 0.2);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -939,17 +698,15 @@
             }
 
             .backup-icon-wrap svg {
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
                 stroke: #3a86ff;
                 fill: none;
                 stroke-width: 2;
-                stroke-linecap: round;
-                stroke-linejoin: round;
             }
 
             .backup-panel-title {
-                font-size: 16px;
+                font-size: 14.5px;
                 font-weight: 700;
                 color: #fff;
                 flex: 1;
@@ -958,23 +715,22 @@
             .autosave-pill {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
-                padding: 4px 10px;
+                gap: 5px;
+                padding: 3px 8px;
                 border-radius: 99px;
-                font-size: 10px;
-                font-weight: 600;
+                font-size: 9px;
+                font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 background: rgba(56, 176, 0, 0.1);
                 border: 1px solid rgba(56, 176, 0, 0.3);
                 color: #38b000;
-                transition: all 0.3s ease;
             }
 
             .autosave-pill.typing {
-                background: rgba(255, 165, 0, 0.1);
-                border-color: rgba(255, 165, 0, 0.35);
-                color: #ffa500;
+                background: rgba(255, 158, 0, 0.1);
+                border-color: rgba(255, 158, 0, 0.3);
+                color: var(--color-warning);
             }
 
             .autosave-pill.saved {
@@ -984,222 +740,214 @@
             }
 
             .autosave-dot {
-                width: 6px;
-                height: 6px;
+                width: 5px;
+                height: 5px;
                 border-radius: 50%;
                 background: currentColor;
                 animation: pulse-dot 2s ease-in-out infinite;
             }
 
-            @keyframes pulse-dot {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.4; transform: scale(0.7); }
-            }
-
-            /* Backup action buttons - tab style */
             .backup-actions {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 6px;
             }
 
             .backup-btn {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
-                padding: 7px 14px;
-                border-radius: 8px;
-                font-size: 11px;
+                justify-content: center;
+                gap: 5px;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 10.5px;
                 font-weight: 600;
                 cursor: pointer;
-                border: 1.5px solid transparent;
-                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                font-family: 'Inter', sans-serif;
-                letter-spacing: 0.2px;
+                border: 1px solid transparent;
+                transition: all 0.2s;
+                font-family: inherit;
                 white-space: nowrap;
             }
 
             .backup-btn svg {
-                width: 13px;
-                height: 13px;
+                width: 12px;
+                height: 12px;
                 stroke: currentColor;
                 fill: none;
                 stroke-width: 2;
-                stroke-linecap: round;
-                stroke-linejoin: round;
                 flex-shrink: 0;
             }
 
             .btn-primary {
                 background: rgba(58, 134, 255, 0.15);
-                border-color: rgba(58, 134, 255, 0.4);
+                border-color: rgba(58, 134, 255, 0.3);
                 color: #6ba3ff;
             }
-
             .btn-primary:hover {
-                background: rgba(58, 134, 255, 0.28);
-                border-color: rgba(58, 134, 255, 0.7);
+                background: rgba(58, 134, 255, 0.25);
                 color: #fff;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(58, 134, 255, 0.2);
             }
 
             .btn-secondary {
                 background: rgba(131, 56, 236, 0.12);
-                border-color: rgba(131, 56, 236, 0.35);
+                border-color: rgba(131, 56, 236, 0.3);
                 color: #a970ff;
             }
-
             .btn-secondary:hover {
-                background: rgba(131, 56, 236, 0.25);
-                border-color: rgba(131, 56, 236, 0.6);
+                background: rgba(131, 56, 236, 0.22);
                 color: #fff;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(131, 56, 236, 0.2);
             }
 
             .btn-success {
                 background: rgba(56, 176, 0, 0.1);
-                border-color: rgba(56, 176, 0, 0.3);
+                border-color: rgba(56, 176, 0, 0.25);
                 color: #4cd137;
             }
-
             .btn-success:hover {
-                background: rgba(56, 176, 0, 0.22);
-                border-color: rgba(56, 176, 0, 0.55);
+                background: rgba(56, 176, 0, 0.2);
                 color: #fff;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(56, 176, 0, 0.18);
             }
 
             .btn-danger {
                 background: rgba(220, 53, 69, 0.1);
-                border-color: rgba(220, 53, 69, 0.3);
+                border-color: rgba(220, 53, 69, 0.25);
                 color: #ff6b7a;
             }
-
             .btn-danger:hover {
-                background: rgba(220, 53, 69, 0.22);
-                border-color: rgba(220, 53, 69, 0.55);
+                background: rgba(220, 53, 69, 0.2);
                 color: #fff;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
             }
 
             .btn-active {
-                background: rgba(255, 165, 0, 0.12);
-                border-color: rgba(255, 165, 0, 0.3);
+                background: rgba(255, 165, 0, 0.1);
+                border-color: rgba(255, 165, 0, 0.25);
                 color: #ffb347;
             }
-
             .btn-active:hover {
-                background: rgba(255, 165, 0, 0.22);
-                border-color: rgba(255, 165, 0, 0.55);
+                background: rgba(255, 165, 0, 0.2);
                 color: #fff;
-                transform: translateY(-1px);
             }
 
-            /* Backup List */
-            .backup-empty-msg {
-                font-size: 12px;
+            .db-folder-section {
+                padding-top: 10px;
+                border-top: 1px solid rgba(255,255,255,0.06);
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .db-folder-header {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11.5px;
+                font-weight: 600;
+                color: #c0c0d0;
+            }
+
+            .db-folder-status {
+                margin-left: auto;
+                font-size: 9px;
+                font-weight: 700;
+                text-transform: uppercase;
+                padding: 1px 6px;
+                border-radius: 99px;
+                background: rgba(255,255,255,0.04);
+                color: #888;
+            }
+
+            .db-folder-status.connected {
+                background: rgba(56, 176, 0, 0.1);
+                color: #4cd137;
+            }
+
+            .db-folder-actions {
+                display: flex;
+                gap: 6px;
+            }
+
+            .db-folder-info {
+                font-size: 10px;
                 color: var(--text-sub);
-                font-style: italic;
-                padding: 14px;
-                text-align: center;
-                background: rgba(255,255,255,0.02);
-                border: 1px dashed rgba(255,255,255,0.08);
-                border-radius: 10px;
             }
 
             .backup-list-area {
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
-                max-height: 160px;
+                gap: 6px;
+                max-height: 120px;
                 overflow-y: auto;
-                scrollbar-width: thin;
-                scrollbar-color: rgba(58, 134, 255, 0.3) transparent;
-            }
-
-            .backup-list-area::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            .backup-list-area::-webkit-scrollbar-track {
-                background: transparent;
-            }
-
-            .backup-list-area::-webkit-scrollbar-thumb {
-                background: rgba(58, 134, 255, 0.3);
-                border-radius: 4px;
             }
 
             .backup-item {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 10px 14px;
-                background: rgba(255,255,255,0.03);
-                border: 1px solid rgba(255,255,255,0.06);
-                border-radius: 10px;
-                gap: 12px;
-                transition: all 0.2s ease;
-            }
-
-            .backup-item:hover {
-                background: rgba(58, 134, 255, 0.06);
-                border-color: rgba(58, 134, 255, 0.2);
+                padding: 8px 12px;
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 8px;
+                gap: 10px;
             }
 
             .backup-item-info {
                 display: flex;
                 flex-direction: column;
-                gap: 2px;
+                min-width: 0;
             }
 
             .backup-item-date {
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: 600;
                 color: #d0d0e0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .backup-item-meta {
-                font-size: 10px;
+                font-size: 9.5px;
                 color: var(--text-sub);
             }
 
             .backup-restore-btn {
-                padding: 4px 10px;
-                border-radius: 6px;
-                font-size: 10px;
+                padding: 3px 8px;
+                border-radius: 5px;
+                font-size: 9.5px;
                 font-weight: 700;
                 cursor: pointer;
                 background: rgba(58, 134, 255, 0.1);
-                border: 1px solid rgba(58, 134, 255, 0.3);
+                border: 1px solid rgba(58, 134, 255, 0.35);
                 color: #6ba3ff;
-                font-family: 'Inter', sans-serif;
-                transition: all 0.2s ease;
-                white-space: nowrap;
-                flex-shrink: 0;
+                font-family: inherit;
+                transition: all 0.2s;
             }
-
             .backup-restore-btn:hover {
-                background: rgba(58, 134, 255, 0.25);
-                border-color: rgba(58, 134, 255, 0.6);
+                background: rgba(58, 134, 255, 0.2);
                 color: #fff;
-                transform: scale(1.05);
             }
 
-            /* ── Buddy Suggests Panel ── */
+            .backup-empty-msg {
+                font-size: 11px;
+                color: var(--text-sub);
+                font-style: italic;
+                padding: 10px;
+                text-align: center;
+                background: rgba(255,255,255,0.01);
+                border: 1px dashed rgba(255,255,255,0.05);
+                border-radius: 8px;
+            }
+
+            /* Buddy Suggests Panel */
             .buddy-panel {
                 background: linear-gradient(145deg, #13131f 0%, #100f1e 100%);
-                border: 1.5px solid rgba(131, 56, 236, 0.2);
-                border-radius: 20px;
-                padding: 26px;
+                border: 1.5px solid rgba(255,255,255,0.02);
+                border-radius: 18px;
+                padding: 22px;
                 display: flex;
                 flex-direction: column;
-                gap: 16px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+                gap: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
                 position: relative;
                 overflow: hidden;
                 align-items: center;
@@ -1218,160 +966,282 @@
             }
 
             .buddy-sparkle {
-                font-size: 28px;
+                font-size: 22px;
                 animation: float 3s ease-in-out infinite;
             }
 
             @keyframes float {
                 0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-6px); }
+                50% { transform: translateY(-4px); }
             }
 
             .buddy-title {
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 800;
                 color: #fff;
-                letter-spacing: -0.3px;
+            }
+
+            .buddy-subtitle {
+                font-size: 11.5px;
+                color: var(--text-sub);
+                margin-top: -4px;
             }
 
             .buddy-suggestion-box {
-                background: rgba(131, 56, 236, 0.08);
-                border: 1.5px solid rgba(131, 56, 236, 0.2);
-                border-radius: 14px;
-                padding: 16px 20px;
+                background: rgba(131, 56, 236, 0.06);
+                border: 1px solid rgba(131, 56, 236, 0.15);
+                border-radius: 12px;
+                padding: 12px 16px;
                 width: 100%;
-                min-height: 60px;
+                min-height: 52px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
 
             .buddy-suggestion-text {
-                font-size: 14px;
+                font-size: 12.5px;
                 font-weight: 500;
                 color: #d0c4f0;
-                line-height: 1.5;
-                transition: opacity 0.3s ease;
-            }
-
-            .buddy-suggestion-text.fade {
-                opacity: 0;
-            }
-
-            .buddy-subtitle {
-                font-size: 13px;
-                color: var(--text-sub);
-                margin-top: -6px;
+                line-height: 1.4;
             }
 
             .buddy-affirmation {
-                font-size: 11px;
+                font-size: 10px;
                 color: #7a7a9a;
                 font-style: italic;
-                min-height: 16px;
-                transition: opacity 0.3s ease;
+                min-height: 14px;
             }
 
             .buddy-actions {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
                 justify-content: center;
+                width: 100%;
             }
 
             .buddy-btn {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
-                padding: 9px 18px;
-                border-radius: 10px;
-                font-size: 12px;
+                justify-content: center;
+                gap: 5px;
+                padding: 8px 14px;
+                border-radius: 8px;
+                font-size: 11.5px;
                 font-weight: 700;
                 cursor: pointer;
-                border: 1.5px solid transparent;
-                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                font-family: 'Inter', sans-serif;
+                border: 1px solid transparent;
+                transition: all 0.2s;
+                font-family: inherit;
             }
 
             .buddy-btn-another {
-                background: rgba(255,255,255,0.05);
-                border-color: rgba(255,255,255,0.12);
+                background: rgba(255,255,255,0.04);
+                border-color: rgba(255,255,255,0.1);
                 color: #c0c0d0;
+                flex: 1;
             }
-
             .buddy-btn-another:hover {
-                background: rgba(255,255,255,0.1);
-                border-color: rgba(255,255,255,0.25);
+                background: rgba(255,255,255,0.08);
                 color: #fff;
-                transform: rotate(-10deg) scale(1.05);
             }
 
             .buddy-btn-do {
                 background: rgba(56, 176, 0, 0.12);
-                border-color: rgba(56, 176, 0, 0.35);
+                border-color: rgba(56, 176, 0, 0.3);
                 color: #4cd137;
+                flex: 1;
             }
-
             .buddy-btn-do:hover {
-                background: rgba(56, 176, 0, 0.25);
-                border-color: rgba(56, 176, 0, 0.6);
+                background: rgba(56, 176, 0, 0.2);
                 color: #fff;
-                transform: scale(1.08);
-                box-shadow: 0 4px 16px rgba(56, 176, 0, 0.25);
             }
 
             .buddy-btn-stuck {
-                background: rgba(255, 180, 0, 0.1);
-                border-color: rgba(255, 180, 0, 0.3);
+                background: rgba(255, 180, 0, 0.08);
+                border-color: rgba(255, 180, 0, 0.25);
                 color: #ffcc44;
                 width: 100%;
-                justify-content: center;
             }
-
             .buddy-btn-stuck:hover {
-                background: rgba(255, 180, 0, 0.22);
-                border-color: rgba(255, 180, 0, 0.55);
+                background: rgba(255, 180, 0, 0.18);
                 color: #fff;
-                transform: scale(1.04);
-                box-shadow: 0 4px 16px rgba(255, 180, 0, 0.2);
             }
 
-            /* ── Footer ── */
+            /* Footer */
             footer.main-footer {
                 width: 100%;
                 text-align: center;
-                padding: 40px 20px 20px;
+                padding: 30px 20px 20px;
                 margin-top: 20px;
                 border-top: 1px solid var(--border-color);
-                font-size: 13px;
+                font-size: 12px;
                 color: var(--text-sub);
-                font-family: 'Inter', sans-serif;
-                letter-spacing: 0.5px;
             }
             footer.main-footer a {
                 color: var(--color-primary);
                 text-decoration: none;
                 font-weight: 500;
-                transition: color 0.2s ease;
             }
             footer.main-footer a:hover {
                 color: var(--color-secondary);
                 text-decoration: underline;
             }
+
+            /* License Gate Overlay */
+            .license-overlay {
+                position: fixed; inset: 0; z-index: 99999;
+                background: rgba(0,0,0,0.85);
+                display: flex; align-items: center; justify-content: center;
+                padding: 20px; backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+            .license-overlay.hidden { display: none; }
+            .license-box {
+                background: #13131f; border: 1.5px solid #222232;
+                border-radius: 20px; padding: 30px; max-width: 420px; width: 100%;
+                text-align: center; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+            }
+            .license-box img { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 10px; }
+            .license-box h2 { font-size: 18px; color: #fff; margin-bottom: 4px; }
+            .license-box .sub { font-size: 12px; color: #9090a5; margin-bottom: 20px; }
+            .license-box label { display: block; text-align: left; font-size: 11px; font-weight: 600; color: #c0c0d0; margin-bottom: 4px; }
+            .license-box input {
+                width: 100%; padding: 10px 12px; border: 1.5px solid #222230; border-radius: 8px;
+                background: #0a0a14; color: #fff; font-size: 14px; text-align: center;
+                letter-spacing: 1.5px; font-family: monospace; outline: none;
+            }
+            .license-box input:focus { border-color: #3a86ff; }
+            .license-box input::placeholder { letter-spacing: 0; font-family: inherit; font-size: 12px; }
+            .license-box .license-error { font-size: 11.5px; color: #ff6b7a; margin-top: 6px; min-height: 16px; }
+            .license-box .license-success { font-size: 11.5px; color: #4cd137; margin-top: 6px; }
+            .license-box .license-btn {
+                width: 100%; margin-top: 14px; padding: 10px; border: none; border-radius: 8px;
+                font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+                background: rgba(58,134,255,0.15); border: 1.5px solid rgba(58,134,255,0.4);
+                color: #6ba3ff; transition: all 0.15s;
+            }
+            .license-box .license-btn:hover { background: rgba(58,134,255,0.25); color: #fff; }
+            .license-box .license-skip {
+                display: inline-block; margin-top: 14px; font-size: 11.5px; color: #606080;
+                cursor: pointer; text-decoration: underline;
+            }
+            .license-box .license-skip:hover { color: #9090a5; }
+            .license-box .device-name-input { margin-top: 10px; }
+            .license-box .device-name-input input { letter-spacing: 0; font-family: inherit; text-align: left; }
+            .license-checking { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 12px; color: #9090a5; }
+            .license-checking.visible { display: flex; }
+            .spinner { width: 14px; height: 14px; border: 2px solid #222; border-top-color: #3a86ff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+            @keyframes spin { to { transform: rotate(360deg); } }
+
+            /* Limited Access Mode styling */
+            .limited-access .page-card:nth-child(n+3) { display: none; }
+            .limited-access .upgrade-prompt { display: flex; }
+            body:not(.limited-access) .upgrade-prompt { display: none; }
+            .upgrade-prompt {
+                align-items: center; justify-content: center; gap: 8px;
+                flex-direction: column; text-align: center;
+                padding: 24px 16px; border: 1.5px dashed rgba(58,134,255,0.25);
+                border-radius: 12px; background: rgba(58,134,255,0.03);
+                color: #9090b5; font-size: 12px;
+            }
+            .upgrade-prompt .upgrade-icon { font-size: 24px; }
+            .upgrade-prompt .upgrade-title { font-size: 14px; font-weight: 700; color: #c0c0d8; }
+            .upgrade-prompt .upgrade-btn {
+                margin-top: 4px; padding: 6px 16px; border-radius: 99px;
+                border: 1.5px solid rgba(58,134,255,0.4); background: rgba(58,134,255,0.12);
+                color: #5b9aff; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+            }
+            .upgrade-prompt .upgrade-btn:hover { background: rgba(58,134,255,0.22); color: #fff; }
+
+            /* About Modal details */
+            .about-overlay {
+                position: fixed; inset: 0; padding: 20px;
+                background: rgba(0,0,0,0.65);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                display: none;
+                align-items: center; justify-content: center;
+                z-index: 99999;
+                animation: aboutFadeIn 0.2s ease;
+            }
+            .about-modal {
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 28px 28px 20px;
+                text-align: center;
+                box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+                max-width: 300px; width: 100%;
+                max-height: 85vh; overflow-y: auto;
+                animation: aboutSlideUp 0.25s ease;
+            }
+            .about-icon {
+                width: 52px; height: 52px;
+                margin: 0 auto 10px;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .about-icon img { width: 100%; height: 100%; object-fit: contain; }
+            .about-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
+            .about-version { font-size: 12px; color: var(--text-sub); font-weight: 600; margin-bottom: 4px; }
+            .about-detail { font-size: 10.5px; color: #6a6a85; font-family: monospace; margin-bottom: 2px; }
+            .about-divider { height: 1px; background: var(--border-color); margin: 12px auto; max-width: 180px; }
+            .about-stack { font-size: 10.5px; color: #6a6a85; margin-bottom: 2px; }
+            .about-copyright { font-size: 10.5px; color: #6a6a85; margin-bottom: 14px; }
+            .about-copyright a { color: var(--color-primary); text-decoration: none; }
+            .about-close {
+                padding: 6px 24px; border-radius: 18px;
+                font-size: 10.5px; font-weight: 800;
+                text-transform: uppercase; cursor: pointer;
+                border: none;
+                background: var(--color-primary);
+                color: white; letter-spacing: 0.5px;
+                transition: all 0.15s ease;
+            }
+            .about-close:hover { filter: brightness(1.1); }
         </style>
         <script src="js/backup-manager.js" defer></script>
         <script src="js/region-selector.js" defer></script>
     </head>
 
     <body>
+        <!-- License Gate Overlay -->
+        <div class="license-overlay" id="licenseGate">
+            <div class="license-box">
+                <div class="logo"><img src="img/logo.png" alt="Buddy Planner" style="width:52px;height:52px;border-radius:10px"></div>
+                <h2>Buddy Planner</h2>
+                <p class="sub">Enter your license key to access the planner suite.</p>
+                <label for="licenseKeyInput">License Key</label>
+                <input type="text" id="licenseKeyInput" placeholder="BUDDY-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+                <div class="form-row" style="display:flex;gap:10px;margin-top:10px">
+                    <div style="flex:1">
+                        <label for="licenseName">Your Name</label>
+                        <input type="text" id="licenseName" placeholder="John Doe" style="text-align:left;letter-spacing:0;font-family:inherit">
+                    </div>
+                    <div style="flex:1">
+                        <label for="licenseEmail">Email</label>
+                        <input type="email" id="licenseEmail" placeholder="john@example.com" style="text-align:left;letter-spacing:0;font-family:inherit">
+                    </div>
+                </div>
+                <div class="device-name-input">
+                    <label for="deviceNameInput">Device Name</label>
+                    <input type="text" id="deviceNameInput" placeholder="e.g. Laptop, Mobile, Tab">
+                </div>
+                <div class="license-error" id="licenseError"></div>
+                <div class="license-success" id="licenseSuccess"></div>
+                <div class="license-checking" id="licenseChecking"><div class="spinner"></div> Verifying license...</div>
+                <button class="license-btn" id="licenseBtn">🔑 Unlock Planner</button>
+                <div class="license-skip" id="licenseSkip">Continue without license (limited access)</div>
+            </div>
+        </div>
+
         <div id="install-banner" class="install-banner">
             <div class="install-close" id="install-close">×</div>
             <img src="img/logo.png" alt="Logo" class="install-logo" />
             <div class="install-content">
                 <span class="install-title">Install Buddy Planner</span>
-                <span class="install-text"
-                    >Add to home screen for quick access</span
-                >
+                <span class="install-text">Add to home screen for quick access</span>
             </div>
             <button id="install-button" class="install-btn">Install</button>
         </div>
@@ -1385,16 +1255,10 @@
                         alt="Buddy ADHD Logo"
                         class="logo-img"
                     />
-                    <span class="logo-text">Buddy ADHD Suite</span>
                 </div>
                 <h1>Buddy ADHD Printable Planner Suite</h1>
                 <p class="subtitle">
-                    Buddy offers ADHD-friendly printable planners designed to
-                    reduce overwhelm, improve focus, and support healthier daily
-                    routines. Our Planner Suite features customizable,
-                    easy-to-use planning tools that help you prioritize tasks,
-                    stay organized, maintain focus, and celebrate every
-                    achievement—big or small.
+                    Buddy offers ADHD-friendly printable planners designed to reduce overwhelm, improve focus, and support healthier daily routines.
                 </p>
                 <p class="branding">
                     A project by
@@ -1408,18 +1272,18 @@
             </header>
 
             <!-- Panel: Region Selection -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <span style="display:flex;align-items:center;gap:8px">
-                            <span style="font-size:20px">🌐</span>
-                            <h2 class="panel-title" style="margin:0">Select Your Region</h2>
-                        </span>
-                        <span class="panel-badge">Major Countries</span>
-                    </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <span style="display:flex;align-items:center;gap:8px">
+                        <span style="font-size:16px">🌐</span>
+                        <h2 class="panel-title" style="margin:0">Select Your Region</h2>
+                    </span>
+                    <span class="panel-badge">Major Countries</span>
+                </div>
 
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                    <p class="region-text" style="margin-bottom:0">
-                        Choose your country to load local public holidays and major events automatically across the planner suite. This helps the calendar stay aligned with your regional schedule.
+                <div style="display:flex;flex-direction:column;gap:10px">
+                    <p class="region-text">
+                        Choose your country to load local public holidays and major events automatically across the Monthly Calendar.
                     </p>
 
                     <div class="region-form">
@@ -1430,6 +1294,7 @@
                             <option value="ca">Canada</option>
                             <option value="au">Australia</option>
                             <option value="in">India</option>
+                            <option value="pk">Pakistan</option>
                             <option value="de">Germany</option>
                             <option value="fr">France</option>
                             <option value="jp">Japan</option>
@@ -1438,7 +1303,7 @@
                         </select>
                     </div>
                 </div>
-                </div>
+            </div>
 
             <!-- Main Content Panels -->
             <div class="dashboard-grid">
@@ -1449,7 +1314,7 @@
                         <span class="panel-badge">18 Themes</span>
                     </div>
 
-                    <div class="active-theme-banner" style="margin-bottom: 16px">
+                    <div class="active-theme-banner">
                         <div class="banner-text">
                             Current Theme:
                             <span id="banner-theme-display" class="banner-theme-name"
@@ -1459,141 +1324,66 @@
                         <div
                             id="banner-theme-indicator"
                             class="theme-swatch swatch-blush"
-                            style="width: 20px; height: 20px"
+                            style="width: 18px; height: 18px"
                         ></div>
+                    </div>
+
+                    <!-- Theme Category Navigation Tabs -->
+                    <div class="theme-tabs-nav">
+                        <button class="theme-tab-btn active" onclick="switchThemeTab('feminine')">Feminine</button>
+                        <button class="theme-tab-btn" onclick="switchThemeTab('masculine')">Masculine</button>
+                        <button class="theme-tab-btn" onclick="switchThemeTab('universal')">Neutral</button>
                     </div>
 
                     <div class="theme-categories">
                         <!-- Feminine -->
-                        <div class="category-group" id="category-feminine">
-                            <h3 class="category-title">
-                                Feminine Styles
-                                <span class="category-toggle-icon">⌄</span>
-                            </h3>
+                        <div class="category-group active" id="tab-feminine">
                             <div class="theme-grid">
-                                <!-- Blush Calligraphy -->
-                                <div
-                                    class="theme-card active"
-                                    data-theme="blush-calligraphy"
-                                    data-name="Blush Calligraphy"
-                                    data-swatch="swatch-blush"
-                                    data-desc="Soft pinks & cursive fonts"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-blush"
-                                    ></div>
+                                <div class="theme-card active" data-theme="blush-calligraphy" data-name="Blush Calligraphy" data-swatch="swatch-blush" data-desc="Soft pinks & cursive fonts">
+                                    <div class="theme-swatch swatch-blush"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Blush Calligraphy</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Soft pinks & elegant script</span
-                                        >
+                                        <span class="theme-name">Blush Calligraphy</span>
+                                        <span class="theme-desc">Soft pinks & elegant script</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Watercolor Florals -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="watercolor-florals"
-                                    data-name="Watercolor Florals"
-                                    data-swatch="swatch-watercolor"
-                                    data-desc="Lavender sage flower shapes"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-watercolor"
-                                    ></div>
+                                <div class="theme-card" data-theme="watercolor-florals" data-name="Watercolor Florals" data-swatch="swatch-watercolor" data-desc="Lavender sage flower shapes">
+                                    <div class="theme-swatch swatch-watercolor"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Watercolor Florals</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Sage, lavender, pastels</span
-                                        >
+                                        <span class="theme-name">Watercolor Florals</span>
+                                        <span class="theme-desc">Sage, lavender, pastels</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Botanical Garden -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="botanical-garden"
-                                    data-name="Botanical Garden"
-                                    data-swatch="swatch-botanical"
-                                    data-desc="Earth green leafy line art"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-botanical"
-                                    ></div>
+                                <div class="theme-card" data-theme="botanical-garden" data-name="Botanical Garden" data-swatch="swatch-botanical" data-desc="Earth green leafy line art">
+                                    <div class="theme-swatch swatch-botanical"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Botanical Garden</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Earth-tone leafy outlines</span
-                                        >
+                                        <span class="theme-name">Botanical Garden</span>
+                                        <span class="theme-desc">Earth-tone leafy outlines</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Rose Gold Abstract -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="rose-gold-abstract"
-                                    data-name="Rose Gold Abstract"
-                                    data-swatch="swatch-rose-gold"
-                                    data-desc="Warm geometric metallic rose"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-rose-gold"
-                                    ></div>
+                                <div class="theme-card" data-theme="rose-gold-abstract" data-name="Rose Gold Abstract" data-swatch="swatch-rose-gold" data-desc="Warm geometric metallic rose">
+                                    <div class="theme-swatch swatch-rose-gold"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Rose Gold Abstract</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Geometric warm metallics</span
-                                        >
+                                        <span class="theme-name">Rose Gold Abstract</span>
+                                        <span class="theme-desc">Geometric warm metallics</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Lavender Mist -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="lavender-mist"
-                                    data-name="Lavender Mist"
-                                    data-swatch="swatch-lavender"
-                                    data-desc="Soft pastels & light lavender"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-lavender"
-                                    ></div>
+                                <div class="theme-card" data-theme="lavender-mist" data-name="Lavender Mist" data-swatch="swatch-lavender" data-desc="Soft pastels & light lavender">
+                                    <div class="theme-swatch swatch-lavender"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Lavender Mist</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Soft lavender & elegant script</span
-                                        >
+                                        <span class="theme-name">Lavender Mist</span>
+                                        <span class="theme-desc">Soft lavender & elegant script</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Peach Bloom -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="peach-bloom"
-                                    data-name="Peach Bloom"
-                                    data-swatch="swatch-peach"
-                                    data-desc="Warm peach & coral tones"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-peach"
-                                    ></div>
+                                <div class="theme-card" data-theme="peach-bloom" data-name="Peach Bloom" data-swatch="swatch-peach" data-desc="Warm peach & coral tones">
+                                    <div class="theme-swatch swatch-peach"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Peach Bloom</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Peachy rose & warm pastels</span
-                                        >
+                                        <span class="theme-name">Peach Bloom</span>
+                                        <span class="theme-desc">Peachy rose & warm pastels</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
@@ -1601,135 +1391,53 @@
                         </div>
 
                         <!-- Masculine -->
-                        <div class="category-group" id="category-masculine">
-                            <h3 class="category-title">
-                                Masculine Styles
-                                <span class="category-toggle-icon">⌄</span>
-                            </h3>
+                        <div class="category-group" id="tab-masculine">
                             <div class="theme-grid">
-                                <!-- Dark Slate -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="dark-slate"
-                                    data-name="Dark Slate"
-                                    data-swatch="swatch-slate"
-                                    data-desc="Minimalist slate dark charcoal"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-slate"
-                                    ></div>
+                                <div class="theme-card" data-theme="dark-slate" data-name="Dark Slate" data-swatch="swatch-slate" data-desc="Minimalist slate dark charcoal">
+                                    <div class="theme-swatch swatch-slate"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Dark Slate</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Charcoal gray & clean lines</span
-                                        >
+                                        <span class="theme-name">Dark Slate</span>
+                                        <span class="theme-desc">Charcoal gray & clean lines</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Midnight Blueprint -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="midnight-blueprint"
-                                    data-name="Midnight Blueprint"
-                                    data-swatch="swatch-blueprint"
-                                    data-desc="Technical blueprints neon grid"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-blueprint"
-                                    ></div>
+                                <div class="theme-card" data-theme="midnight-blueprint" data-name="Midnight Blueprint" data-swatch="swatch-blueprint" data-desc="Technical blueprints neon grid">
+                                    <div class="theme-swatch swatch-blueprint"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Midnight Blueprint</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Navy grid, architectural feel</span
-                                        >
+                                        <span class="theme-name">Midnight Blueprint</span>
+                                        <span class="theme-desc">Navy grid, architectural feel</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Carbon Fiber -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="carbon-fiber"
-                                    data-name="Carbon Fiber"
-                                    data-swatch="swatch-carbon"
-                                    data-desc="Dark textured high-performance weave"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-carbon"
-                                    ></div>
+                                <div class="theme-card" data-theme="carbon-fiber" data-name="Carbon Fiber" data-swatch="swatch-carbon" data-desc="Dark textured high-performance weave">
+                                    <div class="theme-swatch swatch-carbon"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Carbon Fiber</span
-                                        >
-                                        <span class="theme-desc"
-                                            >High-tech weave & red accent</span
-                                        >
+                                        <span class="theme-name">Carbon Fiber</span>
+                                        <span class="theme-desc">High-tech weave & red accent</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Concrete Industrial -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="concrete-industrial"
-                                    data-name="Concrete Industrial"
-                                    data-swatch="swatch-concrete"
-                                    data-desc="Urban concrete loft aesthetic"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-concrete"
-                                    ></div>
+                                <div class="theme-card" data-theme="concrete-industrial" data-name="Concrete Industrial" data-swatch="swatch-concrete" data-desc="Urban concrete loft aesthetic">
+                                    <div class="theme-swatch swatch-concrete"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Concrete Industrial</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Raw concrete, bold typeface</span
-                                        >
+                                        <span class="theme-name">Concrete Industrial</span>
+                                        <span class="theme-desc">Raw concrete, bold typeface</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Rustic Urban -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="rustic-urban"
-                                    data-name="Rustic Urban"
-                                    data-swatch="swatch-rustic"
-                                    data-desc="Dark warm earthy tones"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-rustic"
-                                    ></div>
+                                <div class="theme-card" data-theme="rustic-urban" data-name="Rustic Urban" data-swatch="swatch-rustic" data-desc="Dark warm earthy tones">
+                                    <div class="theme-swatch swatch-rustic"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Rustic Urban</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Warm browns & crafted aesthetics</span
-                                        >
+                                        <span class="theme-name">Rustic Urban</span>
+                                        <span class="theme-desc">Warm browns & crafted aesthetics</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Smoke & Steel -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="smoke-and-steel"
-                                    data-name="Smoke & Steel"
-                                    data-swatch="swatch-smoke"
-                                    data-desc="Cool grays & steel blue"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-smoke"
-                                    ></div>
+                                <div class="theme-card" data-theme="smoke-and-steel" data-name="Smoke & Steel" data-swatch="swatch-smoke" data-desc="Cool grays & steel blue">
+                                    <div class="theme-swatch swatch-smoke"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Smoke & Steel</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Smoky grays & muted steel tones</span
-                                        >
+                                        <span class="theme-name">Smoke & Steel</span>
+                                        <span class="theme-desc">Smoky grays & muted steel tones</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
@@ -1737,134 +1445,53 @@
                         </div>
 
                         <!-- Universal -->
-                        <div class="category-group" id="category-universal">
-                            <h3 class="category-title">
-                                Gender-Neutral Styles
-                                <span class="category-toggle-icon">⌄</span>
-                            </h3>
+                        <div class="category-group" id="tab-universal">
                             <div class="theme-grid">
-                                <!-- Abstract Brushstrokes -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="abstract-brushstrokes"
-                                    data-name="Abstract Brushstrokes"
-                                    data-swatch="swatch-brushstrokes"
-                                    data-desc="Jewel tone teal & amber splash"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-brushstrokes"
-                                    ></div>
+                                <div class="theme-card" data-theme="abstract-brushstrokes" data-name="Abstract Brushstrokes" data-swatch="swatch-brushstrokes" data-desc="Jewel tone teal & amber splash">
+                                    <div class="theme-swatch swatch-brushstrokes"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Abstract Brushstrokes</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Teal, amber, jewel splashes</span
-                                        >
+                                        <span class="theme-name">Abstract Brushstrokes</span>
+                                        <span class="theme-desc">Teal, amber, jewel splashes</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Geometric Zen -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="geometric-zen"
-                                    data-name="Geometric Zen"
-                                    data-swatch="swatch-zen"
-                                    data-desc="Clean sage hexagons & lines"
-                                >
+                                <div class="theme-card" data-theme="geometric-zen" data-name="Geometric Zen" data-swatch="swatch-zen" data-desc="Clean sage hexagons & lines">
                                     <div class="theme-swatch swatch-zen"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Geometric Zen</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Sage, terracotta, hexagon
-                                            grid</span
-                                        >
+                                        <span class="theme-name">Geometric Zen</span>
+                                        <span class="theme-desc">Sage, terracotta, hexagon grid</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Sunset Gradient -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="sunset-gradient"
-                                    data-name="Sunset Gradient"
-                                    data-swatch="swatch-sunset"
-                                    data-desc="Smooth warming sky colors"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-sunset"
-                                    ></div>
+                                <div class="theme-card" data-theme="sunset-gradient" data-name="Sunset Gradient" data-swatch="swatch-sunset" data-desc="Smooth warming sky colors">
+                                    <div class="theme-swatch swatch-sunset"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Sunset Gradient</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Coral, amber & warm sky glow</span
-                                        >
+                                        <span class="theme-name">Sunset Gradient</span>
+                                        <span class="theme-desc">Coral, amber & warm sky glow</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Classic Calligraphy -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="classic-calligraphy"
-                                    data-name="Classic Calligraphy"
-                                    data-swatch="swatch-classic"
-                                    data-desc="Warm ivory timeless borders"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-classic"
-                                    ></div>
+                                <div class="theme-card" data-theme="classic-calligraphy" data-name="Classic Calligraphy" data-swatch="swatch-classic" data-desc="Warm ivory timeless borders">
+                                    <div class="theme-swatch swatch-classic"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Classic Calligraphy</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Timeless double gold border</span
-                                        >
+                                        <span class="theme-name">Classic Calligraphy</span>
+                                        <span class="theme-desc">Timeless double gold border</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Opal Skyline -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="opal-skyline"
-                                    data-name="Opal Skyline"
-                                    data-swatch="swatch-opal"
-                                    data-desc="Cool blues & opal tones"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-opal"
-                                    ></div>
+                                <div class="theme-card" data-theme="opal-skyline" data-name="Opal Skyline" data-swatch="swatch-opal" data-desc="Cool blues & opal tones">
+                                    <div class="theme-swatch swatch-opal"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Opal Skyline</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Opal blue & architectural feel</span
-                                        >
+                                        <span class="theme-name">Opal Skyline</span>
+                                        <span class="theme-desc">Opal blue & architectural feel</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
-                                <!-- Sunrise Echo -->
-                                <div
-                                    class="theme-card"
-                                    data-theme="sunrise-echo"
-                                    data-name="Sunrise Echo"
-                                    data-swatch="swatch-sunrise"
-                                    data-desc="Warm golden sunrise glow"
-                                >
-                                    <div
-                                        class="theme-swatch swatch-sunrise"
-                                    ></div>
+                                <div class="theme-card" data-theme="sunrise-echo" data-name="Sunrise Echo" data-swatch="swatch-sunrise" data-desc="Warm golden sunrise glow">
+                                    <div class="theme-swatch swatch-sunrise"></div>
                                     <div class="theme-details">
-                                        <span class="theme-name"
-                                            >Sunrise Echo</span
-                                        >
-                                        <span class="theme-desc"
-                                            >Golden sunrise & warm amber</span
-                                        >
+                                        <span class="theme-name">Sunrise Echo</span>
+                                        <span class="theme-desc">Golden sunrise & warm amber</span>
                                     </div>
                                     <div class="active-badge"></div>
                                 </div>
@@ -1885,19 +1512,12 @@
                         <a href="pages/daily-focus.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
+                                    <path d="M12 7v5l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Daily Focus Buddy™</span
-                                >
-                                <span class="page-desc"
-                                    >Hourly timeblocker, Boring checklist, and
-                                    Self-Care tracker</span
-                                >
+                                <span class="page-title">Daily Focus Buddy™</span>
+                                <span class="page-desc">Hourly timeline, Boring checklist, and Self-Care tracker</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -1906,42 +1526,36 @@
                         <a href="pages/weekly-overview.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
-                                    />
+                                    <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" />
                                     <path d="M16 2v4M8 2v4M4 10h16" />
                                 </svg>
                             </div>
                             <div class="page-info">
                                 <span class="page-title">Weekly Overview</span>
-                                <span class="page-desc"
-                                    >Spacious 7-day layout grid with custom
-                                    goals & mini habits</span
-                                >
+                                <span class="page-desc">7-day layout grid with custom goals & mini habits</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
+
+                        <!-- Upgrade Prompt (visible only in limited mode) -->
+                        <div class="upgrade-prompt">
+                            <div class="upgrade-icon">🔒</div>
+                            <div class="upgrade-title">Unlock All 8 Planner Formats</div>
+                            <div>Monthly Calendar, Brain Dump, Habit Tracker, Dopamine Menu &amp; Expense Tracker</div>
+                            <button class="upgrade-btn" onclick="localStorage.removeItem('buddy_license_key');location.reload()">Enter License Key</button>
+                        </div>
 
                         <!-- Monthly Calendar -->
                         <a href="pages/monthly-calendar.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round" />
                                     <path d="M9 14h6M9 17h6" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Monthly Calendar Sheet</span
-                                >
-                                <span class="page-desc"
-                                    >Undated 35-day grid planner for high-level
-                                    schedules & milestones</span
-                                >
+                                <span class="page-title">Monthly Calendar Sheet</span>
+                                <span class="page-desc">Undated 35-day grid planner for high-level schedules</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -1950,19 +1564,12 @@
                         <a href="pages/brain-dump.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757"
-                                    />
+                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-3.757" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Brain Dump / Idea Declutter</span
-                                >
-                                <span class="page-desc"
-                                    >Eisenhower prioritization grid & huge notes
-                                    space for sensory dumps</span
-                                >
+                                <span class="page-title">Brain Dump / Idea Declutter</span>
+                                <span class="page-desc">Eisenhower prioritization grid & huge notes space</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -1971,19 +1578,12 @@
                         <a href="pages/habit-tracker.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z"
-                                    />
+                                    <path d="M9 12l2 2 4-4M7.833 5H16.17c.92 0 1.667.746 1.667 1.667v10.666c0 .92-.746 1.667-1.667 1.667H7.833C6.912 19 6.167 18.254 6.167 17.333V6.667C6.167 5.746 6.912 5 7.833 5z" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Habit Tracker Sheet</span
-                                >
-                                <span class="page-desc"
-                                    >Full 31-day x 12 habit table with color
-                                    legend and adjustments notes</span
-                                >
+                                <span class="page-title">Habit Tracker Sheet</span>
+                                <span class="page-desc">Full 31-day x 12 habit table with color status cycle</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -1992,17 +1592,12 @@
                         <a href="pages/dopamine-menu.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                    />
+                                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
                             <div class="page-info">
                                 <span class="page-title">My Dopamine Menu</span>
-                                <span class="page-desc"
-                                    >Categorized energy booster slots &
-                                    emergency stim-hit list</span
-                                >
+                                <span class="page-desc">Categorized energy boosters & emergency stim list</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -2011,19 +1606,12 @@
                         <a href="pages/expense-tracker.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
+                                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Expense Tracker Ledger</span
-                                >
-                                <span class="page-desc"
-                                    >Interactive category-based expenses grid
-                                    with automatic subtotal calculations</span
-                                >
+                                <span class="page-title">Expense Tracker Ledger</span>
+                                <span class="page-desc">Category-based expense grids with auto subtotals</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
@@ -2032,167 +1620,329 @@
                         <a href="pages/quick-reminder.html" class="page-card">
                             <div class="page-icon-wrapper">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0"
-                                    />
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9m-4.27 13a2 2 0 0 1-3.46 0" />
                                 </svg>
                             </div>
                             <div class="page-info">
-                                <span class="page-title"
-                                    >Quick Reminders Log</span
-                                >
-                                <span class="page-desc"
-                                    >Add alarms and effortlessly track your
-                                    active and completed reminders</span
-                                >
+                                <span class="page-title">Quick Reminders Log</span>
+                                <span class="page-desc">Track and check off alarms with 5-min step AM/PM selector</span>
                             </div>
                             <span class="print-badge">Printable</span>
                         </a>
                     </div>
 
-                    <!-- How to print guides -->
+                    <!-- Collapsible Print Guide -->
                     <div class="print-info-box">
-                        <span class="info-icon">🖨️</span>
-                        <div class="info-content">
-                            <span class="info-title"
-                                >How to Print to PDF or Paper</span
-                            >
-                            <span class="info-text"
-                                >Open any planner sheet, and follow these setup
-                                recommendations in browser print popup
-                                (Ctrl+P):</span
-                            >
-                            <ul class="info-list">
-                                <li>
-                                    <strong>Destination</strong>: Save to PDF or
-                                    select your Color Printer
-                                </li>
-                                <li><strong>Layout</strong>: Portrait</li>
-                                <li>
-                                    <strong>Paper Size</strong>: Letter (8.5" x
-                                    11") or A4
-                                </li>
-                                <li>
-                                    <strong>Margins</strong>: None (or Default)
-                                </li>
-                                <li>
-                                    <strong>Options</strong>: Check the checkbox
-                                    for
-                                    <strong>"Background graphics"</strong>
-                                    (crucial for theme colors)
-                                </li>
-                            </ul>
-                        </div>
+                        <details class="print-info-details">
+                            <summary>🖨️ How to Print to PDF or Paper</summary>
+                            <div class="info-content">
+                                <span class="info-text">Open any planner page and press <strong>Ctrl+P</strong> (Cmd+P) with these parameters:</span>
+                                <ul class="info-list">
+                                    <li><strong>Orientation</strong>: Portrait</li>
+                                    <li><strong>Paper Size</strong>: Letter (8.5" x 11") or A4</li>
+                                    <li><strong>Margins</strong>: None (or Default)</li>
+                                    <li><strong>Background Graphics</strong>: Must be Checked (enables theme background graphics)</li>
+                                </ul>
+                            </div>
+                        </details>
                     </div>
                 </div>
             </div>
 
-                <!-- Panel 4: User Manual & Setup Guide -->
-                <div class="panel" style="padding-bottom: 80px">
-                    <div class="panel-header">
-                        <h2 class="panel-title">4. User Manual & Setup Guide</h2>
-                        <span class="panel-badge">Quick Start</span>
+            <!-- Panel 4: User Manual & Setup Guide -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">4. Help & Documentation</h2>
+                    <span class="panel-badge">Support Desk</span>
+                </div>
+
+                <a href="user-manual.html" class="page-card">
+                    <div class="page-icon-wrapper">
+                        <span style="font-size: 18px;">📖</span>
+                    </div>
+                    <div class="page-info">
+                        <span class="page-title">User Manual &amp; Setup Guide</span>
+                        <span class="page-desc">Learn about device backups, offline installation, drawing tools, and printable instructions.</span>
+                    </div>
+                    <span class="print-badge">Open Guide</span>
+                </a>
+            </div>
+
+            <!-- Bottom 2-Column Grid: Backup + Buddy Inline Suggests -->
+            <div class="bottom-grid">
+                <!-- Backups & Sync Panel -->
+                <div class="backup-panel" role="region" aria-label="Backups and sync">
+                    <div class="backup-panel-header">
+                        <div class="backup-icon-wrap">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <span class="backup-panel-title">Backups &amp; Sync</span>
+                        <div class="autosave-pill" id="autosave-indicator" aria-live="polite">
+                            <span class="autosave-dot"></span>
+                            <span id="autosave-label">Idle</span>
+                        </div>
                     </div>
 
-                    <a href="user-manual.html" class="page-card">
-                        <div class="page-icon-wrapper">
-                            <span style="font-size: 24px;">📖</span>
+                    <!-- Action Buttons -->
+                    <div class="backup-actions">
+                        <button id="backup-now" class="backup-btn btn-primary" aria-label="Backup now">
+                            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Backup
+                        </button>
+                        <button id="restore-latest" class="backup-btn btn-secondary" aria-label="Restore latest backup">
+                            <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                            Restore
+                        </button>
+                        <button id="export-json" class="backup-btn btn-success" aria-label="Export backups as JSON">
+                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export
+                        </button>
+                        <button id="import-json" class="backup-btn btn-active" aria-label="Import backups from JSON">
+                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            Import
+                        </button>
+                        <input id="import-file" type="file" accept="application/json" style="display:none" />
+                    </div>
+
+                    <!-- Database Folder Section -->
+                    <div class="db-folder-section">
+                        <div class="db-folder-header">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                            <span>Database Folder</span>
+                            <span class="db-folder-status" id="db-folder-status">Not connected</span>
                         </div>
-                        <div class="page-info">
-                            <span class="page-title">User Manual & Setup Guide</span>
-                            <span class="page-desc">Open the guide for setup tips, print instructions, and ADHD-friendly planner workflows.</span>
+                        <div class="db-folder-actions">
+                            <button id="db-folder-set" class="backup-btn btn-secondary" aria-label="Set database folder">📁 Connect</button>
+                            <button id="db-folder-sync" class="backup-btn btn-primary" aria-label="Sync now" disabled>🔄 Sync</button>
+                            <button id="db-folder-disconnect" class="backup-btn btn-danger" aria-label="Disconnect folder" disabled>✕ Disconnect</button>
                         </div>
-                        <span class="print-badge">Guide</span>
-                    </a>
+                        <div class="db-folder-info" id="db-folder-info">
+                            Connect to a directory on your device to keep data synced offline.
+                        </div>
+                    </div>
+
+                    <!-- Backup List -->
+                    <div class="backup-list-area" id="backup-list" role="list" aria-label="Available backups"></div>
                 </div>
+
+                <!-- Buddy Suggests Panel -->
+                <div class="buddy-panel">
+                    <div class="buddy-sparkle">✨</div>
+                    <div class="buddy-title">Buddy Suggests</div>
+                    <div class="buddy-subtitle">Struggling to start? Let Buddy suggest a tiny step.</div>
+
+                    <div class="buddy-suggestion-box">
+                        <div class="buddy-suggestion-text" id="buddy-inline-text">Click below to bypass task paralysis!</div>
+                    </div>
+
+                    <div class="buddy-affirmation" id="buddy-inline-affirmation"></div>
+
+                    <div class="buddy-actions">
+                        <button class="buddy-btn buddy-btn-another" id="buddy-inline-another">🔄 Swap Idea</button>
+                        <button class="buddy-btn buddy-btn-do" id="buddy-inline-do">✅ I'll Do This!</button>
+                    </div>
+                    <button class="buddy-btn buddy-btn-stuck" id="buddy-inline-stuck">⚡ I'M STUCK — Full Screen</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    &nbsp;&middot;&nbsp;
+                    <a href="user-manual.html">User Manual</a>
+                    &nbsp;&middot;&nbsp;
+                    <a href="#" onclick="document.getElementById('aboutOverlay').style.display='flex';return false;">About</a>
+                </p>
+                <p style="margin-top:4px">
+                    Contact: <a href="mailto:buddyplannerpk@gmail.com">buddyplannerpk@gmail.com</a>
+                </p>
+                <p style="margin-top:6px;font-size:10.5px;color:var(--text-sub);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.5">
+                    Buddy Planner is provided &ldquo;as is&rdquo; without warranty. MarketingSoulPro shall not be liable for any damages or data loss.
+                </p>
+                <p style="margin-top:4px">Copyright &copy; <a href="https://msoulpro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a></p>
+            </footer>
+        </div>
+
+        <!-- About Modal -->
+        <div class="about-overlay" id="aboutOverlay" onclick="if(event.target==this)this.style.display='none'">
+            <div class="about-modal">
+                <div class="about-icon">
+                    <img src="img/Buddy%20Planner%20favicon.png" alt="Buddy Planner" />
+                </div>
+                <div class="about-name">Buddy Planner</div>
+                <div class="about-version">Version: 4.2.0</div>
+                <div class="about-detail">Build: 1</div>
+                <div class="about-detail">Date: 2026-06-12</div>
+                <div class="about-divider"></div>
+                <div class="about-stack">HTML5 · CSS3 · JavaScript</div>
+                <div class="about-stack">localStorage · IndexedDB</div>
+                <div class="about-divider"></div>
+                <p style="font-size:11px;color:var(--text-sub);margin-bottom:12px">
+                    &copy; 2026 <a href="https://MSoulPro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a>
+                </p>
+                <button class="about-close" onclick="document.getElementById('aboutOverlay').style.display='none'">Close</button>
             </div>
         </div>
 
-        <!-- Bottom 2-Div Pattern: Backup & Sync + Buddy Suggests -->
-        <div class="container" style="margin-top:-20px">
-        <div class="bottom-grid">
+        <script>
+        // Theme Tab switcher logic
+        function switchThemeTab(tabId) {
+            document.querySelectorAll('.theme-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
 
-            <!-- DIV 1: Backups & Sync Panel -->
-            <div class="backup-panel" role="region" aria-label="Backups and sync">
-                <div class="backup-panel-header">
-                    <div class="backup-icon-wrap">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="17 8 12 3 7 8"/>
-                            <line x1="12" y1="3" x2="12" y2="15"/>
-                        </svg>
-                    </div>
-                    <span class="backup-panel-title">Backups &amp; Sync</span>
-                    <div class="autosave-pill" id="autosave-indicator" aria-live="polite">
-                        <span class="autosave-dot"></span>
-                        <span id="autosave-label">Idle</span>
-                    </div>
-                </div>
+            document.querySelectorAll('.category-group').forEach(group => {
+                group.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
 
-                <!-- Action Buttons (Tab-style) -->
-                <div class="backup-actions">
-                    <button id="backup-now" class="backup-btn btn-primary" aria-label="Backup now">
-                        <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                        Backup Now
-                    </button>
-                    <button id="restore-latest" class="backup-btn btn-secondary" aria-label="Restore latest backup">
-                        <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
-                        Restore Latest
-                    </button>
-                    <button id="export-json" class="backup-btn btn-success" aria-label="Export backups as JSON">
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Export JSON
-                    </button>
-                    <button id="import-json" class="backup-btn btn-active" aria-label="Import backups from JSON">
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        Import JSON
-                    </button>
-                    <button id="clear-all" class="backup-btn btn-danger" aria-label="Clear all saved data">
-                        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-                        Clear All
-                    </button>
-                    <input id="import-file" type="file" accept="application/json" style="display:none" />
-                </div>
+        // ── License Gate ──
+        (function() {
+            var gate = document.getElementById('licenseGate');
+            var input = document.getElementById('licenseKeyInput');
+            var nameInput = document.getElementById('licenseName');
+            var emailInput = document.getElementById('licenseEmail');
+            var deviceInput = document.getElementById('deviceNameInput');
+            var btn = document.getElementById('licenseBtn');
+            var err = document.getElementById('licenseError');
+            var suc = document.getElementById('licenseSuccess');
+            var checking = document.getElementById('licenseChecking');
+            var skip = document.getElementById('licenseSkip');
+            var API = 'buddyplanner-flat/api';
+            var pagesList = document.querySelector('.pages-list');
+            var panels = document.querySelectorAll('.panel');
 
-                <!-- Hint Text -->
-                <div style="font-size:11.5px;color:var(--text-sub);margin-top:-4px;">
-                    💾 Backups are stored locally in your browser. Export JSON to save permanently.
-                </div>
+            var stored = localStorage.getItem('buddy_license_key');
 
-                <!-- Backup List -->
-                <div class="backup-list-area" id="backup-list" role="list" aria-label="Available backups"></div>
-            </div>
+            function hideGate() {
+                gate.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
 
-            <!-- DIV 2: Buddy Suggests Panel -->
-            <div class="buddy-panel">
-                <div class="buddy-sparkle">✨</div>
-                <div class="buddy-title">Buddy Suggests</div>
-                <div class="buddy-subtitle">Small steps break the freeze.</div>
+            function setAccess(full) {
+                if (full) {
+                    document.body.classList.remove('limited-access');
+                } else {
+                    document.body.classList.add('limited-access');
+                }
+                hideGate();
+            }
 
-                <div class="buddy-suggestion-box">
-                    <div class="buddy-suggestion-text" id="buddy-inline-text">Click a button below to get a quick idea!</div>
-                </div>
+            // Check stored state
+            if (stored === 'limited') {
+                setAccess(false);
+            } else if (stored && stored.length > 0) {
+                setAccess(true);
+            }
 
-                <div class="buddy-affirmation" id="buddy-inline-affirmation"></div>
+            btn.onclick = function() {
+                var key = input.value.trim().toUpperCase();
+                var userName = nameInput.value.trim();
+                var userEmail = emailInput.value.trim();
+                var device = deviceInput.value.trim();
+                if (!key) {
+                    err.textContent = 'Please enter a license key.';
+                    return;
+                }
+                if (!userName) {
+                    err.textContent = 'Please enter your name.';
+                    nameInput.focus();
+                    return;
+                }
+                if (!userEmail) {
+                    err.textContent = 'Please enter your email.';
+                    emailInput.focus();
+                    return;
+                }
+                if (!device) {
+                    err.textContent = 'Please enter a device name (e.g. Laptop, Mobile, Tab).';
+                    deviceInput.focus();
+                    return;
+                }
+                err.textContent = '';
+                suc.textContent = '';
+                btn.disabled = true;
+                checking.classList.add('visible');
 
-                <div class="buddy-actions">
-                    <button class="buddy-btn buddy-btn-another" id="buddy-inline-another">
-                        🔄 Another Idea
-                    </button>
-                    <button class="buddy-btn buddy-btn-do" id="buddy-inline-do">
-                        ✅ I'll Do This!
-                    </button>
-                </div>
-                <button class="buddy-btn buddy-btn-stuck" id="buddy-inline-stuck">
-                    ⚡ I'M STUCK — Open Full Buddy
-                </button>
-            </div>
+                fetch(API + '/verify.php?license_key=' + encodeURIComponent(key))
+                    .then(function(r) {
+                        if (!r.ok) {
+                            return r.text().then(function(t) { throw new Error('HTTP ' + r.status + ': ' + t); });
+                        }
+                        return r.json();
+                    })
+                    .then(function(data) {
+                        checking.classList.remove('visible');
+                        btn.disabled = false;
+                        if (data.valid) {
+                            var payload = { license_key: key, device_name: device };
+                            if (userName) payload.customer_name = userName;
+                            if (userEmail) payload.email = userEmail;
+                            fetch(API + '/activate.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            }).catch(function(){});
 
-        </div>
-        </div>
+                            localStorage.setItem('buddy_license_key', key);
+                            suc.textContent = '✓ License valid! Loading planner...';
+                            setTimeout(function() {
+                                setAccess(true);
+                            }, 600);
+                        } else {
+                            err.textContent = data.error || 'Invalid license key.';
+                        }
+                    })
+                    .catch(function(e) {
+                        checking.classList.remove('visible');
+                        btn.disabled = false;
+                        err.textContent = 'License server error: ' + (e.message || 'Could not reach server.');
+                        err.style.fontSize = '11px';
+                    });
+            };
 
-        <footer class="main-footer">
-            <p>Copyright © <a href="https://msoulpro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a></p>
-        </footer>
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') btn.click();
+            });
+
+            skip.onclick = function() {
+                localStorage.setItem('buddy_license_key', 'limited');
+                setAccess(false);
+            };
+        })();
+
+        // ── Theme Selection ──
+        (function() {
+            var themeNames = {
+                "blush-calligraphy":"Blush Calligraphy","watercolor-florals":"Watercolor Florals","botanical-garden":"Botanical Garden","rose-gold-abstract":"Rose Gold Abstract","lavender-mist":"Lavender Mist","peach-bloom":"Peach Bloom","dark-slate":"Dark Slate","midnight-blueprint":"Midnight Blueprint","carbon-fiber":"Carbon Fiber","concrete-industrial":"Concrete Industrial","rustic-urban":"Rustic Urban","smoke-and-steel":"Smoke & Steel","abstract-brushstrokes":"Abstract Brushstrokes","geometric-zen":"Geometric Zen","sunset-gradient":"Sunset Gradient","classic-calligraphy":"Classic Calligraphy","opal-skyline":"Opal Skyline","sunrise-echo":"Sunrise Echo"
+            };
+            var saved = localStorage.getItem("selected-theme") || "blush-calligraphy";
+            var cards = document.querySelectorAll(".theme-card");
+            var bannerName = document.getElementById("banner-theme-display");
+            var bannerSwatch = document.getElementById("banner-theme-indicator");
+            function activateTheme(id) {
+                localStorage.setItem("selected-theme", id);
+                cards.forEach(function(c) {
+                    c.classList.toggle("active", c.dataset.theme === id);
+                });
+                if (bannerName) bannerName.textContent = themeNames[id] || id;
+                if (bannerSwatch) {
+                    var cls = bannerSwatch.className.replace(/swatch-\S+/g, "").trim();
+                    bannerSwatch.className = cls + " swatch-" + id.replace("blush-calligraphy","blush").replace("watercolor-florals","watercolor").replace("botanical-garden","botanical").replace("rose-gold-abstract","rose-gold").replace("dark-slate","slate").replace("midnight-blueprint","blueprint").replace("carbon-fiber","carbon").replace("concrete-industrial","concrete").replace("abstract-brushstrokes","brushstrokes").replace("geometric-zen","zen").replace("sunset-gradient","gradient").replace("classic-calligraphy","classic").replace("peach-bloom","peach").replace("lavender-mist","lavender").replace("smoke-and-steel","smoke").replace("rustic-urban","rustic").replace("opal-skyline","skyline").replace("sunrise-echo","echo");
+                }
+            }
+            activateTheme(saved);
+            cards.forEach(function(c) {
+                c.addEventListener("click", function() { activateTheme(c.dataset.theme); });
+            });
+        })();
+        </script>
     </body>
 </html>

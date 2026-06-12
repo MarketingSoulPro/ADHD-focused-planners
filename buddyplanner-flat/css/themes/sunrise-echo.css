@@ -1,0 +1,53 @@
+/* ══════════════════════════════════════
+   Theme: Sunrise Echo (Universal)
+   ══════════════════════════════════════ */
+.theme-sunrise-echo {
+  --bg-primary: #fff8f0;
+  --bg-secondary: #fff1e5;
+  --bg-accent: #f7dec7;
+  --text-primary: #3c2d22;
+  --text-secondary: #7d6552;
+  --text-muted: #a07f6a;
+  --accent-1: #f4ab6c;
+  --accent-2: #f08d55;
+  --accent-3: #d96d43;
+  --accent-4: #d18f64;
+  --accent-5: #f1bd94;
+  --border-color: #e8d2c0;
+  --border-light: #f7ebe2;
+  --border-dotted: #e5d1c3;
+  --checkbox-border: #d79d7f;
+  --icon-color: #b77f63;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Playfair Display', serif;
+  --bg-pattern: radial-gradient(circle at 15% 20%, rgba(244,171,108,0.14), transparent 22%), radial-gradient(circle at 85% 85%, rgba(240,141,85,0.1), transparent 20%);
+
+  --tab-jan: #f4ab6c; --tab-feb: #f08d55; --tab-mar: #d96d43;
+  --tab-apr: #d18f64; --tab-may: #f1bd94; --tab-jun: #f4ab6c;
+  --tab-jul: #f08d55; --tab-aug: #d96d43; --tab-sep: #d18f64;
+  --tab-oct: #f1bd94; --tab-nov: #f4ab6c; --tab-dec: #f08d55;
+}
+
+.theme-sunrise-echo .planner-page {
+  background-image: radial-gradient(circle at 25% 20%, rgba(244,171,108,0.12), transparent 18%), radial-gradient(circle at 80% 25%, rgba(240,141,85,0.14), transparent 20%);
+}
+
+.theme-sunrise-echo .daily-title,
+.theme-sunrise-echo .weekly-title,
+.theme-sunrise-echo .braindump-page-title,
+.theme-sunrise-echo .habit-tracker-title,
+.theme-sunrise-echo .dopamine-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.theme-sunrise-echo .section-label {
+  color: #bf7b51;
+}
+
+.theme-sunrise-echo .reward-box {
+  border-color: #d4a382;
+  background: rgba(244, 171, 108, 0.08);
+}

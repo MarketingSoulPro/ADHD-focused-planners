@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 8080;
+const PORT = 8082; // Changed from 8080 to avoid address in use
 const MIME_TYPES = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -32,6 +32,14 @@ const server = http.createServer((req, res) => {
   // Resolve mapping to prevent path traversal
   const relative = path.relative(__dirname, filePath);
   if (relative && relative.startsWith('..')) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Forbidden');
+    return;
+  }
+
+  // Block direct access to license data directory
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  if (normalizedPath.includes('/admin/data/')) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('Forbidden');
     return;

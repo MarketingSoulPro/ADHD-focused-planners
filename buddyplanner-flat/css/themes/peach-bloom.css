@@ -1,0 +1,54 @@
+/* ══════════════════════════════════════
+   Theme: Peach Bloom (Feminine)
+   ══════════════════════════════════════ */
+.theme-peach-bloom {
+  --bg-primary: #fff3f0;
+  --bg-secondary: #fbe7e4;
+  --bg-accent: #f7d4cf;
+  --text-primary: #5c2f38;
+  --text-secondary: #8e5a67;
+  --text-muted: #b88f97;
+  --accent-1: #f19d94;
+  --accent-2: #d77a6c;
+  --accent-3: #b96973;
+  --accent-4: #d8a48a;
+  --accent-5: #f4bfa8;
+  --border-color: #efdad6;
+  --border-light: #f8eceb;
+  --border-dotted: #ead7d4;
+  --checkbox-border: #dca8a3;
+  --icon-color: #b3686d;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Playfair Display', serif;
+  --bg-pattern: radial-gradient(circle at top left, rgba(241,157,148,0.18), transparent 26%), radial-gradient(circle at bottom right, rgba(252,216,201,0.24), transparent 24%);
+
+  --tab-jan: #f19d94; --tab-feb: #d77a6c; --tab-mar: #b96973;
+  --tab-apr: #d8a48a; --tab-may: #f4bfa8; --tab-jun: #f19d94;
+  --tab-jul: #d77a6c; --tab-aug: #b96973; --tab-sep: #d8a48a;
+  --tab-oct: #f4bfa8; --tab-nov: #f19d94; --tab-dec: #d77a6c;
+}
+
+.theme-peach-bloom .planner-page {
+  background-image: radial-gradient(circle at 20% 20%, rgba(241,157,148,0.18), transparent 18%), radial-gradient(circle at 80% 80%, rgba(248,232,227,0.24), transparent 22%);
+}
+
+.theme-peach-bloom .daily-title,
+.theme-peach-bloom .weekly-title,
+.theme-peach-bloom .braindump-page-title,
+.theme-peach-bloom .habit-tracker-title,
+.theme-peach-bloom .dopamine-title {
+  font-family: 'Playfair Display', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.theme-peach-bloom .section-label {
+  font-weight: 700;
+  color: #834b4e;
+}
+
+.theme-peach-bloom .reward-box {
+  border-color: #e8b5b0;
+  background: rgba(241, 157, 148, 0.08);
+}

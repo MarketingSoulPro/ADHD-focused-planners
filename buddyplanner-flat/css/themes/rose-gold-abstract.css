@@ -1,0 +1,68 @@
+/* ══════════════════════════════════════
+   Theme: Rose Gold Abstract (Feminine)
+   ══════════════════════════════════════ */
+.theme-rose-gold-abstract {
+  --bg-primary: #fdf8f5;
+  --bg-secondary: #f8f0ea;
+  --bg-accent: #f0e4da;
+  --text-primary: #4a3a34;
+  --text-secondary: #8a7068;
+  --text-muted: #b8a098;
+  --accent-1: #c8907a;
+  --accent-2: #d4a888;
+  --accent-3: #b89080;
+  --accent-4: #c0a890;
+  --accent-5: #d4b898;
+  --border-color: #e0ccc0;
+  --border-light: #f0e4da;
+  --border-dotted: #dcc8b8;
+  --checkbox-border: #c0a898;
+  --icon-color: #a08878;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Playfair Display', serif;
+
+  --tab-jan: #c8907a; --tab-feb: #d4a888; --tab-mar: #b89080;
+  --tab-apr: #c0a890; --tab-may: #d4b898; --tab-jun: #c8907a;
+  --tab-jul: #d4a888; --tab-aug: #b89080; --tab-sep: #c0a890;
+  --tab-oct: #d4b898; --tab-nov: #c8907a; --tab-dec: #d4a888;
+}
+
+.theme-rose-gold-abstract .planner-page {
+  background-image:
+    linear-gradient(135deg, rgba(200, 144, 122, 0.04) 0%, transparent 40%),
+    linear-gradient(315deg, rgba(212, 168, 136, 0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 30%, rgba(184, 144, 128, 0.03) 0%, transparent 50%);
+}
+
+.theme-rose-gold-abstract .daily-title,
+.theme-rose-gold-abstract .weekly-title,
+.theme-rose-gold-abstract .braindump-page-title,
+.theme-rose-gold-abstract .habit-tracker-title,
+.theme-rose-gold-abstract .dopamine-title {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.theme-rose-gold-abstract .selfcare-icon {
+  border-radius: 50%;
+  border-color: rgba(200, 144, 122, 0.3);
+  background: rgba(200, 144, 122, 0.04);
+}
+
+.theme-rose-gold-abstract .reward-box {
+  border-style: solid;
+  border-color: rgba(200, 144, 122, 0.3);
+  background: rgba(200, 144, 122, 0.03);
+  border-radius: 8px;
+}
+
+.theme-rose-gold-abstract .month-tab {
+  border-radius: 0;
+  opacity: 0.85;
+}
+
+.theme-rose-gold-abstract .dopamine-section {
+  border-radius: 10px;
+  border-color: rgba(200, 144, 122, 0.25);
+}

@@ -1,0 +1,73 @@
+/* ══════════════════════════════════════
+   Theme: Classic Calligraphy (Universal)
+   ══════════════════════════════════════ */
+.theme-classic-calligraphy {
+  --bg-primary: #fdfbf7; /* Warm ivory */
+  --bg-secondary: #f7f3eb;
+  --bg-accent: #ece4d5;
+  --text-primary: #2b2621; /* Warm charcoal */
+  --text-secondary: #594f45;
+  --text-muted: #918274;
+  --accent-1: #3b332c;
+  --accent-2: #8c7355; /* Warm gold/bronze */
+  --accent-3: #5c6356; /* Sage accent */
+  --accent-4: #825e5c; /* Terracotta accent */
+  --accent-5: #3b332c;
+  --border-color: #d1c7b8;
+  --border-light: #eadecc;
+  --border-dotted: #c4b6a3;
+  --checkbox-border: #9e8e7a;
+  --icon-color: #4a3e35;
+  --header-font: 'Cormorant Garamond', serif;
+  --title-font: 'Cormorant Garamond', serif;
+  --body-font: 'Inter', sans-serif;
+
+  --tab-jan: #3b332c; --tab-feb: #8c7355; --tab-mar: #5c6356;
+  --tab-apr: #825e5c; --tab-may: #3b332c; --tab-jun: #8c7355;
+  --tab-jul: #5c6356; --tab-aug: #825e5c; --tab-sep: #3b332c;
+  --tab-oct: #8c7355; --tab-nov: #5c6356; --tab-dec: #825e5c;
+}
+
+.theme-classic-calligraphy .planner-page {
+  /* Elegant double border for standard timeless style */
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(140, 115, 85, 0.02) 0%, transparent 80%);
+}
+
+.theme-classic-calligraphy .planner-page::after {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  border: 1px solid rgba(140, 115, 85, 0.15);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.theme-classic-calligraphy .daily-title,
+.theme-classic-calligraphy .weekly-title,
+.theme-classic-calligraphy .braindump-page-title,
+.theme-classic-calligraphy .habit-tracker-title,
+.theme-classic-calligraphy .dopamine-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--accent-1);
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.theme-classic-calligraphy .section-label,
+.theme-classic-calligraphy .section-label-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.theme-classic-calligraphy .reward-box {
+  border-style: solid;
+  border-color: var(--accent-2);
+  background: rgba(140, 115, 85, 0.03);
+}

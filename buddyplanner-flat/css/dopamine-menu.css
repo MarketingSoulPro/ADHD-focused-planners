@@ -1,0 +1,144 @@
+/* Dopamine Menu specific styles */
+
+/* Header */
+.dopamine-header {
+  font-family: var(--title-font);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent-1);
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+}
+
+.dopamine-subtitle {
+  font-family: var(--body-font);
+  font-size: 6.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-align: center;
+  display: block;
+}
+
+/* Container for grid */
+.dopamine-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.dopamine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Card style */
+.dopamine-card {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dopamine-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+.dopamine-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.dopamine-section-title {
+  font-size: 1.1rem;
+  color: var(--accent-2);
+}
+
+.dopamine-section-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.lined-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dopamine-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background 0.12s ease;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
+.dopamine-row:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.dopamine-checkbox {
+  width: 1.2rem;
+  height: 1.2rem;
+  appearance: none;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.dopamine-checkbox:checked {
+  background: var(--accent-1);
+  border-color: var(--accent-1);
+}
+
+.dopamine-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Emergency card */
+.emergency-card {
+  background: rgba(255,230,230,0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(200,0,0,0.1);
+}
+
+.emergency-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--accent-5);
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .dopamine-header { font-size: 1.8rem; }
+  .dopamine-grid { grid-template-columns: 1fr; }
+}

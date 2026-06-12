@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════
+   Theme: Botanical Garden (Feminine)
+   ══════════════════════════════════════ */
+.theme-botanical-garden {
+  --bg-primary: #f9f6f0;
+  --bg-secondary: #f0ece4;
+  --bg-accent: #e8e2d6;
+  --text-primary: #3c3a30;
+  --text-secondary: #6b6858;
+  --text-muted: #a09880;
+  --accent-1: #5a7a58;
+  --accent-2: #8a7a58;
+  --accent-3: #7a9878;
+  --accent-4: #6a8a58;
+  --accent-5: #a09060;
+  --border-color: #c8c0a8;
+  --border-light: #e0dac8;
+  --border-dotted: #c8c0a8;
+  --checkbox-border: #a8a088;
+  --icon-color: #6a7a58;
+  --header-font: 'Playfair Display', serif;
+  --title-font: 'Caveat', cursive;
+
+  --tab-jan: #5a7a58; --tab-feb: #8a7a58; --tab-mar: #7a9878;
+  --tab-apr: #6a8a58; --tab-may: #a09060; --tab-jun: #5a7a58;
+  --tab-jul: #8a7a58; --tab-aug: #7a9878; --tab-sep: #6a8a58;
+  --tab-oct: #a09060; --tab-nov: #5a7a58; --tab-dec: #8a7a58;
+}
+
+.theme-botanical-garden .planner-page {
+  background-image:
+    radial-gradient(ellipse at 0% 100%, rgba(90, 122, 88, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(138, 122, 88, 0.04) 0%, transparent 50%);
+}
+
+.theme-botanical-garden .section-label,
+.theme-botanical-garden .section-label-accent {
+  letter-spacing: 2px;
+}
+
+.theme-botanical-garden .reward-box {
+  border-color: #c0c8a8;
+  background: rgba(90, 122, 88, 0.04);
+  border-style: solid;
+  border-width: 1px;
+}
+
+.theme-botanical-garden .selfcare-icon {
+  border-radius: 6px;
+}
+
+.theme-botanical-garden .weekly-header,
+.theme-botanical-garden .monthly-header {
+  border-bottom-color: var(--accent-1);
+}

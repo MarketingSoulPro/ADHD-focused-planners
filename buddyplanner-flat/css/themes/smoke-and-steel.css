@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════
+   Theme: Smoke & Steel (Masculine)
+   ══════════════════════════════════════ */
+.theme-smoke-and-steel {
+  --bg-primary: #1f2429;
+  --bg-secondary: #2d343a;
+  --bg-accent: #313a43;
+  --text-primary: #d9dee2;
+  --text-secondary: #99a3ae;
+  --text-muted: #7b8692;
+  --accent-1: #7aa6dd;
+  --accent-2: #9aaabb;
+  --accent-3: #5e738c;
+  --accent-4: #4d5d72;
+  --accent-5: #aab9ca;
+  --border-color: #3b424a;
+  --border-light: #2f3640;
+  --border-dotted: #3d454d;
+  --checkbox-border: #5f6c79;
+  --icon-color: #86a2c1;
+  --header-font: 'Inter', sans-serif;
+  --title-font: 'Inter', sans-serif;
+  --bg-pattern: linear-gradient(135deg, rgba(255,255,255,0.04), transparent 40%);
+
+  --tab-jan: #7aa6dd; --tab-feb: #9aaabb; --tab-mar: #5e738c;
+  --tab-apr: #4d5d72; --tab-may: #aab9ca; --tab-jun: #7aa6dd;
+  --tab-jul: #9aaabb; --tab-aug: #5e738c; --tab-sep: #4d5d72;
+  --tab-oct: #aab9ca; --tab-nov: #7aa6dd; --tab-dec: #9aaabb;
+}
+
+.theme-smoke-and-steel .planner-page {
+  background-image: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06), transparent 18%), linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%);
+}
+
+.theme-smoke-and-steel .daily-title,
+.theme-smoke-and-steel .weekly-title,
+.theme-smoke-and-steel .braindump-page-title,
+.theme-smoke-and-steel .habit-tracker-title,
+.theme-smoke-and-steel .dopamine-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.theme-smoke-and-steel .section-label {
+  font-weight: 700;
+  color: #b0c5da;
+}
+
+.theme-smoke-and-steel .reward-box {
+  border-color: #4f5c69;
+  background: rgba(122, 166, 221, 0.08);
+}

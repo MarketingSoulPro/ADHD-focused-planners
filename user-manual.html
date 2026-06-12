@@ -3,520 +3,1447 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Buddy Planner User Manual</title>
+        <title>Buddy Planner — User Manual</title>
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
             rel="stylesheet"
         />
         <style>
             :root {
-                --bg: #0b0b0f;
-                --card: #151520;
-                --card-soft: #1b1b28;
-                --border: #2a2a3a;
-                --text: #f4f4f7;
-                --muted: #a1a1b7;
-                --primary: #3a86ff;
-                --accent: #ff006e;
-                --success: #38b000;
+                --bg-dark: #0b0b0f;
+                --bg-card: #12121a;
+                --bg-card-soft: #161622;
+                --border-color: #222232;
+                --border-glow: rgba(58, 134, 255, 0.15);
+                --text-main: #f0f0f5;
+                --text-sub: #9090a5;
+                --color-primary: #3a86ff;
+                --color-secondary: #ff006e;
+                --color-accent: #8338ec;
+                --color-success: #38b000;
+                --color-warning: #ff9e00;
+                
+                --sidebar-width: 280px;
+                --header-height: 70px;
             }
+
             * {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
             }
+
+            /* Custom scrollbar for Webkit */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 99px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
             body {
                 font-family: "Inter", sans-serif;
-                background: var(--bg);
-                color: var(--text);
-                line-height: 1.7;
-                padding: 32px 16px 48px;
-                display: flex;
-                justify-content: center;
+                background-color: var(--bg-dark);
+                color: var(--text-main);
+                line-height: 1.6;
+                overflow-x: hidden;
+                
+                /* Dynamic mesh background similar to dashboard */
+                background-image:
+                    radial-gradient(circle at 10% 10%, rgba(131, 56, 236, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 20%, rgba(58, 134, 255, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 0, 110, 0.05) 0%, transparent 50%);
+                background-attachment: fixed;
             }
-            .page {
-                width: 100%;
-                max-width: 1100px;
+
+            a {
+                color: var(--color-primary);
+                text-decoration: none;
+                transition: color 0.2s ease, text-shadow 0.2s ease;
+            }
+            a:hover {
+                color: var(--color-secondary);
+                text-shadow: 0 0 8px rgba(255, 0, 110, 0.3);
+            }
+
+            /* ── Layout Structure ── */
+            .app-container {
+                display: flex;
+                min-height: 100vh;
+                position: relative;
+            }
+
+            /* Sidebar Table of Contents */
+            .sidebar {
+                width: var(--sidebar-width);
+                background: rgba(18, 18, 26, 0.85);
+                border-right: 1px solid var(--border-color);
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 100;
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
+                padding: 24px;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
-            .hero {
-                text-align: center;
-                padding: 12px 0 24px;
-                border-bottom: 1px solid var(--border);
+
+            .sidebar-logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 20px;
             }
-            .hero img {
-                width: 116px;
-                height: 116px;
+
+            .sidebar-logo img {
+                width: 36px;
+                height: 36px;
                 object-fit: contain;
-                margin-bottom: 10px;
             }
-            h1 {
+
+            .sidebar-logo span {
                 font-family: "Playfair Display", serif;
-                font-size: 42px;
-                line-height: 1.15;
-                margin-bottom: 10px;
+                font-size: 18px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #ffffff, #a0a0c0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
-            .subtitle {
-                max-width: 760px;
-                margin: 0 auto;
-                color: var(--muted);
-                font-size: 16px;
+
+            .sidebar-nav {
+                flex: 1;
+                overflow-y: auto;
+                padding-right: 8px;
             }
-            .top-actions {
+
+            .sidebar-nav ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sidebar-nav li a {
+                display: flex;
+                align-items: center;
+                padding: 10px 14px;
+                border-radius: 10px;
+                color: var(--text-sub);
+                font-size: 13px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+            }
+
+            .sidebar-nav li a:hover,
+            .sidebar-nav li a.active {
+                background: rgba(58, 134, 255, 0.1);
+                color: #fff;
+                border-left: 3px solid var(--color-primary);
+                padding-left: 11px;
+            }
+
+            /* Main Content Area */
+            .main-content {
+                flex: 1;
+                margin-left: var(--sidebar-width);
+                padding: 40px;
+                max-width: calc(100% - var(--sidebar-width));
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            /* Search Header Bar */
+            .search-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                background: rgba(18, 18, 26, 0.6);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 16px 24px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .search-box {
+                position: relative;
+                flex: 1;
+                max-width: 480px;
+            }
+
+            .search-box input {
+                width: 100%;
+                background: rgba(11, 11, 15, 0.8);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 12px 16px 12px 42px;
+                color: #fff;
+                font-size: 14px;
+                outline: none;
+                transition: all 0.2s ease;
+            }
+
+            .search-box input:focus {
+                border-color: var(--color-primary);
+                box-shadow: 0 0 15px rgba(58, 134, 255, 0.2);
+            }
+
+            .search-box svg {
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                fill: none;
+                stroke: var(--text-sub);
+                stroke-width: 2;
+                pointer-events: none;
+            }
+
+            .header-buttons {
                 display: flex;
                 gap: 12px;
-                justify-content: center;
-                flex-wrap: wrap;
-                margin-top: 18px;
             }
+
             .btn {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                min-height: 44px;
-                padding: 11px 18px;
-                border-radius: 999px;
-                text-decoration: none;
-                font-weight: 700;
-                font-size: 14px;
-                transition:
-                    transform 0.18s ease,
-                    opacity 0.18s ease,
-                    border-color 0.18s ease;
+                gap: 8px;
+                padding: 10px 18px;
+                border-radius: 12px;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                border: 1px solid transparent;
             }
-            .btn:hover {
-                transform: translateY(-1px);
-            }
+
             .btn-primary {
-                background: var(--primary);
+                background: var(--color-primary);
                 color: white;
             }
+            .btn-primary:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+            }
+
             .btn-secondary {
-                background: transparent;
-                border: 1px solid var(--border);
-                color: var(--text);
+                background: rgba(255, 255, 255, 0.04);
+                border-color: var(--border-color);
+                color: var(--text-main);
             }
-            .grid {
-                display: grid;
-                grid-template-columns: 1.1fr 0.9fr;
-                gap: 24px;
+            .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.08);
+                transform: translateY(-1px);
             }
-            .card {
-                background: linear-gradient(
-                    180deg,
-                    var(--card) 0%,
-                    var(--card-soft) 100%
-                );
-                border: 1px solid var(--border);
-                border-radius: 18px;
-                padding: 22px;
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+
+            /* Hero Section */
+            .hero-card {
+                text-align: center;
+                padding: 40px 20px;
+                background: linear-gradient(135deg, rgba(19, 19, 31, 0.8) 0%, rgba(15, 15, 26, 0.8) 100%);
+                border: 1.5px solid var(--border-glow);
+                border-radius: 24px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             }
-            h2 {
-                font-size: 24px;
+
+            .hero-card img {
+                width: 100px;
+                height: 100px;
+                object-fit: contain;
+                margin-bottom: 16px;
+                animation: floatLogo 4s ease-in-out infinite;
+            }
+
+            @keyframes floatLogo {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-8px); }
+            }
+
+            .hero-card h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 38px;
                 margin-bottom: 12px;
+                background: linear-gradient(135deg, #ffffff 40%, #a0a0c0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
-            h3 {
-                font-size: 17px;
-                margin-bottom: 8px;
-            }
-            p,
-            li {
-                color: var(--muted);
+
+            .hero-card p.subtitle {
+                max-width: 680px;
+                margin: 0 auto 12px;
+                color: var(--text-sub);
                 font-size: 15px;
             }
-            ul,
-            ol {
-                padding-left: 18px;
+
+            .hero-support {
+                font-size: 12px;
+                color: var(--text-sub);
             }
-            .stack {
-                display: flex;
-                flex-direction: column;
-                gap: 18px;
-            }
-            .screenshot {
-                width: 100%;
-                border-radius: 16px;
-                border: 1px solid var(--border);
-                background: #101018;
-                overflow: hidden;
-            }
-            .screenshot img {
-                width: 100%;
-                display: block;
-                height: auto;
-            }
-            .caption {
-                padding: 10px 12px;
-                font-size: 13px;
-                color: var(--muted);
-                border-top: 1px solid var(--border);
-                background: rgba(255, 255, 255, 0.02);
-            }
-            .steps {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 16px;
-            }
-            .step {
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                padding: 16px;
-            }
-            .step-number {
-                width: 28px;
-                height: 28px;
-                border-radius: 50%;
+
+            .copy-badge {
                 display: inline-flex;
                 align-items: center;
-                justify-content: center;
-                background: rgba(58, 134, 255, 0.14);
-                color: var(--primary);
-                font-weight: 800;
-                margin-bottom: 10px;
+                gap: 6px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--border-color);
+                padding: 4px 10px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-family: monospace;
+                font-size: 11px;
+                color: var(--color-primary);
+                transition: all 0.2s ease;
+                margin-left: 6px;
             }
-            .tip {
-                border-left: 3px solid var(--success);
+
+            .copy-badge:hover {
+                background: rgba(58, 134, 255, 0.1);
+                border-color: var(--color-primary);
+            }
+
+            /* Sections & Cards */
+            .guide-section {
+                scroll-margin-top: 100px;
+            }
+
+            .card {
+                background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
+                border: 1.5px solid rgba(255, 255, 255, 0.02);
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                transition: border-color 0.3s ease;
+            }
+            .card:hover {
+                border-color: rgba(58, 134, 255, 0.2);
+            }
+
+            h2 {
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                border-left: 4px solid var(--color-primary);
                 padding-left: 12px;
             }
-            .faq-item {
-                padding: 14px 0;
-                border-top: 1px solid var(--border);
+
+            h3 {
+                font-size: 16px;
+                font-weight: 700;
+                color: #fff;
             }
-            .faq-item:first-child {
-                border-top: none;
+
+            p, li {
+                color: var(--text-sub);
+                font-size: 14px;
+                line-height: 1.7;
             }
-            @media (max-width: 900px) {
-                .grid,
-                .steps {
-                    grid-template-columns: 1fr;
-                }
-                h1 {
-                    font-size: 34px;
-                }
+
+            ul, ol {
+                padding-left: 20px;
             }
-            @media (max-width: 560px) {
-                body {
-                    padding: 20px 10px 32px;
-                }
-                .card {
-                    padding: 16px;
-                    border-radius: 14px;
-                }
-                h1 {
-                    font-size: 28px;
-                }
-                h2 {
-                    font-size: 21px;
-                }
-                p,
-                li {
-                    font-size: 14px;
-                }
-                .subtitle {
+
+            /* Grid Layouts */
+            .grid-two {
+                display: grid;
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 24px;
             }
-            /* ── Footer ── */
-            footer.main-footer {
-                width: 100%;
-                text-align: center;
-                padding: 40px 20px 20px;
-                margin-top: 20px;
-                border-top: 1px solid var(--border);
-                font-size: 13px;
-                color: var(--muted);
-                font-family: 'Inter', sans-serif;
+
+            .grid-half {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .grid-three {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+
+            /* Step Cards */
+            .steps-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+            }
+
+            .step-card {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-color);
+                border-radius: 14px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                transition: transform 0.2s ease, background-color 0.2s ease;
+            }
+            .step-card:hover {
+                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.04);
+            }
+
+            .step-number {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: rgba(58, 134, 255, 0.15);
+                color: var(--color-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 14px;
+            }
+
+            /* Alerts & Tips */
+            .alert-box {
+                padding: 16px;
+                border-radius: 12px;
+                font-size: 13.5px;
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .alert-success {
+                background: rgba(56, 176, 0, 0.08);
+                border: 1px solid rgba(56, 176, 0, 0.2);
+                color: #aaeebb;
+            }
+            .alert-success strong { color: var(--color-success); }
+
+            .alert-warning {
+                background: rgba(255, 158, 0, 0.08);
+                border: 1px solid rgba(255, 158, 0, 0.2);
+                color: #ffdda1;
+            }
+            .alert-warning strong { color: var(--color-warning); }
+
+            .alert-info {
+                background: rgba(58, 134, 255, 0.08);
+                border: 1px solid rgba(58, 134, 255, 0.2);
+                color: #bcd6ff;
+            }
+            .alert-info strong { color: var(--color-primary); }
+
+            /* Feature Item List */
+            .features-stack {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .feature-row {
+                background: rgba(255, 255, 255, 0.01);
+                border: 1px solid var(--border-color);
+                border-radius: 14px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                position: relative;
+            }
+
+            .feature-row-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .feature-badge {
+                font-size: 10px;
+                font-weight: 700;
+                padding: 2px 8px;
+                border-radius: 99px;
+                text-transform: uppercase;
                 letter-spacing: 0.5px;
             }
-            footer.main-footer a {
-                color: var(--primary);
-                text-decoration: none;
-                font-weight: 500;
-                transition: color 0.2s ease;
+            .badge-primary { background: rgba(58, 134, 255, 0.15); color: var(--color-primary); }
+            .badge-accent { background: rgba(255, 0, 110, 0.15); color: var(--color-secondary); }
+            .badge-success { background: rgba(56, 176, 0, 0.15); color: var(--color-success); }
+            .badge-warning { background: rgba(255, 158, 0, 0.15); color: var(--color-warning); }
+
+            /* Sheet Grid */
+            .sheet-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
             }
-            footer.main-footer a:hover {
-                color: var(--accent);
-                text-decoration: underline;
+
+            .sheet-card {
+                background: rgba(255, 255, 255, 0.015);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                transition: all 0.2s ease;
+            }
+            .sheet-card:hover {
+                border-color: var(--color-primary);
+                background: rgba(58, 134, 255, 0.02);
+                transform: translateY(-2px);
+            }
+
+            .sheet-card h4 {
+                font-size: 15px;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            /* Beautiful Tables */
+            .table-responsive {
+                width: 100%;
+                overflow-x: auto;
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                text-align: left;
+            }
+
+            th, td {
+                padding: 14px 18px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            th {
+                background: rgba(255, 255, 255, 0.03);
+                color: #fff;
+                font-weight: 600;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+
+            /* Collapsible FAQs */
+            .faq-accordion {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            details {
+                background: rgba(255, 255, 255, 0.015);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                overflow: hidden;
+                transition: border-color 0.2s ease;
+            }
+
+            details[open] {
+                border-color: rgba(58, 134, 255, 0.3);
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            summary {
+                padding: 16px 20px;
+                font-weight: 600;
+                color: #fff;
+                cursor: pointer;
+                user-select: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                outline: none;
+            }
+
+            summary::-webkit-details-marker {
+                display: none;
+            }
+
+            summary::after {
+                content: "+";
+                font-size: 18px;
+                color: var(--text-sub);
+                transition: transform 0.2s ease;
+            }
+
+            details[open] summary::after {
+                content: "−";
+                transform: rotate(180deg);
+                color: var(--color-primary);
+            }
+
+            .faq-content {
+                padding: 0 20px 18px;
+            }
+
+            /* Floating Tools */
+            .floating-top-btn {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.3s ease;
+            }
+
+            .floating-top-btn.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .floating-top-btn:hover {
+                background: var(--color-secondary);
+                transform: scale(1.1);
+            }
+
+            /* Mobile Menu Toggle button */
+            .mobile-menu-btn {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 1001;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Highlight Match Styles */
+            mark {
+                background: rgba(255, 158, 0, 0.3);
+                color: #fff;
+                border-radius: 3px;
+                padding: 0 2px;
+            }
+
+            /* About Modal */
+            .about-overlay {
+                position: fixed;
+                inset: 0;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.65);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                animation: fadeIn 0.2s ease;
+            }
+
+            .about-modal {
+                background: #12121a;
+                border: 1.5px solid var(--border-color);
+                border-radius: 20px;
+                padding: 36px;
+                text-align: center;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+                max-width: 360px;
+                width: 100%;
+                animation: slideUp 0.25s ease;
+            }
+
+            .about-icon {
+                width: 72px;
+                height: 72px;
+                margin: 0 auto 16px;
+                border-radius: 16px;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-color);
+            }
+
+            .about-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .about-name {
+                font-size: 22px;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 8px;
+            }
+
+            .about-version {
+                font-size: 14px;
+                color: var(--color-primary);
+                font-weight: 600;
+                margin-bottom: 12px;
+            }
+
+            .about-divider {
+                height: 1px;
+                background: var(--border-color);
+                margin: 18px 0;
+            }
+
+            .about-detail {
+                font-size: 12px;
+                color: var(--text-sub);
+                margin-bottom: 6px;
+            }
+
+            .about-close {
+                margin-top: 12px;
+                width: 100%;
+                padding: 12px;
+                border-radius: 12px;
+                border: none;
+                background: var(--color-primary);
+                color: white;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .about-close:hover {
+                background: var(--color-secondary);
+            }
+
+            /* Animations */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* Footer */
+            footer.main-footer {
+                border-top: 1px solid var(--border-color);
+                padding-top: 30px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Responsive Design Breakpoints */
+            @media (max-width: 992px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .mobile-menu-btn {
+                    display: flex;
+                }
+                .main-content {
+                    margin-left: 0;
+                    max-width: 100%;
+                    padding: 80px 20px 40px; /* Safe space for top header button */
+                }
+                .search-header {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .grid-two, .grid-half, .grid-three {
+                    grid-template-columns: 1fr;
+                }
             }
         </style>
     </head>
     <body>
-        <main class="page">
-            <section class="hero">
-                <img src="img/logo.png" alt="Buddy Planner logo" />
-                <h1>Buddy Planner User Manual</h1>
-                <p class="subtitle">
-                    Learn how to choose themes, open planner sheets, use the
-                    mobile tabs, work with the floating tools, and print your
-                    planners with the best results.
-                </p>
-                <div class="top-actions">
-                    <a class="btn btn-primary" href="index.html"
-                        >Back to Dashboard</a
-                    >
-                    <a class="btn btn-secondary" href="pages/daily-focus.html"
-                        >Open a Planner</a
-                    >
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="app-container">
+
+            <!-- ── SIDEBAR TABLE OF CONTENTS ── -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-logo">
+                    <img src="img/logo.png" alt="Buddy Planner" />
+                    <span>Buddy Planner</span>
                 </div>
-            </section>
-
-            <section class="grid">
-                <div class="card stack">
-                    <div>
-                        <h2>Quick Start</h2>
-                        <p>
-                            The Buddy Planner dashboard lets you select a visual
-                            theme and open any printable planner sheet. On
-                            mobile, the interface includes theme tabs, planner
-                            navigation icons, and a floating tool button.
-                        </p>
-                    </div>
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <h3>Choose a theme</h3>
-                            <p>
-                                Select a background style from the dashboard or
-                                from the in-planner theme controls.
-                            </p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <h3>Open a sheet</h3>
-                            <p>
-                                Pick Daily, Weekly, Monthly, Brain Dump, Habit
-                                Tracker, Expense Tracker, or another sheet.
-                            </p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <h3>Edit or mark items</h3>
-                            <p>
-                                Tap fields, checkboxes, icons, and planner areas
-                                to write, track, and organize your day.
-                            </p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <h3>Print or save PDF</h3>
-                            <p>
-                                Use the print button and enable background
-                                graphics for the best visual result.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card stack">
-                    <h2>Dashboard Overview</h2>
-                    <figure class="screenshot">
-                        <img
-                            src="img/Dashboard.png"
-                            alt="Buddy Planner Dashboard"
-                        />
-                        <figcaption class="caption">
-                            The main dashboard where you select your theme and
-                            planner sheet.
-                        </figcaption>
-                    </figure>
-                </div>
-            </section>
-
-            <section class="card stack">
-                <h2>Planner Sheets Gallery</h2>
-                <p>
-                    Explore the full suite of ADHD-focused planner sheets
-                    designed for different areas of your life.
-                </p>
-                <div class="steps">
-                    <div class="step">
-                        <h3>Daily Focus</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Daily Buddy.png"
-                                alt="Daily Focus Buddy"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Weekly Planner</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Weekly Planner.png"
-                                alt="Weekly Planner"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Monthly Planner</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Monthly planner.png"
-                                alt="Monthly Planner"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Brain Dump</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img src="img/Brain Dump.png" alt="Brain Dump" />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Habit Tracker</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Habbit Tracker.png"
-                                alt="Habit Tracker"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Expense Tracker</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Expense Tracker.png"
-                                alt="Expense Tracker"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Dopamine Menu</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Dopamine Menu.png"
-                                alt="Dopamine Menu"
-                            />
-                        </figure>
-                    </div>
-                    <div class="step">
-                        <h3>Quick Reminders</h3>
-                        <figure class="screenshot" style="margin-top: 8px">
-                            <img
-                                src="img/Quick Reminder.png"
-                                alt="Quick Reminder"
-                            />
-                        </figure>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card stack">
-                <h2>Dashboard Guide</h2>
-                <p>
-                    The dashboard is the starting point for the planner suite.
-                    It is designed to help you quickly choose a visual style and
-                    open the exact planner sheet you need.
-                </p>
-                <ul>
-                    <li>
-                        <strong>Select Background Theme</strong> lets you pick
-                        one of the available design themes.
-                    </li>
-                    <li>
-                        <strong>Choose Planner Sheet</strong> opens the planner
-                        page you want to use.
-                    </li>
-                    <li>
-                        <strong>Current Theme</strong> shows the active theme
-                        name and color swatch.
-                    </li>
-                    <li>
-                        <strong>Printable</strong> badges indicate planner pages
-                        intended for printing or PDF export.
-                    </li>
-                </ul>
-            </section>
-
-            <section class="grid">
-                <div class="card stack">
-                    <h2>Using the Planner on Mobile</h2>
-                    <p>
-                        On mobile, the planner interface is optimized with tabs
-                        and compact controls.
-                    </p>
-                    <ol>
-                        <li>
-                            Tap <strong>Tools</strong> to open or close the
-                            floating tool button/toolbar.
-                        </li>
-                        <li>
-                            Tap <strong>Select Themes</strong> to open or close
-                            the mobile theme selector.
-                        </li>
-                        <li>
-                            Use the planner navigation icons to move between
-                            pages such as Daily, Weekly, Brain Dump, and Expense
-                            Tracker.
-                        </li>
-                        <li>
-                            Tap the month tabs to switch between months and
-                            update planner content.
-                        </li>
-                    </ol>
-                </div>
-
-                <div class="card stack">
-                    <h2>Floating Tools</h2>
-                    <p>
-                        The floating tool button gives quick access to drawing
-                        and annotation tools. It starts minimized and can be
-                        expanded when needed.
-                    </p>
+                <nav class="sidebar-nav">
                     <ul>
-                        <li>Pen for handwriting or marks</li>
-                        <li>Eraser for removing strokes</li>
-                        <li>Stickers/emojis for visual markers</li>
-                        <li>Color and size controls</li>
-                        <li>Undo and clear actions</li>
+                        <li><a href="#quickstart" class="active">1. Quick Start</a></li>
+                        <li><a href="#dashboard">2. Dashboard Overview</a></li>
+                        <li><a href="#themes">3. Themes Guide</a></li>
+                        <li><a href="#sheets">4. All 8 Planner Sheets</a></li>
+                        <li><a href="#interactive">5. Interactive Fields</a></li>
+                        <li><a href="#mobile">6. Using on Mobile</a></li>
+                        <li><a href="#floating-tools">7. Floating Canvas Tools</a></li>
+                        <li><a href="#stuck">8. Buddy Suggests Helper</a></li>
+                        <li><a href="#backups">9. Backups & Data Sync</a></li>
+                        <li><a href="#pwa">10. Installing PWA App</a></li>
+                        <li><a href="#printing">11. Printing & PDF Guide</a></li>
+                        <li><a href="#license">12. License Terms</a></li>
+                        <li><a href="#contact">13. Support & Contact</a></li>
+                        <li><a href="#privacy">14. Privacy Policy</a></li>
+                        <li><a href="#faq">15. FAQ</a></li>
                     </ul>
-                </div>
-            </section>
+                </nav>
+            </aside>
 
-            <section class="card stack">
-                <h2>Printing Tips</h2>
-                <div class="tip">
-                    <p>
-                        For the best output, use your browser print dialog and
-                        make sure <strong>Background graphics</strong> is
-                        enabled.
-                    </p>
-                </div>
-                <ul>
-                    <li>Destination: save as PDF or select your printer</li>
-                    <li>Layout: portrait</li>
-                    <li>Paper size: Letter or A4</li>
-                    <li>Margins: none or default, depending on your printer</li>
-                    <li>Check preview before printing multiple pages</li>
-                </ul>
-            </section>
+            <!-- ── MAIN CONTENT AREA ── -->
+            <main class="main-content">
 
-            <section class="card stack">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-item">
-                    <h3>Will my selected theme stay active?</h3>
-                    <p>
-                        Yes. The selected theme is stored locally in your
-                        browser and should remain active when you reopen the
-                        app.
+                <!-- ── SEARCH HEADER ── -->
+                <header class="search-header">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Search user guide topics..." aria-label="Search User Manual" />
+                    </div>
+                    <div class="header-buttons">
+                        <a class="btn btn-primary" href="index.html">Dashboard</a>
+                        <a class="btn btn-secondary" href="pages/daily-focus.html">Open Planner</a>
+                    </div>
+                </header>
+
+                <!-- ── HERO SECTION ── -->
+                <section class="hero-card">
+                    <img src="img/logo.png" alt="Buddy Planner logo" />
+                    <h1>Buddy Planner User Manual</h1>
+                    <p class="subtitle">
+                        Your complete companion guide to utilizing the ADHD-focused printable planner suite—from managing personalized color themes to digital backup, local device sync, floating pen tools, and physical printing.
                     </p>
+                    <div class="hero-support">
+                        Need quick support? Email us at:
+                        <span class="copy-badge" onclick="copyText('buddyplannerpk@gmail.com', this)">
+                            buddyplannerpk@gmail.com
+                        </span>
+                    </div>
+                </section>
+
+                <!-- ── 1. QUICK START ── -->
+                <section class="guide-section" id="quickstart">
+                    <div class="card">
+                        <h2>1. Quick Start Guide</h2>
+                        <p>Get started and configure your workspace in under a minute using these simple setup steps:</p>
+                        <div class="steps-container">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h3>Open the App</h3>
+                                <p>Double-click or launch <strong>index.html</strong> inside any modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox, or Safari).</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h3>Pick a Theme</h3>
+                                <p>Select from our range of 18 themes (Feminine, Masculine, or Gender-Neutral) to apply colors instantly across all pages.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h3>Choose a Planner</h3>
+                                <p>Click on any planner sheet card (Daily Focus, Weekly Overview, Monthly Calendar, Habit Tracker, etc.) to start editing.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <h3>Fill & Print</h3>
+                                <p>Fill in details, tick checklists, utilize drawings, and print to physical Letter/A4 paper or export clean PDFs.</p>
+                            </div>
+                        </div>
+                        <div class="alert-box alert-success">
+                            <div>
+                                <strong>💡 Pro-Tip:</strong> The planner suite operates completely locally. All choices, text entries, and checkmarks are saved automatically in your browser's local store.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 2. DASHBOARD OVERVIEW ── -->
+                <section class="guide-section" id="dashboard">
+                    <div class="card">
+                        <h2>2. Dashboard Overview</h2>
+                        <p>The dashboard functions as your command center. Here is a description of the key modules available on your home screen:</p>
+                        
+                        <div class="features-stack">
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>License Gate</h3>
+                                    <span class="feature-badge badge-warning">Lifetime Access</span>
+                                </div>
+                                <p>Input your purchase key on initial startup to unlock all 8 planner sheets. Keys support activations for up to 3 individual personal devices (e.g. tablet, phone, desktop laptop). Click <em>"Continue without license"</em> for evaluation mode (limited to Daily Focus and Weekly Overview).</p>
+                            </div>
+
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Region Selector</h3>
+                                    <span class="feature-badge badge-primary">Localised Calendar</span>
+                                </div>
+                                <p>Adjust your country destination (US, UK, Canada, Australia, India, Germany, France, Japan, Brazil, South Africa) to automatically sync and populate national holiday markers inside the Monthly Calendar.</p>
+                            </div>
+
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Theme Selector Panel</h3>
+                                    <span class="feature-badge badge-accent">18 Custom Styles</span>
+                                </div>
+                                <p>Easily swap the design aesthetics. Swaps affect every planner layout instantly. On smaller mobile phone screens, these categories automatically collapse into accordions for clean UX.</p>
+                            </div>
+
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Planner Sheet Deck</h3>
+                                    <span class="feature-badge badge-success">8 Dedicated Sheets</span>
+                                </div>
+                                <p>A list of printable planner cards detailing specific use-cases. Clicking opens the specific planner template with your active color theme applied.</p>
+                            </div>
+
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Buddy Suggests (Stuck Helper)</h3>
+                                    <span class="feature-badge badge-accent">ADHD Paralysis Aid</span>
+                                </div>
+                                <p>A smart helper designed to reduce decision fatigue when executive dysfunction kicks in. Tap the button for single, manageable task recommendations.</p>
+                            </div>
+
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Backup Manager Panel</h3>
+                                    <span class="feature-badge badge-primary">Local Safety</span>
+                                </div>
+                                <p>Provides manual database snapshot control. Backup snapshots to browser memory, restore data points, download `.json` files, or upload backups to sync work across devices.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 3. THEMES GUIDE ── -->
+                <section class="guide-section" id="themes">
+                    <div class="card">
+                        <h2>3. Themes: 18 Ways to Personalise</h2>
+                        <p>Visual styling matters. Buddy Planner contains 18 designed themes spanning 3 distinct palettes to accommodate your personal taste:</p>
+                        
+                        <div class="grid-three">
+                            <div>
+                                <h3 style="color:var(--color-secondary);margin-bottom:8px">Feminine Styles</h3>
+                                <ul style="display:flex;flex-direction:column;gap:4px">
+                                    <li>Blush Calligraphy</li>
+                                    <li>Watercolor Florals</li>
+                                    <li>Botanical Garden</li>
+                                    <li>Rose Gold Abstract</li>
+                                    <li>Lavender Mist</li>
+                                    <li>Peach Bloom</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 style="color:var(--color-primary);margin-bottom:8px">Masculine Styles</h3>
+                                <ul style="display:flex;flex-direction:column;gap:4px">
+                                    <li>Dark Slate</li>
+                                    <li>Midnight Blueprint</li>
+                                    <li>Carbon Fiber</li>
+                                    <li>Concrete Industrial</li>
+                                    <li>Rustic Urban</li>
+                                    <li>Smoke & Steel</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 style="color:var(--color-warning);margin-bottom:8px">Gender-Neutral Styles</h3>
+                                <ul style="display:flex;flex-direction:column;gap:4px">
+                                    <li>Abstract Brushstrokes</li>
+                                    <li>Geometric Zen</li>
+                                    <li>Sunset Gradient</li>
+                                    <li>Classic Calligraphy</li>
+                                    <li>Opal Skyline</li>
+                                    <li>Sunrise Echo</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="alert-box alert-info">
+                            <div>
+                                <strong>How to apply:</strong> Select a swatch from the Dashboard theme deck. The active style choice is remembered by local storage and will propagate automatically to all planner pages you open.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 4. PLANNER SHEETS ── -->
+                <section class="guide-section" id="sheets">
+                    <div class="card">
+                        <h2>4. All 8 Planner Sheets &mdash; Complete Guide</h2>
+                        <p>Learn the functions and custom blocks mapped to each of the 8 dedicated planner pages:</p>
+                        
+                        <div class="sheet-grid">
+                            <div class="sheet-card">
+                                <h4>Daily Focus</h4>
+                                <p>Features an hourly timeline (5:00 AM - 4:00 AM), a <strong>Boring Tasks</strong> prioritization list, self-care tracker (12 icons), upcoming deadlines sync, brain dump slot, and main habit goals.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Weekly Overview</h4>
+                                <p>A 7-day grid tracking priorities for each weekday. Includes a custom weekly focus sidebar and a bottom habit check-in tracker matching key milestones.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Monthly Calendar</h4>
+                                <p>A clean 35-day grid. Dynamically pulls country-specific holiday markers. Clicking the Month Name header opens a navigation helper to jump directly to any month/year.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Brain Dump</h4>
+                                <p>Leverages the 2x2 Eisenhower Matrix to categorize tasks by urgency and importance (Urgent & Important, Less Urgent, Delegate, Eliminate), alongside a large notes section.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Habit Tracker</h4>
+                                <p>Track up to 12 habits over a 31-day timeline. Click cells to cycle state: blank, Done (green), Missed (red), Partial (yellow), and Not Applicable (grey).</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Dopamine Menu</h4>
+                                <p>Organizes energy-boosting actions across key groups (Quick Wins, Sensory Treats, Social Connection). Great for handling burnout with built-in "Stuck" suggestion helpers.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Expense Tracker</h4>
+                                <p>Category-based tracker mapping food, travel, bills, fun, and other expenses. Type your values and let the sheet compute subtotals and grand totals dynamically.</p>
+                            </div>
+                            <div class="sheet-card">
+                                <h4>Quick Reminders</h4>
+                                <p>Tracks alerts and time stamps. Features an AM/PM time selector with 5-minute incremental controls and clean glassmorphism prompt designs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 5. INTERACTIVE FIELDS ── -->
+                <section class="guide-section" id="interactive">
+                    <div class="card">
+                        <h2>5. Using Interactive Fields</h2>
+                        <p>Buddy Planner pages are designed to be interactive web components that save your state on the fly:</p>
+                        <ul>
+                            <li><strong>Text Entry Fields:</strong> Click inside any write-in section, checklist row, or notes pad to edit content. Click out or stop typing to save instantly.</li>
+                            <li><strong>Checkboxes:</strong> Tapping checks off tasks, rendering crossed lines and marking items complete.</li>
+                            <li><strong>State-cycling Cells:</strong> Tapping days in the Habit Tracker cycles colored statuses.</li>
+                            <li><strong>Subtotal Computations:</strong> Entering numbers inside the Expense Tracker updates values automatically.</li>
+                        </ul>
+                        <div class="alert-box alert-warning">
+                            <div>
+                                <strong>⚠️ Data Persistence:</strong> Clear browser cache or resetting browser data deletes planner files. We recommend downloading manual <strong>JSON files</strong> regularly to avoid losing progress.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 6. MOBILE ── -->
+                <section class="guide-section" id="mobile">
+                    <div class="card">
+                        <h2>6. Using the Planner on Mobile Devices</h2>
+                        <p>The entire layout is optimized for mobile touchscreens, tablets, and phones:</p>
+                        <ol style="display:flex;flex-direction:column;gap:8px">
+                            <li><strong>Collapsible Themes:</strong> Theme categories condense into collapsible panels on small screen sizes.</li>
+                            <li><strong>Touch Friendly Triggers:</strong> Large touch points ensure checkboxes and selection badges register inputs instantly.</li>
+                            <li><strong>Vertical Scroll Alignment:</strong> Layout blocks stack vertically on mobile to prevent horizontal panning.</li>
+                            <li><strong>Navigation Shortcuts:</strong> Bottom/top sticky action links simplify hopping from Daily sheets to other pages.</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- ── 7. FLOATING TOOLS ── -->
+                <section class="guide-section" id="floating-tools">
+                    <div class="card">
+                        <h2>7. Floating Annotation Canvas Tools</h2>
+                        <p>An annotation tool sits on top of all planner pages. Click or tap to expand the canvas toolset:</p>
+                        <div class="grid-half">
+                            <div>
+                                <h3 style="margin-bottom:8px">Available Tools</h3>
+                                <ul style="display:flex;flex-direction:column;gap:6px">
+                                    <li><strong>Pen Tool:</strong> Write notes, circle dates, or draw diagrams.</li>
+                                    <li><strong>Eraser Tool:</strong> Wipe individual pen strokes.</li>
+                                    <li><strong>Sticker Deck:</strong> Place custom markers or emojis onto target grids.</li>
+                                    <li><strong>Palette Pickers:</strong> Cycle line colors.</li>
+                                    <li><strong>Stroke Width:</strong> Adjust pen line thickness.</li>
+                                    <li><strong>Undo / Clear:</strong> Revert the last stroke or clear the page.</li>
+                                </ul>
+                            </div>
+                            <div class="alert-box alert-info" style="height:fit-content">
+                                <div>
+                                    <strong>Print Drawing Notice:</strong> To print pen annotations, ensure your print settings dialog has <strong>"Background graphics"</strong> checked.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 8. BUDDY SUGGESTS ── -->
+                <section class="guide-section" id="stuck">
+                    <div class="card">
+                        <h2>8. Buddy Suggests &mdash; When You Feel Stuck</h2>
+                        <p>ADHD paralysis and overwhelm can make initiating tasks difficult. The built-in <strong>"I'M STUCK!"</strong> feature helps break this cycle:</p>
+                        <ol style="display:flex;flex-direction:column;gap:8px">
+                            <li>Locate the <strong>Buddy Suggests</strong> card on the primary Dashboard or tap the "Stuck" button on the <strong>Dopamine Menu</strong>.</li>
+                            <li>Clicking generates a single, simple activity suggestion (e.g. <em>"Drink a glass of water"</em>, <em>"Open a window for 1 minute"</em>).</li>
+                            <li>Not feeling the prompt? Click <strong>"Another Idea"</strong> to swap suggestions.</li>
+                            <li>Ready to start? Select <strong>"I'll Do This!"</strong> for encouragement.</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- ── 9. BACKUPS ── -->
+                <section class="guide-section" id="backups">
+                    <div class="card">
+                        <h2>9. Backups & Data Management</h2>
+                        <p>Manage your saved database profiles locally. The backup utility includes these commands:</p>
+                        
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Control Button</th>
+                                        <th>Purpose & Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Backup Now</strong></td>
+                                        <td>Saves a duplicate copy of all planner parameters to local browser memory.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Restore Latest</strong></td>
+                                        <td>Restores your planner data from the most recent backup snapshot.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Export JSON</strong></td>
+                                        <td>Downloads a local file backup (`.json`) containing all data. Save this on your computer or cloud storage.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Import JSON</strong></td>
+                                        <td>Uploads a previously saved JSON file to restore your planner data on any device.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Clear All</strong></td>
+                                        <td>Clears all browser memory, local storage records, and theme options. <em>Cannot be undone.</em></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 10. PWA ── -->
+                <section class="guide-section" id="pwa">
+                    <div class="card">
+                        <h2>10. Installing as an App (PWA)</h2>
+                        <p>Run Buddy Planner as a native offline application on your desktop or mobile home screen:</p>
+                        <div class="grid-half">
+                            <div>
+                                <h3 style="margin-bottom:8px">Desktop Install (Chrome / Edge / Safari)</h3>
+                                <ol style="display:flex;flex-direction:column;gap:4px">
+                                    <li>Open the dashboard homepage.</li>
+                                    <li>Click the <strong>Install</strong> monitor icon in your address bar.</li>
+                                    <li>Confirm the app prompt to add to your desktop applications menu.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h3 style="margin-bottom:8px">Mobile Install (iOS / Android)</h3>
+                                <ol style="display:flex;flex-direction:column;gap:4px">
+                                    <li>On iOS: Open in Safari, tap the <strong>Share</strong> button, and choose <strong>"Add to Home Screen"</strong>.</li>
+                                    <li>On Android: Open in Chrome, tap the menu (three dots), and select <strong>"Install App"</strong>.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 11. PRINTING ── -->
+                <section class="guide-section" id="printing">
+                    <div class="card">
+                        <h2>11. Printing & PDF Export</h2>
+                        <p>Physical prints are a great way to stay organized. Check these settings for high-quality prints:</p>
+                        <div class="grid-half">
+                            <div>
+                                <h3 style="margin-bottom:8px">Print Settings Check-list</h3>
+                                <ul style="display:flex;flex-direction:column;gap:4px">
+                                    <li>Click the <strong>Print Page</strong> action button.</li>
+                                    <li>Set Destination to <strong>Save as PDF</strong> or select your printer.</li>
+                                    <li>Orientation: <strong>Portrait</strong>.</li>
+                                    <li>Paper size: <strong>Letter</strong> or <strong>A4</strong>.</li>
+                                    <li>Margins: Set to <strong>None</strong> or <strong>Default</strong>.</li>
+                                </ul>
+                            </div>
+                            <div class="alert-box alert-warning">
+                                <div>
+                                    <strong>⚠️ Crucial Print Option:</strong> You MUST enable <strong>"Background graphics"</strong> under the print dialog's advanced settings to print colors, graphics, and backgrounds.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 12. LICENSE TERMS ── -->
+                <section class="guide-section" id="license">
+                    <div class="card">
+                        <h2>12. License Terms & Legal</h2>
+                        <div class="grid-half">
+                            <div>
+                                <h3 style="margin-bottom:8px">Activation Limits</h3>
+                                <p>Licenses grant lifetime usage rights on up to <strong>3 personal devices</strong>. Activations track the user-specified device names. Keys are non-transferable and intended for personal use only.</p>
+                            </div>
+                            <div>
+                                <h3 style="margin-bottom:8px">Privacy Policy Highlights</h3>
+                                <p>Buddy Planner stores information locally in your browser cache. Zero user data is uploaded or transmitted to third-party databases, except when verifying license keys.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 13. CONTACT ── -->
+                <section class="guide-section" id="contact">
+                    <div class="card">
+                        <h2>13. Contact & Support</h2>
+                        <p>Need support or want to report a bug? Reach out to the support desk: </p>
+                        <div class="features-stack">
+                            <div class="feature-row">
+                                <div class="feature-row-header">
+                                    <h3>Email Support</h3>
+                                    <span class="copy-badge" onclick="copyText('buddyplannerpk@gmail.com', this)">buddyplannerpk@gmail.com</span>
+                                </div>
+                                <p>Get a response within 24-48 business hours. Please include your purchase order ID for licensing inquiries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 14. PRIVACY POLICY ── -->
+                <section class="guide-section" id="privacy">
+                    <div class="card">
+                        <h2>14. Privacy Policy</h2>
+                        <p>All planner data resides in local storage on your device. We do not gather, distribute, or track inputs. For complete policy details, click below:</p>
+                        <div style="display:flex;justify-content:center;margin-top:10px">
+                            <a class="btn btn-primary" href="privacy-policy.html">Read Full Privacy Policy</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── 15. FAQ ── -->
+                <section class="guide-section" id="faq">
+                    <div class="card">
+                        <h2>15. Frequently Asked Questions</h2>
+                        <div class="faq-accordion">
+                            <details>
+                                <summary>Will my selected theme stay active when I come back?</summary>
+                                <div class="faq-content">
+                                    <p>Yes. Your theme selection is saved in browser storage and will load automatically on your next visit.</p>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Can I use the planner without printing?</summary>
+                                <div class="faq-content">
+                                    <p>Absolutely. You can fill out sheets digitally, type tasks, check off items, and use drawing tools directly in your browser. All data saves automatically.</p>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Why do theme colors not appear in my print preview?</summary>
+                                <div class="faq-content">
+                                    <p>Most browsers hide background graphics to save ink. Make sure to check the <strong>"Background graphics"</strong> option in your print settings.</p>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>What happens if I clear my browser data?</summary>
+                                <div class="faq-content">
+                                    <p>Clearing browser cache or cookies will erase local storage, resetting all planner pages. Use the <strong>Export JSON</strong> option to keep a backup file on your computer.</p>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>How do I transfer data to another device?</summary>
+                                <div class="faq-content">
+                                    <p>Export your data as a `.json` backup file from the dashboard, transfer it to the target device, and choose <strong>Import JSON</strong> on the new device.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── FOOTER ── -->
+                <footer class="main-footer">
+                    <p>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="index.html">Back to Dashboard</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="pages/daily-focus.html">Open Daily Focus</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="#" onclick="document.getElementById('aboutOverlay').style.display='flex';return false;">About</a>
+                    </p>
+                    <p style="font-size:12px;color:var(--text-sub)">
+                        Copyright &copy; 2026 <a href="https://marketingsoulpro.com" target="_blank">MarketingSoulPro</a>. All Rights Reserved.
+                    </p>
+                </footer>
+
+            </main>
+        </div>
+
+        <!-- ── About Modal ── -->
+        <div class="about-overlay" id="aboutOverlay" onclick="if(event.target==this)this.style.display='none'">
+            <div class="about-modal">
+                <div class="about-icon">
+                    <img src="img/Buddy%20Planner%20favicon.png" alt="Buddy Planner" />
                 </div>
-                <div class="faq-item">
-                    <h3>Can I use the planner without printing?</h3>
-                    <p>
-                        Yes. You can interact with planner pages digitally, then
-                        print or export when ready.
-                    </p>
-                </div>
-                <div class="faq-item">
-                    <h3>Why do theme colors not appear in print preview?</h3>
-                    <p>
-                        Enable <strong>Background graphics</strong> in your
-                        browser print settings before printing or saving to PDF.
-                    </p>
-            </section>
-        </main>
+                <div class="about-name">Buddy Planner</div>
+                <div class="about-version">Version: 4.2.0</div>
+                <div class="about-divider"></div>
+                <div class="about-detail">Build: 1</div>
+                <div class="about-detail">Date: 2026-06-12</div>
+                <div class="about-detail">HTML5 · CSS3 · JavaScript</div>
+                <div class="about-detail">localStorage · IndexedDB</div>
+                <div class="about-divider"></div>
+                <p style="font-size:11px;color:var(--text-sub);margin-bottom:15px">
+                    &copy; 2026 <a href="https://MSoulPro.com" target="_blank" rel="noreferrer noopener">MarketingSoulPro</a>
+                </p>
+                <button class="about-close" onclick="document.getElementById('aboutOverlay').style.display='none'">Close</button>
+            </div>
+        </div>
+
+        <!-- Floating Back to Top Button -->
+        <button class="floating-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </button>
+
+        <!-- ── INTERACTIVE LOGIC SCRIPTS ── -->
+        <script>
+            // Responsive Sidebar Toggle
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            // Active Sidebar Navigation Highlighting on Scroll
+            const sections = document.querySelectorAll('.guide-section');
+            const navLinks = document.querySelectorAll('.sidebar-nav li a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 120) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Floating Scroll Button visibility
+                const scrollBtn = document.getElementById('scrollTopBtn');
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+
+            document.getElementById('scrollTopBtn').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Smooth Scroll for sidebar nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        sidebar.classList.remove('open');
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 90,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Copy to Clipboard Utility
+            function copyText(text, element) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = element.textContent;
+                    element.textContent = 'Copied!';
+                    element.style.borderColor = 'var(--color-success)';
+                    element.style.color = 'var(--color-success)';
+                    setTimeout(() => {
+                        element.textContent = originalText;
+                        element.style.borderColor = '';
+                        element.style.color = '';
+                    }, 1800);
+                });
+            }
+
+            // Real-Time Fuzzy Search Engine
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const cards = document.querySelectorAll('.guide-section');
+                
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (query === '' || text.includes(query)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
